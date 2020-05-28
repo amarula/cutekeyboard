@@ -9,6 +9,7 @@ import QtGraphicalEffects 1.0
  * Licensed under MIT see LICENSE.MIT in project root
  */
 
+
 /*Item {
     id: root
     property alias text: txt.text
@@ -140,7 +141,7 @@ Item {
 
     function popup(keybutton, inputPanel) {
         console.log("popup: " + inputPanel.objectName)
-        console.log("keybutton.text: " + keybutton.text)
+        console.log("keybutton.text: " + keybutton.displayedText)
         width = keybutton.width * 1.4
         height = keybutton.height * 1.4
         var KeyButtonGlobalLeft = keybutton.mapToItem(inputPanel, 0, 0).x
@@ -160,10 +161,10 @@ Item {
             x = PopupLeft
         }
 
-        text = keybutton.displayText
+        text = keybutton.displayedText
         font.family = keybutton.font.family
         visible = Qt.binding(function () {
-            return keybutton.isHighlighted
+            return keybutton.pressed
         })
     }
 }
