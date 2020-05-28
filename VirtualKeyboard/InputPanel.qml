@@ -5,6 +5,11 @@ import FreeVirtualKeyboard 1.0
 Item {
     id: root
     objectName: "inputPanel"
+
+    property color backgroundColor: "#000000"
+    property color buttonBackgroundColor: "#808080"
+    property color buttonTextColor: "#ffffff"
+
     width: parent.width
     height: width / 4
 
@@ -13,28 +18,34 @@ Item {
     KeyModel {
         id: keyModel
     }
+
     FontLoader {
         source: "FontAwesome.otf"
     }
+
     QtObject {
         id: pimpl
         property bool shiftModifier: false
         property bool symbolModifier: false
-        property int verticalSpacing: keyboard.height / 40
+        property int verticalSpacing: keyboardRect.height / 40
         property int horizontalSpacing: verticalSpacing
-        property int rowHeight: keyboard.height / 4 - verticalSpacing
-        property int buttonWidth: (keyboard.width - column.anchors.margins) / 10 - horizontalSpacing
+        property int rowHeight: keyboardRect.height / 4 - verticalSpacing
+        property int buttonWidth: (keyboardRect.width - column.anchors.margins)
+                                  / 10 - horizontalSpacing
     }
 
     Component {
         id: keyButtonDelegate
         KeyButton {
             id: button
+
             width: pimpl.buttonWidth
             height: pimpl.rowHeight
+            inputPanelRef: root
+            backgroundColor: buttonBackgroundColor
+            textColor: buttonTextColor
             displayedText: (pimpl.shiftModifier) ? letter.toUpperCase(
                                                        ) : (pimpl.symbolModifier) ? firstSymbol : letter
-            inputPanelRef: root
         }
     }
 
@@ -61,9 +72,11 @@ Item {
     }
 
     Rectangle {
-        id: keyboard
-        color: "black"
+        id: keyboardRect
+
+        color: backgroundColor
         anchors.fill: parent
+
         MouseArea {
             anchors.fill: parent
         }
@@ -97,20 +110,23 @@ Item {
                 width: parent.width
                 KeyButton {
                     id: shiftKey
-                    backgroundColor: (pimpl.shiftModifier) ? "#1e6fa7" : "#1e1b18"
+
                     anchors.left: parent.left
                     width: 1.25 * pimpl.buttonWidth
                     height: pimpl.rowHeight
                     font.family: "FontAwesome"
                     displayedText: "\uf062"
                     functionKey: true
+                    inputPanelRef: root
+                    backgroundColor: buttonBackgroundColor
+                    textColor: buttonTextColor
+
                     onClicked: {
                         if (pimpl.symbolModifier) {
                             pimpl.symbolModifier = false
                         }
                         pimpl.shiftModifier = !pimpl.shiftModifier
                     }
-                    inputPanelRef: root
                 }
                 Row {
                     height: pimpl.rowHeight
@@ -124,8 +140,10 @@ Item {
                 }
                 KeyButton {
                     id: backspaceKey
+
                     font.family: "FontAwesome"
-                    backgroundColor: "#1e1b18"
+                    backgroundColor: buttonBackgroundColor
+                    textColor: buttonTextColor
                     anchors.right: parent.right
                     width: 1.25 * pimpl.buttonWidth
                     height: pimpl.rowHeight
@@ -141,20 +159,26 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 KeyButton {
                     id: hideKey
-                    backgroundColor: "#1e1b18"
+
+                    backgroundColor: buttonBackgroundColor
+                    textColor: buttonTextColor
                     width: 1.25 * pimpl.buttonWidth
                     height: pimpl.rowHeight
                     font.family: "FontAwesome"
                     displayedText: "\uf078"
                     functionKey: true
+                    inputPanelRef: root
+                    showPreview: false
+
                     onClicked: {
                         Qt.inputMethod.hide()
                     }
-                    inputPanelRef: root
-                    showPreview: false
                 }
                 KeyButton {
-                    backgroundColor: "#1e1b18"
+                    id: emptyKey
+
+                    backgroundColor: buttonBackgroundColor
+                    textColor: buttonTextColor
                     width: 1.25 * pimpl.buttonWidth
                     height: pimpl.rowHeight
                     displayedText: ""
@@ -162,6 +186,10 @@ Item {
                     functionKey: true
                 }
                 KeyButton {
+                    id: commaKey
+
+                    backgroundColor: buttonBackgroundColor
+                    textColor: buttonTextColor
                     width: pimpl.buttonWidth
                     height: pimpl.rowHeight
                     displayedText: ","
@@ -169,6 +197,9 @@ Item {
                 }
                 KeyButton {
                     id: spaceKey
+
+                    backgroundColor: buttonBackgroundColor
+                    textColor: buttonTextColor
                     width: 3 * pimpl.buttonWidth
                     height: pimpl.rowHeight
                     displayedText: " "
@@ -176,6 +207,10 @@ Item {
                     showPreview: false
                 }
                 KeyButton {
+                    id: dotKey
+
+                    backgroundColor: buttonBackgroundColor
+                    textColor: buttonTextColor
                     width: pimpl.buttonWidth
                     height: pimpl.rowHeight
                     displayedText: "."
@@ -183,7 +218,9 @@ Item {
                 }
                 KeyButton {
                     id: symbolKey
-                    backgroundColor: "#1e1b18"
+
+                    backgroundColor: buttonBackgroundColor
+                    textColor: buttonTextColor
                     width: 1.25 * pimpl.buttonWidth
                     height: pimpl.rowHeight
                     displayedText: (!pimpl.symbolModifier) ? "12#" : "ABC"
@@ -198,7 +235,9 @@ Item {
                 }
                 KeyButton {
                     id: enterKey
-                    backgroundColor: "#1e1b18"
+
+                    backgroundColor: buttonBackgroundColor
+                    textColor: buttonTextColor
                     width: 1.25 * pimpl.buttonWidth
                     height: pimpl.rowHeight
                     displayedText: "Enter"
