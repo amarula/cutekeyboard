@@ -7,8 +7,12 @@ Item {
     objectName: "inputPanel"
 
     property color backgroundColor: "#000000"
+
     property color buttonBackgroundColor: "#808080"
     property color buttonTextColor: "#ffffff"
+    property string buttonsTextFontFamily
+    property int buttonsTextPixelSize: 15
+    property int buttonsRadius: 0
 
     property string backspaceIcon: "qrc:/Icons/backspace.png"
     property string capsLockOffIcon: "qrc:/Icons/caps-lock-off.png"
@@ -37,6 +41,7 @@ Item {
 
     Component {
         id: keyButtonDelegate
+
         KeyButton {
             id: button
 
@@ -45,8 +50,19 @@ Item {
             inputPanelRef: root
             backgroundColor: buttonBackgroundColor
             textColor: buttonTextColor
-            displayedText: (pimpl.shiftModifier) ? letter.toUpperCase(
-                                                       ) : (pimpl.symbolModifier) ? firstSymbol : letter
+            textFont: buttonsTextFontFamily
+            textFontPixelSize: buttonsTextPixelSize
+            buttonRadius: buttonsRadius
+
+            displayedText: {
+                if (pimpl.symbolModifier) {
+                    firstSymbol
+                } else if (pimpl.shiftModifier) {
+                    letter.toUpperCase()
+                } else {
+                    letter
+                }
+            }
         }
     }
 
@@ -109,6 +125,7 @@ Item {
             Item {
                 height: pimpl.rowHeight
                 width: parent.width
+
                 KeyButton {
                     id: shiftKey
 
@@ -121,6 +138,9 @@ Item {
                     textColor: buttonTextColor
                     buttonIcon: pimpl.shiftModifier ? capsLockOnIcon : capsLockOffIcon
                     showPreview: false
+                    textFont: buttonsTextFontFamily
+                    textFontPixelSize: buttonsTextPixelSize
+                    buttonRadius: buttonsRadius
 
                     onClicked: {
                         if (pimpl.symbolModifier) {
@@ -153,6 +173,7 @@ Item {
                     inputPanelRef: root
                     repeatable: true
                     showPreview: false
+                    buttonRadius: buttonsRadius
                 }
             }
             Row {
@@ -170,6 +191,9 @@ Item {
                     inputPanelRef: root
                     showPreview: false
                     buttonIcon: hideKeyboardIcon
+                    textFont: buttonsTextFontFamily
+                    textFontPixelSize: buttonsTextPixelSize
+                    buttonRadius: buttonsRadius
 
                     onClicked: {
                         Qt.inputMethod.hide()
@@ -184,6 +208,9 @@ Item {
                     height: pimpl.rowHeight
                     displayedText: ","
                     inputPanelRef: root
+                    textFont: buttonsTextFontFamily
+                    textFontPixelSize: buttonsTextPixelSize
+                    buttonRadius: buttonsRadius
                 }
                 KeyButton {
                     id: spaceKey
@@ -196,6 +223,9 @@ Item {
                     displayedText: "space"
                     inputPanelRef: root
                     showPreview: false
+                    textFont: buttonsTextFontFamily
+                    textFontPixelSize: buttonsTextPixelSize
+                    buttonRadius: buttonsRadius
                 }
                 KeyButton {
                     id: dotKey
@@ -206,6 +236,9 @@ Item {
                     height: pimpl.rowHeight
                     displayedText: "."
                     inputPanelRef: root
+                    textFont: buttonsTextFontFamily
+                    textFontPixelSize: buttonsTextPixelSize
+                    buttonRadius: buttonsRadius
                 }
                 KeyButton {
                     id: symbolKey
@@ -216,13 +249,17 @@ Item {
                     height: pimpl.rowHeight
                     displayedText: (!pimpl.symbolModifier) ? "12#" : "ABC"
                     functionKey: true
+                    inputPanelRef: root
+                    textFont: buttonsTextFontFamily
+                    textFontPixelSize: buttonsTextPixelSize
+                    buttonRadius: buttonsRadius
+
                     onClicked: {
                         if (pimpl.shiftModifier) {
                             pimpl.shiftModifier = false
                         }
                         pimpl.symbolModifier = !pimpl.symbolModifier
                     }
-                    inputPanelRef: root
                 }
                 KeyButton {
                     id: enterKey
@@ -234,6 +271,9 @@ Item {
                     displayedText: "Enter"
                     buttonText: "\n"
                     inputPanelRef: root
+                    textFont: buttonsTextFontFamily
+                    textFontPixelSize: buttonsTextPixelSize
+                    buttonRadius: buttonsRadius
                 }
             }
         }
