@@ -15,6 +15,8 @@ Button {
     property alias textFont: btnText.font.family
     property alias textFontPixelSize: btnText.font.pixelSize
 
+    property alias buttonIcon: btnIcon.source
+
     property var inputPanelRef
     property bool repeatable: false
     property bool showPreview: true
@@ -23,11 +25,22 @@ Button {
     focusPolicy: Qt.NoFocus
     autoRepeat: repeatable
 
-    contentItem: Text {
-        id: btnText
+    contentItem: Item {
+        Text {
+            id: btnText
 
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
+            anchors.fill: parent
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+
+        Image {
+            id: btnIcon
+
+            visible: btnText.text === ""
+            anchors.fill: parent
+            fillMode: Image.PreserveAspectFit
+        }
     }
 
     background: Rectangle {

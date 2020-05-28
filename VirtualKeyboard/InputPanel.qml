@@ -10,6 +10,11 @@ Item {
     property color buttonBackgroundColor: "#808080"
     property color buttonTextColor: "#ffffff"
 
+    property string backspaceIcon: "qrc:/Icons/backspace.png"
+    property string capsLockOffIcon: "qrc:/Icons/caps-lock-off.png"
+    property string capsLockOnIcon: "qrc:/Icons/caps-lock-on.png"
+    property string hideKeyboardIcon: "qrc:/Icons/hide-arrow.png"
+
     width: parent.width
     height: width / 4
 
@@ -17,10 +22,6 @@ Item {
 
     KeyModel {
         id: keyModel
-    }
-
-    FontLoader {
-        source: "FontAwesome.otf"
     }
 
     QtObject {
@@ -114,12 +115,12 @@ Item {
                     anchors.left: parent.left
                     width: 1.25 * pimpl.buttonWidth
                     height: pimpl.rowHeight
-                    font.family: "FontAwesome"
-                    displayedText: "\uf062"
                     functionKey: true
                     inputPanelRef: root
                     backgroundColor: buttonBackgroundColor
                     textColor: buttonTextColor
+                    buttonIcon: pimpl.shiftModifier ? capsLockOnIcon : capsLockOffIcon
+                    showPreview: false
 
                     onClicked: {
                         if (pimpl.symbolModifier) {
@@ -132,6 +133,7 @@ Item {
                     height: pimpl.rowHeight
                     spacing: pimpl.horizontalSpacing
                     anchors.horizontalCenter: parent.horizontalCenter
+
                     Repeater {
                         anchors.horizontalCenter: parent.horizontalCenter
                         model: keyModel.thirdRowModel
@@ -141,16 +143,16 @@ Item {
                 KeyButton {
                     id: backspaceKey
 
-                    font.family: "FontAwesome"
                     backgroundColor: buttonBackgroundColor
                     textColor: buttonTextColor
                     anchors.right: parent.right
                     width: 1.25 * pimpl.buttonWidth
                     height: pimpl.rowHeight
                     buttonText: "\x7F"
-                    displayedText: "\uf177"
+                    buttonIcon: backspaceIcon
                     inputPanelRef: root
                     repeatable: true
+                    showPreview: false
                 }
             }
             Row {
@@ -164,11 +166,10 @@ Item {
                     textColor: buttonTextColor
                     width: 1.25 * pimpl.buttonWidth
                     height: pimpl.rowHeight
-                    font.family: "FontAwesome"
-                    displayedText: "\uf078"
                     functionKey: true
                     inputPanelRef: root
                     showPreview: false
+                    buttonIcon: hideKeyboardIcon
 
                     onClicked: {
                         Qt.inputMethod.hide()

@@ -21,7 +21,7 @@ HEADERS += VirtualKeyboardInputContextPlugin.h\
     DeclarativeInputEngine.h
 
 
-deployment.files = *.qml FontAwesome.otf qmldir
+deployment.files = *.qml qmldir
 
 linux-buildroot-g++ {
     deployment.path = /usr/qml/QtQuick/FreeVirtualKeyboard
@@ -42,4 +42,4 @@ OTHER_FILES += \
     KeyPopup.qml
 
 RESOURCES += \
-    virtualkeyboard.qrc
+    resources.qrc
