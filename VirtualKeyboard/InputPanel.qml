@@ -78,12 +78,15 @@ Item {
     }
 
     function showKeyPopup(keyButton) {
-        console.log("showKeyPopup")
         keyPopup.popup(keyButton, root)
     }
 
     KeyPopup {
         id: keyPopup
+
+        popupColor: buttonBackgroundColor
+        popupTextColor: buttonTextColor
+        popupTextFont: buttonsTextFontFamily
         visible: false
         z: 100
     }
