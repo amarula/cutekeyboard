@@ -2,6 +2,7 @@ import QtQuick 2.0
 import "."
 import FreeVirtualKeyboard 1.0
 
+
 /**
  * This is the QML input panel that provides the virtual keyboard UI
  * The code has been derived from
@@ -10,7 +11,7 @@ import FreeVirtualKeyboard 1.0
  * Licensed under MIT see LICENSE.MIT in project root
  */
 Item {
-    id:root
+    id: root
     objectName: "inputPanel"
     width: parent.width
     height: width / 4
@@ -18,20 +19,21 @@ Item {
     onYChanged: InputEngine.setKeyboardRectangle(Qt.rect(x, y, width, height))
 
     KeyModel {
-        id:keyModel
+        id: keyModel
     }
     FontLoader {
         source: "FontAwesome.otf"
     }
     QtObject {
-        id:pimpl
+        id: pimpl
         property bool shiftModifier: false
         property bool symbolModifier: false
         property int verticalSpacing: keyboard.height / 40
         property int horizontalSpacing: verticalSpacing
-        property int rowHeight: keyboard.height/4 - verticalSpacing
-        property int buttonWidth:  (keyboard.width-column.anchors.margins)/10 - horizontalSpacing
+        property int rowHeight: keyboard.height / 4 - verticalSpacing
+        property int buttonWidth: (keyboard.width - column.anchors.margins) / 10 - horizontalSpacing
     }
+
 
     /**
      * The delegate that paints the key buttons
@@ -42,7 +44,8 @@ Item {
             id: button
             width: pimpl.buttonWidth
             height: pimpl.rowHeight
-            text: (pimpl.shiftModifier) ? letter.toUpperCase() : (pimpl.symbolModifier)?firstSymbol : letter
+            text: (pimpl.shiftModifier) ? letter.toUpperCase(
+                                              ) : (pimpl.symbolModifier) ? firstSymbol : letter
             inputPanel: root
         }
     }
@@ -52,21 +55,22 @@ Item {
         // Switch the keyboard layout to Numeric if the input mode of the InputEngine changes
         onInputModeChanged: {
             pimpl.symbolModifier = ((InputEngine.inputMode == InputEngine.Numeric)
-                                 || (InputEngine.inputMode == InputEngine.Dialable))
+                                    || (InputEngine.inputMode == InputEngine.Dialable))
             if (pimpl.symbolModifier) {
                 pimpl.shiftModifier = false
             }
         }
     }
 
+
     /**
      * This function shows the character preview popup for each key button
      */
-    function showKeyPopup(keyButton)
-    {
-        console.log("showKeyPopup");
-        keyPopup.popup(keyButton, root);
+    function showKeyPopup(keyButton) {
+        console.log("showKeyPopup")
+        keyPopup.popup(keyButton, root)
     }
+
 
     /**
      * The key popup for character preview
@@ -77,17 +81,16 @@ Item {
         z: 100
     }
 
-
     Rectangle {
-        id:keyboard
+        id: keyboard
         color: "black"
-        anchors.fill: parent;
+        anchors.fill: parent
         MouseArea {
             anchors.fill: parent
         }
 
         Column {
-            id:column
+            id: column
             anchors.margins: 5
             anchors.fill: parent
             spacing: pimpl.verticalSpacing
@@ -95,7 +98,7 @@ Item {
             Row {
                 height: pimpl.rowHeight
                 spacing: pimpl.horizontalSpacing
-                anchors.horizontalCenter:parent.horizontalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
                 Repeater {
                     model: keyModel.firstRowModel
                     delegate: keyButtonDelegate
@@ -104,7 +107,7 @@ Item {
             Row {
                 height: pimpl.rowHeight
                 spacing: pimpl.horizontalSpacing
-                anchors.horizontalCenter:parent.horizontalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
                 Repeater {
                     model: keyModel.secondRowModel
                     delegate: keyButtonDelegate
@@ -112,12 +115,12 @@ Item {
             }
             Item {
                 height: pimpl.rowHeight
-                width:parent.width
+                width: parent.width
                 KeyButton {
                     id: shiftKey
-                    color: (pimpl.shiftModifier)? "#1e6fa7": "#1e1b18"
+                    color: (pimpl.shiftModifier) ? "#1e6fa7" : "#1e1b18"
                     anchors.left: parent.left
-                    width: 1.25*pimpl.buttonWidth
+                    width: 1.25 * pimpl.buttonWidth
                     height: pimpl.rowHeight
                     font.family: "FontAwesome"
                     text: "\uf062"
@@ -133,7 +136,7 @@ Item {
                 Row {
                     height: pimpl.rowHeight
                     spacing: pimpl.horizontalSpacing
-                    anchors.horizontalCenter:parent.horizontalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
                     Repeater {
                         anchors.horizontalCenter: parent.horizontalCenter
                         model: keyModel.thirdRowModel
@@ -145,7 +148,7 @@ Item {
                     font.family: "FontAwesome"
                     color: "#1e1b18"
                     anchors.right: parent.right
-                    width: 1.25*pimpl.buttonWidth
+                    width: 1.25 * pimpl.buttonWidth
                     height: pimpl.rowHeight
                     text: "\x7F"
                     displayText: "\uf177"
@@ -156,11 +159,11 @@ Item {
             Row {
                 height: pimpl.rowHeight
                 spacing: pimpl.horizontalSpacing
-                anchors.horizontalCenter:parent.horizontalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
                 KeyButton {
                     id: hideKey
                     color: "#1e1b18"
-                    width: 1.25*pimpl.buttonWidth
+                    width: 1.25 * pimpl.buttonWidth
                     height: pimpl.rowHeight
                     font.family: "FontAwesome"
                     text: "\uf078"
@@ -173,7 +176,7 @@ Item {
                 }
                 KeyButton {
                     color: "#1e1b18"
-                    width: 1.25*pimpl.buttonWidth
+                    width: 1.25 * pimpl.buttonWidth
                     height: pimpl.rowHeight
                     text: ""
                     inputPanel: root
@@ -187,7 +190,7 @@ Item {
                 }
                 KeyButton {
                     id: spaceKey
-                    width: 3*pimpl.buttonWidth
+                    width: 3 * pimpl.buttonWidth
                     height: pimpl.rowHeight
                     text: " "
                     inputPanel: root
@@ -202,9 +205,9 @@ Item {
                 KeyButton {
                     id: symbolKey
                     color: "#1e1b18"
-                    width: 1.25*pimpl.buttonWidth
+                    width: 1.25 * pimpl.buttonWidth
                     height: pimpl.rowHeight
-                    text: (!pimpl.symbolModifier)? "12#" : "ABC"
+                    text: (!pimpl.symbolModifier) ? "12#" : "ABC"
                     functionKey: true
                     onClicked: {
                         if (pimpl.shiftModifier) {
@@ -217,7 +220,7 @@ Item {
                 KeyButton {
                     id: enterKey
                     color: "#1e1b18"
-                    width: 1.25*pimpl.buttonWidth
+                    width: 1.25 * pimpl.buttonWidth
                     height: pimpl.rowHeight
                     displayText: "Enter"
                     text: "\n"

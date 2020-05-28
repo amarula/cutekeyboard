@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import FreeVirtualKeyboard 1.0
 
+
 /**
  * This is the type implements one single key button in the InputPanel
  * The code has been derived from
@@ -9,31 +10,38 @@ import FreeVirtualKeyboard 1.0
  * Licensed under MIT see LICENSE.MIT in project root
  */
 Item {
-    id:root
+    id: root
+
+
     /**
      * The background color of this button
      */
     property color color: "#35322f"
+
 
     /**
      * The key text to show in this button
      */
     property string text
 
+
     /**
      * The font for rendering of text
      */
     property alias font: txt.font
+
 
     /**
      * The color of the text in this button
      */
     property alias textColor: txt.color
 
+
     /**
      * This property holds the pressed status of the key.
      */
     property alias isPressed: buttonMouseArea.pressed
+
 
     /**
      * This property holds a reference to the input panel.
@@ -41,6 +49,7 @@ Item {
      * a valid refernce to the input panel
      */
     property var inputPanel
+
 
     /**
      * This property holds the highlighted status of the key
@@ -50,10 +59,12 @@ Item {
      */
     property bool isHighlighted: false
 
+
     /**
      * Sets the show preview attribute for the character preview key popup
      */
     property bool showPreview: true
+
 
     /**
      * Sets the key repeat attribute.
@@ -62,10 +73,12 @@ Item {
      */
     property bool repeat: false
 
+
     /**
      * Sets the key code for input method processing.
      */
     property int key
+
 
     /**
      * Sets the display text - this string is rendered in the keyboard layout.
@@ -73,14 +86,15 @@ Item {
      */
     property alias displayText: txt.text
 
+
     /**
      * Sets the function key attribute.
      */
     property bool functionKey: false
 
-    signal clicked()
-    signal pressed()
-    signal released()
+    signal clicked
+    signal pressed
+    signal released
 
     Rectangle {
         anchors.fill: parent
@@ -113,7 +127,7 @@ Item {
         repeat: false
 
         onTriggered: {
-            isHighlighted = false;
+            isHighlighted = false
         }
     }
 
@@ -124,26 +138,23 @@ Item {
         running: root.repeat && root.isPressed
 
         onTriggered: {
-            if (root.state == "")
-            {
+            if (root.state == "") {
                 root.state = "REPEATING"
-                console.log("switching to repeating");
-            }
-            else if (root.state == "REPEATING")
-            {
-                console.log("repeating");
+                console.log("switching to repeating")
+            } else if (root.state == "REPEATING") {
+                console.log("repeating")
             }
 
-            if (!functionKey)
-            {
+            if (!functionKey) {
                 InputEngine.sendKeyToFocusItem(text)
             }
         }
     }
 
     onInputPanelChanged: {
-        console.log("onInputPanelChanged: " + inputPanel.objectName);
+        console.log("onInputPanelChanged: " + inputPanel.objectName)
     }
+
 
     /**
      * If the InputPanel property has a valid InputPanel reference and if
@@ -151,18 +162,16 @@ Item {
      * show the character preview popup.
      */
     onPressed: {
-        if (inputPanel != null && showPreview)
-        {
-            inputPanel.showKeyPopup(root);
+        if (inputPanel != null && showPreview) {
+            inputPanel.showKeyPopup(root)
         }
-        isHighlighted = true;
+        isHighlighted = true
     }
 
     onReleased: {
         state = ""
         console.log("onReleased - functionKey = " + functionKey)
-        if (!functionKey)
-        {
+        if (!functionKey) {
             InputEngine.sendKeyToFocusItem(text)
         }
     }
@@ -170,7 +179,10 @@ Item {
     states: [
         State {
             name: "REPEATING"
-            PropertyChanges { target: repeatTimer; interval: 50}
+            PropertyChanges {
+                target: repeatTimer
+                interval: 50
+            }
         }
     ]
 }

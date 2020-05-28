@@ -1,12 +1,14 @@
 import QtQuick 2.0
 import QtGraphicalEffects 1.0
 
+
 /**
  * This is the key popup that shows a character preview above the
  * pressed key button like it is known from keyboards on phones.
  * Copyright 2015 Uwe Kindler
  * Licensed under MIT see LICENSE.MIT in project root
  */
+
 /*Item {
     id: root
     property alias text: txt.text
@@ -89,7 +91,6 @@ import QtGraphicalEffects 1.0
         visible = Qt.binding(function() {return keybutton.isHighlighted});
     }
 }*/
-
 Item {
     id: root
     property alias text: txt.text
@@ -106,9 +107,14 @@ Item {
         z: shadow.z + 1
 
         gradient: Gradient {
-                 GradientStop { position: 0.0; color: Qt.lighter(Qt.lighter("#35322f"))}
-                 GradientStop { position: 1.0; color: Qt.lighter("#35322f")}
-
+            GradientStop {
+                position: 0.0
+                color: Qt.lighter(Qt.lighter("#35322f"))
+            }
+            GradientStop {
+                position: 1.0
+                color: Qt.lighter("#35322f")
+            }
         }
 
         Text {
@@ -133,34 +139,31 @@ Item {
     }
 
     function popup(keybutton, inputPanel) {
-        console.log("popup: " + inputPanel.objectName);
-        console.log("keybutton.text: " + keybutton.text);
-        width = keybutton.width * 1.4;
-        height = keybutton.height * 1.4;
-        var KeyButtonGlobalLeft = keybutton.mapToItem(inputPanel, 0, 0).x;
-        var KeyButtonGlobalTop = keybutton.mapToItem(inputPanel, 0, 0).y;
-        var PopupGlobalLeft = KeyButtonGlobalLeft - (width - keybutton.width) / 2;
-        var PopupGlobalTop = KeyButtonGlobalTop - height - pimpl.verticalSpacing * 1.5;
-        console.log("Popup position left: " + KeyButtonGlobalLeft);
-        var PopupLeft = root.parent.mapFromItem(inputPanel, PopupGlobalLeft, PopupGlobalTop).x;
-        y = root.parent.mapFromItem(inputPanel, PopupGlobalLeft, PopupGlobalTop).y;
-        if (PopupGlobalLeft < 0)
-        {
-            x = 0;
-        }
-        else if ((PopupGlobalLeft + width) > inputPanel.width)
-        {
-            x = PopupLeft - (PopupGlobalLeft + width - inputPanel.width);
-        }
-        else
-        {
-            x = PopupLeft;
+        console.log("popup: " + inputPanel.objectName)
+        console.log("keybutton.text: " + keybutton.text)
+        width = keybutton.width * 1.4
+        height = keybutton.height * 1.4
+        var KeyButtonGlobalLeft = keybutton.mapToItem(inputPanel, 0, 0).x
+        var KeyButtonGlobalTop = keybutton.mapToItem(inputPanel, 0, 0).y
+        var PopupGlobalLeft = KeyButtonGlobalLeft - (width - keybutton.width) / 2
+        var PopupGlobalTop = KeyButtonGlobalTop - height - pimpl.verticalSpacing * 1.5
+        console.log("Popup position left: " + KeyButtonGlobalLeft)
+        var PopupLeft = root.parent.mapFromItem(inputPanel, PopupGlobalLeft,
+                                                PopupGlobalTop).x
+        y = root.parent.mapFromItem(inputPanel, PopupGlobalLeft,
+                                    PopupGlobalTop).y
+        if (PopupGlobalLeft < 0) {
+            x = 0
+        } else if ((PopupGlobalLeft + width) > inputPanel.width) {
+            x = PopupLeft - (PopupGlobalLeft + width - inputPanel.width)
+        } else {
+            x = PopupLeft
         }
 
-        text = keybutton.displayText;
+        text = keybutton.displayText
         font.family = keybutton.font.family
-        visible = Qt.binding(function() {return keybutton.isHighlighted});
+        visible = Qt.binding(function () {
+            return keybutton.isHighlighted
+        })
     }
 }
-
-
