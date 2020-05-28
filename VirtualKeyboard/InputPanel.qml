@@ -176,17 +176,6 @@ Item {
                     }
                 }
                 KeyButton {
-                    id: emptyKey
-
-                    backgroundColor: buttonBackgroundColor
-                    textColor: buttonTextColor
-                    width: 1.25 * pimpl.buttonWidth
-                    height: pimpl.rowHeight
-                    displayedText: ""
-                    inputPanelRef: root
-                    functionKey: true
-                }
-                KeyButton {
                     id: commaKey
 
                     backgroundColor: buttonBackgroundColor
@@ -201,9 +190,10 @@ Item {
 
                     backgroundColor: buttonBackgroundColor
                     textColor: buttonTextColor
-                    width: 3 * pimpl.buttonWidth
+                    width: 4 * pimpl.buttonWidth
                     height: pimpl.rowHeight
-                    displayedText: " "
+                    buttonText: " "
+                    displayedText: "space"
                     inputPanelRef: root
                     showPreview: false
                 }
