@@ -137,7 +137,7 @@ Item {
                     height: pimpl.rowHeight
                     functionKey: true
                     inputPanelRef: root
-                    backgroundColor: buttonBackgroundColor
+                    backgroundColor: Qt.darker(buttonBackgroundColor)
                     textColor: buttonTextColor
                     buttonIcon: pimpl.shiftModifier ? capsLockOnIcon : capsLockOffIcon
                     showPreview: false
@@ -166,7 +166,7 @@ Item {
                 KeyButton {
                     id: backspaceKey
 
-                    backgroundColor: buttonBackgroundColor
+                    backgroundColor: Qt.darker(buttonBackgroundColor)
                     textColor: buttonTextColor
                     anchors.right: parent.right
                     width: 1.25 * pimpl.buttonWidth
@@ -186,7 +186,7 @@ Item {
                 KeyButton {
                     id: hideKey
 
-                    backgroundColor: buttonBackgroundColor
+                    backgroundColor: Qt.darker(buttonBackgroundColor)
                     textColor: buttonTextColor
                     width: 1.25 * pimpl.buttonWidth
                     height: pimpl.rowHeight
@@ -246,11 +246,11 @@ Item {
                 KeyButton {
                     id: symbolKey
 
-                    backgroundColor: buttonBackgroundColor
+                    backgroundColor: Qt.darker(buttonBackgroundColor)
                     textColor: buttonTextColor
                     width: 1.25 * pimpl.buttonWidth
                     height: pimpl.rowHeight
-                    displayedText: (!pimpl.symbolModifier) ? "12#" : "ABC"
+                    displayedText: (!pimpl.symbolModifier) ? "123" : "ABC"
                     functionKey: true
                     inputPanelRef: root
                     textFont: buttonsTextFontFamily
@@ -267,11 +267,11 @@ Item {
                 KeyButton {
                     id: enterKey
 
-                    backgroundColor: buttonBackgroundColor
+                    backgroundColor: Qt.lighter(buttonBackgroundColor)
                     textColor: buttonTextColor
                     width: 1.25 * pimpl.buttonWidth
                     height: pimpl.rowHeight
-                    displayedText: "Enter"
+                    displayedText: "return"
                     buttonText: "\n"
                     inputPanelRef: root
                     textFont: buttonsTextFontFamily
