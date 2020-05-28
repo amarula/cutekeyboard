@@ -11,7 +11,6 @@ Item {
     property color buttonBackgroundColor: "#808080"
     property color buttonTextColor: "#ffffff"
     property string buttonsTextFontFamily
-    property int buttonsTextPixelSize: 15
     property int buttonsRadius: 0
 
     property string backspaceIcon: "qrc:/Icons/backspace.png"
@@ -37,6 +36,7 @@ Item {
         property int rowHeight: keyboardRect.height / 4 - verticalSpacing
         property int buttonWidth: (keyboardRect.width - column.anchors.margins)
                                   / 10 - horizontalSpacing
+        property int buttonsTextPixelSize: keyboardRect.height / 8
     }
 
     Component {
@@ -51,7 +51,7 @@ Item {
             backgroundColor: buttonBackgroundColor
             textColor: buttonTextColor
             textFont: buttonsTextFontFamily
-            textFontPixelSize: buttonsTextPixelSize
+            textFontPixelSize: pimpl.buttonsTextPixelSize
             buttonRadius: buttonsRadius
 
             displayedText: {
@@ -139,7 +139,7 @@ Item {
                     buttonIcon: pimpl.shiftModifier ? capsLockOnIcon : capsLockOffIcon
                     showPreview: false
                     textFont: buttonsTextFontFamily
-                    textFontPixelSize: buttonsTextPixelSize
+                    textFontPixelSize: pimpl.buttonsTextPixelSize
                     buttonRadius: buttonsRadius
 
                     onClicked: {
@@ -192,7 +192,7 @@ Item {
                     showPreview: false
                     buttonIcon: hideKeyboardIcon
                     textFont: buttonsTextFontFamily
-                    textFontPixelSize: buttonsTextPixelSize
+                    textFontPixelSize: pimpl.buttonsTextPixelSize
                     buttonRadius: buttonsRadius
 
                     onClicked: {
@@ -209,7 +209,7 @@ Item {
                     displayedText: ","
                     inputPanelRef: root
                     textFont: buttonsTextFontFamily
-                    textFontPixelSize: buttonsTextPixelSize
+                    textFontPixelSize: pimpl.buttonsTextPixelSize
                     buttonRadius: buttonsRadius
                 }
                 KeyButton {
@@ -224,7 +224,7 @@ Item {
                     inputPanelRef: root
                     showPreview: false
                     textFont: buttonsTextFontFamily
-                    textFontPixelSize: buttonsTextPixelSize
+                    textFontPixelSize: pimpl.buttonsTextPixelSize
                     buttonRadius: buttonsRadius
                 }
                 KeyButton {
@@ -237,7 +237,7 @@ Item {
                     displayedText: "."
                     inputPanelRef: root
                     textFont: buttonsTextFontFamily
-                    textFontPixelSize: buttonsTextPixelSize
+                    textFontPixelSize: pimpl.buttonsTextPixelSize
                     buttonRadius: buttonsRadius
                 }
                 KeyButton {
@@ -251,7 +251,7 @@ Item {
                     functionKey: true
                     inputPanelRef: root
                     textFont: buttonsTextFontFamily
-                    textFontPixelSize: buttonsTextPixelSize
+                    textFontPixelSize: pimpl.buttonsTextPixelSize
                     buttonRadius: buttonsRadius
 
                     onClicked: {
@@ -272,7 +272,7 @@ Item {
                     buttonText: "\n"
                     inputPanelRef: root
                     textFont: buttonsTextFontFamily
-                    textFontPixelSize: buttonsTextPixelSize
+                    textFontPixelSize: pimpl.buttonsTextPixelSize
                     buttonRadius: buttonsRadius
                 }
             }
