@@ -2,20 +2,12 @@ import QtQuick 2.0
 
 import FreeVirtualKeyboard 1.0
 
-
-/**
- * This is the QML input panel that provides the virtual keyboard UI
- * The code has been derived from
- * http://tolszak-dev.blogspot.de/2013/04/qplatforminputcontext-and-virtual.html
- * Copyright 2015 Uwe Kindler
- * Licensed under MIT see LICENSE.MIT in project root
- */
 Item {
     id: root
     objectName: "inputPanel"
     width: parent.width
     height: width / 4
-    // Report actual keyboard rectangle to input engine
+
     onYChanged: InputEngine.setKeyboardRectangle(Qt.rect(x, y, width, height))
 
     KeyModel {
@@ -34,10 +26,6 @@ Item {
         property int buttonWidth: (keyboard.width - column.anchors.margins) / 10 - horizontalSpacing
     }
 
-
-    /**
-     * The delegate that paints the key buttons
-     */
     Component {
         id: keyButtonDelegate
         KeyButton {
@@ -52,7 +40,6 @@ Item {
 
     Connections {
         target: InputEngine
-        // Switch the keyboard layout to Numeric if the input mode of the InputEngine changes
         onInputModeChanged: {
             pimpl.symbolModifier = ((InputEngine.inputMode == InputEngine.Numeric)
                                     || (InputEngine.inputMode == InputEngine.Dialable))
@@ -62,19 +49,11 @@ Item {
         }
     }
 
-
-    /**
-     * This function shows the character preview popup for each key button
-     */
     function showKeyPopup(keyButton) {
         console.log("showKeyPopup")
         keyPopup.popup(keyButton, root)
     }
 
-
-    /**
-     * The key popup for character preview
-     */
     KeyPopup {
         id: keyPopup
         visible: false
