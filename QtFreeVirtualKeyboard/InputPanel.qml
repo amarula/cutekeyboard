@@ -13,10 +13,10 @@ Item {
     property string buttonsTextFontFamily
     property int buttonsRadius: 0
 
-    property string backspaceIcon: "qrc:/Icons/backspace.png"
-    property string capsLockOffIcon: "qrc:/Icons/caps-lock-off.png"
-    property string capsLockOnIcon: "qrc:/Icons/caps-lock-on.png"
-    property string hideKeyboardIcon: "qrc:/Icons/hide-arrow.png"
+    property string backspaceIcon: "qrc:/icons/backspace.png"
+    property string capsLockOffIcon: "qrc:/icons/caps-lock-off.png"
+    property string capsLockOnIcon: "qrc:/icons/caps-lock-on.png"
+    property string hideKeyboardIcon: "qrc:/icons/hide-arrow.png"
 
     width: parent.width
     height: width / 4
