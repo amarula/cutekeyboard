@@ -1,29 +1,23 @@
+/**
+ * \file VirtualKeyboardInputContext.h
+ *
+ * \brief Declaration of VirtualKeyboardInputContext
+ *
+ * \author Uwe Kindler
+ * \date 08/01/2015
+ *
+ * Copyright (c) 2015 Uwe Kindler
+ */
+
 #ifndef VIRTUALKEYBOARDINPUTCONTEXT_H
 #define VIRTUALKEYBOARDINPUTCONTEXT_H
-//============================================================================
-/// \file   VirtualKeyboardInputContext.h
-/// \author Uwe Kindler
-/// \date   08.01.2015
-/// \brief  Declaration of VirtualKeyboardInputContext
-///
-/// Copyright 2015 Uwe Kindler
-/// Licensed under MIT see LICENSE.MIT in project root
-//============================================================================
 
-//============================================================================
-//                                 INCLUDES
-//============================================================================
 #include <QRectF>
 #include <qpa/qplatforminputcontext.h>
 
-
-//============================================================================
-//                             FORWARD DECLARATIONS
-//============================================================================
 class QQmlEngine;
 class QJSEngine;
 class VirtualKeyboardInputContextPrivate;
-
 
 /**
  * Implementation of QPlatformInputContext
@@ -31,19 +25,6 @@ class VirtualKeyboardInputContextPrivate;
 class VirtualKeyboardInputContext : public QPlatformInputContext
 {
     Q_OBJECT
-private:
-    /**
-     * The input contet creates the InputEngine object and provides it
-     * as a singleton to the QML context
-     */
-    static QObject* inputEngineProvider(QQmlEngine *engine, QJSEngine *scriptEngine);
-
-protected:
-    /**
-     * Protected constructor - use instance function to get the one and only
-     * object
-     */
-    VirtualKeyboardInputContext();
 
 public:
     /**
@@ -99,10 +80,14 @@ public:
      * Use this static instance function to access the singleton input context
      * instance
      */
-    static VirtualKeyboardInputContext* instance();
+    static VirtualKeyboardInputContext *instance();
 
-private:
-    VirtualKeyboardInputContextPrivate *d;
+protected:
+    /**
+     * Protected constructor - use instance function to get the one and only
+     * object
+     */
+    VirtualKeyboardInputContext();
 
 private slots:
     /**
@@ -110,7 +95,15 @@ private slots:
      * QML item is child of a flickable
      */
     void ensureFocusedObjectVisible();
-}; // VirtualKeyboardInputContext
 
-//------------------------------------------------------------------------------
+private:
+    /**
+     * The input contet creates the InputEngine object and provides it
+     * as a singleton to the QML context
+     */
+    static QObject *inputEngineProvider(QQmlEngine *engine, QJSEngine *scriptEngine);
+
+    VirtualKeyboardInputContextPrivate *d;
+};
+
 #endif // VIRTUALKEYBOARDINPUTCONTEXT_H

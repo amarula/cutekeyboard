@@ -1,18 +1,17 @@
+/**
+ * \file DeclarativeInputEngine.h
+ *
+ * \brief Declaration of CDeclarativeInputEngine
+ *
+ * \author Uwe Kindler
+ * \date 08/01/2015
+ *
+ * Copyright (c) 2015 Uwe Kindler
+ */
+
 #ifndef DECLARATIVEINPUTENGINE_H
 #define DECLARATIVEINPUTENGINE_H
-//============================================================================
-/// \file   DeclarativeInputEngine.h
-/// \author Uwe Kindler
-/// \date   08.01.2015
-/// \brief  Declaration of CDeclarativeInputEngine
-///
-/// Copyright 2015 Uwe Kindler
-/// Licensed under MIT see LICENSE.MIT in project root
-//============================================================================
 
-//============================================================================
-//                                   INCLUDES
-//============================================================================
 #include <QObject>
 #include <QRect>
 
@@ -26,22 +25,19 @@ struct DeclarativeInputEnginePrivate;
 class DeclarativeInputEngine : public QObject
 {
     Q_OBJECT
+
+    // clang-format off
     Q_PROPERTY(QRect keyboardRectangle READ keyboardRectangle WRITE setKeyboardRectangle NOTIFY keyboardRectangleChanged FINAL)
     Q_PROPERTY(bool animating READ isAnimating WRITE setAnimating NOTIFY animatingChanged FINAL)
     Q_PROPERTY(int inputMode READ inputMode WRITE setInputMode NOTIFY inputModeChanged FINAL)
-    Q_ENUMS(InputMode)
-private:
-    DeclarativeInputEnginePrivate* d;
-    friend class DeclarativeInputEnginePrivate;
-
-private slots:
-    void animatingFinished();
+    // clang-format on
 
 public:
     /**
      * The InputMode enum provides a list of valid input modes
      */
-    enum InputMode {Latin, Numeric, Dialable};
+    enum InputMode { Latin, Numeric, Dialable };
+    Q_ENUMS(InputMode)
 
     /**
      * Creates a dclarative input engine with the given parent
@@ -95,7 +91,7 @@ public slots:
      * Returns true if the key event was accepted by the input engine.
      * \note Not implemented yet and not used yet
      */
-    bool virtualKeyClick(Qt::Key key, const QString & text, Qt::KeyboardModifiers modifiers);
+    bool virtualKeyClick(Qt::Key key, const QString &text, Qt::KeyboardModifiers modifiers);
 
     /**
      * Called by the keyboard layer to indicate that key was pressed, with the
@@ -107,7 +103,10 @@ public slots:
      * Returns true if the key was accepted by this input engine.
      * \note Not implemented yet and not used yet
      */
-    bool virtualKeyPress(Qt::Key key, const QString & text, Qt::KeyboardModifiers modifiers, bool repeat);
+    bool virtualKeyPress(Qt::Key key,
+                         const QString &text,
+                         Qt::KeyboardModifiers modifiers,
+                         bool repeat);
 
     /**
      * Releases the key at key. The method emits a key event for the input
@@ -116,7 +115,7 @@ public slots:
      * Returns true if the key was accepted by the input engine
      * \note Not implemented yet and not used yet
      */
-    bool virtualKeyRelease(Qt::Key key, const QString & text, Qt::KeyboardModifiers modifiers);
+    bool virtualKeyRelease(Qt::Key key, const QString &text, Qt::KeyboardModifiers modifiers);
 
     /**
      * This function sends the given text to the focused QML item
@@ -127,7 +126,7 @@ public slots:
     /**
      * Reports the active keyboard rectangle to the engine
      */
-    void setKeyboardRectangle(const QRect& Rect);
+    void setKeyboardRectangle(const QRect &Rect);
 
 signals:
     /**
@@ -144,8 +143,14 @@ signals:
      * Notify signal of inputModep property
      */
     void inputModeChanged();
-}; // class CDeclarativeInputEngine
 
+private:
+    DeclarativeInputEnginePrivate *d;
 
-//---------------------------------------------------------------------------
+    friend struct DeclarativeInputEnginePrivate;
+
+private slots:
+    void animatingFinished();
+};
+
 #endif // DECLARATIVEINPUTENGINE_H
