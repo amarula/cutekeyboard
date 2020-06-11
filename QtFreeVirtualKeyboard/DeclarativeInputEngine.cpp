@@ -46,8 +46,6 @@ DeclarativeInputEngine::~DeclarativeInputEngine()
     delete d;
 }
 
-void DeclarativeInputEngine::virtualKeyCancel() {}
-
 bool DeclarativeInputEngine::virtualKeyClick(Qt::Key key,
                                              const QString &text,
                                              Qt::KeyboardModifiers modifiers)
@@ -76,34 +74,6 @@ void DeclarativeInputEngine::sendKeyToFocusItem(const QString &text)
         ev.setCommitString(text);
     }
     QCoreApplication::sendEvent(QGuiApplication::focusObject(), &ev);
-}
-
-bool DeclarativeInputEngine::virtualKeyPress(Qt::Key key,
-                                             const QString &text,
-                                             Qt::KeyboardModifiers modifiers,
-                                             bool repeat)
-{
-    Q_UNUSED(key)
-    Q_UNUSED(text)
-    Q_UNUSED(modifiers)
-    Q_UNUSED(repeat)
-
-    // TODO: do awsomness
-
-    return true;
-}
-
-bool DeclarativeInputEngine::virtualKeyRelease(Qt::Key key,
-                                               const QString &text,
-                                               Qt::KeyboardModifiers modifiers)
-{
-    Q_UNUSED(key)
-    Q_UNUSED(text)
-    Q_UNUSED(modifiers)
-
-    // TODO: do awsomness
-
-    return true;
 }
 
 QRect DeclarativeInputEngine::keyboardRectangle() const
