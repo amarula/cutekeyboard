@@ -18,10 +18,14 @@ HEADERS += \
 RESOURCES += \
     resources.qrc
 
+OTHER_FILES += \
+        qml/qmldir \
+        qml/*.qml
+
 INSTALLS += \
     target \
     deployment
 
-deployment.files = *.qml qmldir
+deployment.files = qml/*.qml qml/qmldir
 deployment.path = $$[QT_INSTALL_QML]/QtQuick/FreeVirtualKeyboard
 target.path = $$[QT_INSTALL_PLUGINS]/platforminputcontexts
