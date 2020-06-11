@@ -4,13 +4,7 @@
 
 #include <private/qquickflickable_p.h>
 
-#include <QEvent>
-#include <QGuiApplication>
-#include <QJSEngine>
 #include <QPropertyAnimation>
-#include <QQmlContext>
-#include <QQmlEngine>
-#include <QVariant>
 
 /**
  * Private data class for VirtualKeyboardInputContext

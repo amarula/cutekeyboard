@@ -12,8 +12,9 @@
 #ifndef VIRTUALKEYBOARDINPUTCONTEXT_H
 #define VIRTUALKEYBOARDINPUTCONTEXT_H
 
-#include <QRectF>
 #include <qpa/qplatforminputcontext.h>
+
+#include <QRectF>
 
 class QQmlEngine;
 class QJSEngine;

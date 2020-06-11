@@ -1,12 +1,8 @@
 #include "DeclarativeInputEngine.h"
 
-#include <QCoreApplication>
 #include <QGuiApplication>
 #include <QInputMethodEvent>
-#include <QJSEngine>
-#include <QQmlEngine>
 #include <QTimer>
-#include <QtQml>
 
 /**
  * Private data class
