@@ -7,15 +7,13 @@ Item {
     objectName: "inputPanel"
 
     property color backgroundColor: "#000000"
-
-    property color buttonBackgroundColor: "#808080"
-    property color buttonTextColor: "#ffffff"
-    property string buttonsTextFontFamily
-    property int buttonsRadius: 0
+    property color btnBackgroundColor: "#808080"
+    property color btnTextColor: "#ffffff"
+    property string btnTextFontFamily
 
     property string backspaceIcon: "qrc:/icons/backspace.png"
-    property string capsLockOffIcon: "qrc:/icons/caps-lock-off.png"
-    property string capsLockOnIcon: "qrc:/icons/caps-lock-on.png"
+    property string shiftOnIcon: "qrc:/icons/caps-lock-on.png"
+    property string shiftOffIcon: "qrc:/icons/caps-lock-off.png"
     property string hideKeyboardIcon: "qrc:/icons/hide-arrow.png"
 
     width: parent.width
@@ -23,70 +21,27 @@ Item {
 
     onYChanged: InputEngine.setKeyboardRectangle(Qt.rect(x, y, width, height))
 
-    KeyModel {
-        id: keyModel
-    }
-
-    QtObject {
-        id: pimpl
-        property bool shiftModifier: false
-        property bool symbolModifier: false
-        property int verticalSpacing: keyboardRect.height / 40
-        property int horizontalSpacing: verticalSpacing
-        property int rowHeight: keyboardRect.height / 4 - verticalSpacing
-        property int buttonWidth: (keyboardRect.width - column.anchors.margins)
-                                  / 10 - horizontalSpacing
-        property int buttonsTextPixelSize: keyboardRect.height / 8
-    }
-
-    Component {
-        id: keyButtonDelegate
-
-        KeyButton {
-            id: button
-
-            width: pimpl.buttonWidth
-            height: pimpl.rowHeight
-            inputPanelRef: root
-            backgroundColor: buttonBackgroundColor
-            textColor: buttonTextColor
-            textFont: buttonsTextFontFamily
-            textFontPixelSize: pimpl.buttonsTextPixelSize
-            buttonRadius: buttonsRadius
-
-            displayedText: {
-                if (pimpl.symbolModifier) {
-                    firstSymbol
-                } else if (pimpl.shiftModifier) {
-                    letter.toUpperCase()
-                } else {
-                    letter
-                }
-            }
-        }
-    }
-
-    Connections {
-        target: InputEngine
-        onInputModeChanged: {
-            pimpl.symbolModifier = ((InputEngine.inputMode == InputEngine.Numeric)
-                                    || (InputEngine.inputMode == InputEngine.Dialable))
-            if (pimpl.symbolModifier) {
-                pimpl.shiftModifier = false
-            }
-        }
-    }
-
     function showKeyPopup(keyButton) {
         keyPopup.popup(keyButton, root)
+    }
+
+    Component.onCompleted: {
+        InputPanel.backgroundColor = backgroundColor
+        InputPanel.btnBackgroundColor = btnBackgroundColor
+        InputPanel.btnTextColor = btnTextColor
+        InputPanel.btnTextFontFamily = btnTextFontFamily
+        InputPanel.backspaceIcon = backspaceIcon
+        InputPanel.shiftOnIcon = shiftOnIcon
+        InputPanel.shiftOffIcon = shiftOffIcon
+        InputPanel.hideKeyboardIcon = hideKeyboardIcon
     }
 
     KeyPopup {
         id: keyPopup
 
-        popupColor: buttonBackgroundColor
-        popupTextColor: buttonTextColor
-        popupTextFont: buttonsTextFontFamily
+        popupColor: btnBackgroundColor
+        popupTextColor: btnTextColor
+        popupTextFont: btnTextFontFamily
         visible: false
         z: 100
     }
@@ -94,190 +49,39 @@ Item {
     Rectangle {
         id: keyboardRect
 
-        color: backgroundColor
+        color: InputPanel.backgroundColor
         anchors.fill: parent
 
         MouseArea {
             anchors.fill: parent
         }
 
-        Column {
-            id: column
-            anchors.margins: 5
-            anchors.fill: parent
-            spacing: pimpl.verticalSpacing
-
-            Row {
-                height: pimpl.rowHeight
-                spacing: pimpl.horizontalSpacing
-                anchors.horizontalCenter: parent.horizontalCenter
-                Repeater {
-                    model: keyModel.firstRowModel
-                    delegate: keyButtonDelegate
-                }
+        QwertyLayout {
+            inputPanel: root
+            visible: InputEngine.inputMode === InputEngine.Qwerty
+                     && !InputEngine.symbolMode
+            anchors {
+                fill: parent
+                margins: 5
             }
-            Row {
-                height: pimpl.rowHeight
-                spacing: pimpl.horizontalSpacing
-                anchors.horizontalCenter: parent.horizontalCenter
-                Repeater {
-                    model: keyModel.secondRowModel
-                    delegate: keyButtonDelegate
-                }
+        }
+
+        SymbolLayout {
+            inputPanel: root
+            visible: InputEngine.inputMode === InputEngine.Qwerty
+                     && InputEngine.symbolMode
+            anchors {
+                fill: parent
+                margins: 5
             }
-            Item {
-                height: pimpl.rowHeight
-                width: parent.width
+        }
 
-                KeyButton {
-                    id: shiftKey
-
-                    anchors.left: parent.left
-                    width: 1.25 * pimpl.buttonWidth
-                    height: pimpl.rowHeight
-                    functionKey: true
-                    inputPanelRef: root
-                    backgroundColor: Qt.darker(buttonBackgroundColor)
-                    textColor: buttonTextColor
-                    buttonIcon: pimpl.shiftModifier ? capsLockOnIcon : capsLockOffIcon
-                    showPreview: false
-                    textFont: buttonsTextFontFamily
-                    textFontPixelSize: pimpl.buttonsTextPixelSize
-                    buttonRadius: buttonsRadius
-
-                    onClicked: {
-                        if (pimpl.symbolModifier) {
-                            pimpl.symbolModifier = false
-                        }
-                        pimpl.shiftModifier = !pimpl.shiftModifier
-                    }
-                }
-                Row {
-                    height: pimpl.rowHeight
-                    spacing: pimpl.horizontalSpacing
-                    anchors.horizontalCenter: parent.horizontalCenter
-
-                    Repeater {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        model: keyModel.thirdRowModel
-                        delegate: keyButtonDelegate
-                    }
-                }
-                KeyButton {
-                    id: backspaceKey
-
-                    backgroundColor: Qt.darker(buttonBackgroundColor)
-                    textColor: buttonTextColor
-                    anchors.right: parent.right
-                    width: 1.25 * pimpl.buttonWidth
-                    height: pimpl.rowHeight
-                    buttonText: "\x7F"
-                    buttonIcon: backspaceIcon
-                    inputPanelRef: root
-                    repeatable: true
-                    showPreview: false
-                    buttonRadius: buttonsRadius
-                }
-            }
-            Row {
-                height: pimpl.rowHeight
-                spacing: pimpl.horizontalSpacing
-                anchors.horizontalCenter: parent.horizontalCenter
-                KeyButton {
-                    id: hideKey
-
-                    backgroundColor: Qt.darker(buttonBackgroundColor)
-                    textColor: buttonTextColor
-                    width: 1.25 * pimpl.buttonWidth
-                    height: pimpl.rowHeight
-                    functionKey: true
-                    inputPanelRef: root
-                    showPreview: false
-                    buttonIcon: hideKeyboardIcon
-                    textFont: buttonsTextFontFamily
-                    textFontPixelSize: pimpl.buttonsTextPixelSize
-                    buttonRadius: buttonsRadius
-
-                    onClicked: {
-                        Qt.inputMethod.hide()
-                    }
-                }
-                KeyButton {
-                    id: commaKey
-
-                    backgroundColor: buttonBackgroundColor
-                    textColor: buttonTextColor
-                    width: pimpl.buttonWidth
-                    height: pimpl.rowHeight
-                    displayedText: ","
-                    inputPanelRef: root
-                    textFont: buttonsTextFontFamily
-                    textFontPixelSize: pimpl.buttonsTextPixelSize
-                    buttonRadius: buttonsRadius
-                }
-                KeyButton {
-                    id: spaceKey
-
-                    backgroundColor: buttonBackgroundColor
-                    textColor: buttonTextColor
-                    width: 4 * pimpl.buttonWidth
-                    height: pimpl.rowHeight
-                    buttonText: " "
-                    displayedText: "space"
-                    inputPanelRef: root
-                    showPreview: false
-                    textFont: buttonsTextFontFamily
-                    textFontPixelSize: pimpl.buttonsTextPixelSize
-                    buttonRadius: buttonsRadius
-                }
-                KeyButton {
-                    id: dotKey
-
-                    backgroundColor: buttonBackgroundColor
-                    textColor: buttonTextColor
-                    width: pimpl.buttonWidth
-                    height: pimpl.rowHeight
-                    displayedText: "."
-                    inputPanelRef: root
-                    textFont: buttonsTextFontFamily
-                    textFontPixelSize: pimpl.buttonsTextPixelSize
-                    buttonRadius: buttonsRadius
-                }
-                KeyButton {
-                    id: symbolKey
-
-                    backgroundColor: Qt.darker(buttonBackgroundColor)
-                    textColor: buttonTextColor
-                    width: 1.25 * pimpl.buttonWidth
-                    height: pimpl.rowHeight
-                    displayedText: (!pimpl.symbolModifier) ? "123" : "ABC"
-                    functionKey: true
-                    inputPanelRef: root
-                    textFont: buttonsTextFontFamily
-                    textFontPixelSize: pimpl.buttonsTextPixelSize
-                    buttonRadius: buttonsRadius
-
-                    onClicked: {
-                        if (pimpl.shiftModifier) {
-                            pimpl.shiftModifier = false
-                        }
-                        pimpl.symbolModifier = !pimpl.symbolModifier
-                    }
-                }
-                KeyButton {
-                    id: enterKey
-
-                    backgroundColor: Qt.lighter(buttonBackgroundColor)
-                    textColor: buttonTextColor
-                    width: 1.25 * pimpl.buttonWidth
-                    height: pimpl.rowHeight
-                    displayedText: "return"
-                    buttonText: "\n"
-                    inputPanelRef: root
-                    textFont: buttonsTextFontFamily
-                    textFontPixelSize: pimpl.buttonsTextPixelSize
-                    buttonRadius: buttonsRadius
-                }
+        DigitsLayout {
+            inputPanel: root
+            visible: InputEngine.inputMode === InputEngine.DigitsOnly
+            anchors {
+                fill: parent
+                margins: 5
             }
         }
     }

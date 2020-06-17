@@ -60,7 +60,7 @@ Item {
         var KeyButtonGlobalLeft = keybutton.mapToItem(inputPanel, 0, 0).x
         var KeyButtonGlobalTop = keybutton.mapToItem(inputPanel, 0, 0).y
         var PopupGlobalLeft = KeyButtonGlobalLeft - (width - keybutton.width) / 2
-        var PopupGlobalTop = KeyButtonGlobalTop - height - pimpl.verticalSpacing * 1.5
+        var PopupGlobalTop = KeyButtonGlobalTop - height - keyboardRect.height / 40 * 1.5
         var PopupLeft = root.parent.mapFromItem(inputPanel, PopupGlobalLeft,
                                                 PopupGlobalTop).x
         y = root.parent.mapFromItem(inputPanel, PopupGlobalLeft,
