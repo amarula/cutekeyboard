@@ -1,6 +1,7 @@
 #include "VirtualKeyboardInputContext.h"
 
 #include "DeclarativeInputEngine.h"
+#include "inputpaneliface.hpp"
 
 #include <private/qquickflickable_p.h>
 
@@ -19,6 +20,8 @@ public:
     bool Visible;
     DeclarativeInputEngine *InputEngine;
     QPropertyAnimation *FlickableContentScrollAnimation{nullptr};
+
+    InputPanelIface *inputPanelIface;
 };
 
 VirtualKeyboardInputContextPrivate::VirtualKeyboardInputContextPrivate()
@@ -26,6 +29,7 @@ VirtualKeyboardInputContextPrivate::VirtualKeyboardInputContextPrivate()
     , FocusItem(0)
     , Visible(false)
     , InputEngine(new DeclarativeInputEngine())
+    , inputPanelIface(new InputPanelIface())
 {}
 
 VirtualKeyboardInputContext::VirtualKeyboardInputContext()
@@ -45,6 +49,11 @@ VirtualKeyboardInputContext::VirtualKeyboardInputContext()
             &DeclarativeInputEngine::animatingChanged,
             this,
             &VirtualKeyboardInputContext::ensureFocusedObjectVisible);
+    qmlRegisterSingletonType<InputPanelIface>("FreeVirtualKeyboard",
+                                              1,
+                                              0,
+                                              "InputPanel",
+                                              inputPanelProvider);
 }
 
 VirtualKeyboardInputContext::~VirtualKeyboardInputContext() {}
@@ -158,4 +167,11 @@ QObject *VirtualKeyboardInputContext::inputEngineProvider(QQmlEngine *engine,
     Q_UNUSED(engine)
     Q_UNUSED(scriptEngine)
     return VirtualKeyboardInputContext::instance()->d->InputEngine;
+}
+
+QObject *VirtualKeyboardInputContext::inputPanelProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
+{
+    Q_UNUSED(engine)
+    Q_UNUSED(scriptEngine)
+    return VirtualKeyboardInputContext::instance()->d->inputPanelIface;
 }

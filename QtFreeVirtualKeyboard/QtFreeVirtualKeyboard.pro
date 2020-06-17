@@ -8,11 +8,13 @@ TEMPLATE = lib
 SOURCES += \
     VirtualKeyboardInputContextPlugin.cpp \
     VirtualKeyboardInputContext.cpp \
+    inputpaneliface.cpp \
     DeclarativeInputEngine.cpp
 
 HEADERS += \
     VirtualKeyboardInputContextPlugin.h \
     VirtualKeyboardInputContext.h \
+    inputpaneliface.hpp \
     DeclarativeInputEngine.h
 
 RESOURCES += \

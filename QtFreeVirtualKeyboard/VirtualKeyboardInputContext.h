@@ -104,6 +104,12 @@ private:
      */
     static QObject *inputEngineProvider(QQmlEngine *engine, QJSEngine *scriptEngine);
 
+    /**
+     * The input contet creates the InputPanel object and provides it
+     * as a singleton to the QML context
+     */
+    static QObject *inputPanelProvider(QQmlEngine *engine, QJSEngine *scriptEngine);
+
     VirtualKeyboardInputContextPrivate *d;
 };
 
