@@ -49,30 +49,10 @@ bool DeclarativeInputEngine::virtualKeyClick(Qt::Key key,
                                              const QString &text,
                                              Qt::KeyboardModifiers modifiers)
 {
-    Q_UNUSED(key)
-    Q_UNUSED(modifiers)
-
-    QInputMethodEvent ev;
-    if (text == QString("\x7F")) {
-        ev.setCommitString("", -1, 1);
-
-    } else {
-        ev.setCommitString(text);
-    }
-    QCoreApplication::sendEvent(QGuiApplication::focusObject(), &ev);
-    return true;
-}
-
-void DeclarativeInputEngine::sendKeyToFocusItem(const QString &text)
-{
-    QInputMethodEvent ev;
-    if (text == QString("\x7F")) {
-        ev.setCommitString("", -1, 1);
-
-    } else {
-        ev.setCommitString(text);
-    }
-    QCoreApplication::sendEvent(QGuiApplication::focusObject(), &ev);
+    QKeyEvent pressEvent(QEvent::KeyPress, key, Qt::KeyboardModifiers(modifiers), text);
+    QKeyEvent releaseEvent(QEvent::KeyRelease, key, Qt::KeyboardModifiers(modifiers), text);
+    return QCoreApplication::sendEvent(QGuiApplication::focusObject(), &pressEvent)
+           && QCoreApplication::sendEvent(QGuiApplication::focusObject(), &releaseEvent);
 }
 
 QRect DeclarativeInputEngine::keyboardRectangle() const

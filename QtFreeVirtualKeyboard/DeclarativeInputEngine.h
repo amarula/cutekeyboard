@@ -94,12 +94,6 @@ public slots:
     bool virtualKeyClick(Qt::Key key, const QString &text, Qt::KeyboardModifiers modifiers);
 
     /**
-     * This function sends the given text to the focused QML item
-     * \note This function will get replaced by virtualKeyClick function later
-     */
-    void sendKeyToFocusItem(const QString &keyText);
-
-    /**
      * Reports the active keyboard rectangle to the engine
      */
     void setKeyboardRectangle(const QRect &Rect);
