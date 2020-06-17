@@ -11,21 +11,23 @@ SOURCES += \
     DeclarativeInputEngine.cpp
 
 HEADERS += \
-    VirtualKeyboardInputContextPlugin.h\
+    VirtualKeyboardInputContextPlugin.h \
     VirtualKeyboardInputContext.h \
     DeclarativeInputEngine.h
 
 RESOURCES += \
     resources.qrc
 
-OTHER_FILES += \
-        qml/qmldir \
-        qml/*.qml
+QML_FILES += \
+    qml/qmldir \
+    qml/*.qml
+
+OTHER_FILES += $$QML_FILES
 
 INSTALLS += \
     target \
     deployment
 
-deployment.files = qml/*.qml qml/qmldir
+deployment.files = $$QML_FILES
 deployment.path = $$[QT_INSTALL_QML]/QtQuick/FreeVirtualKeyboard
 target.path = $$[QT_INSTALL_PLUGINS]/platforminputcontexts
