@@ -24,7 +24,7 @@ struct DeclarativeInputEnginePrivate
 DeclarativeInputEnginePrivate::DeclarativeInputEnginePrivate(DeclarativeInputEngine *_public)
     : _this(_public)
     , Animating(false)
-    , InputMode(DeclarativeInputEngine::Latin)
+    , InputMode(DeclarativeInputEngine::Qwerty)
 {}
 
 DeclarativeInputEngine::DeclarativeInputEngine(QObject *parent)

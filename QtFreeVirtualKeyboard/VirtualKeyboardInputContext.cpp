@@ -101,8 +101,7 @@ bool VirtualKeyboardInputContext::isAnimating() const
 void VirtualKeyboardInputContext::setFocusObject(QObject *object)
 {
     static const int NumericInputHints = Qt::ImhPreferNumbers | Qt::ImhDate | Qt::ImhTime
-                                         | Qt::ImhDigitsOnly | Qt::ImhFormattedNumbersOnly;
-    static const int DialableInputHints = Qt::ImhDialableCharactersOnly;
+                                         | Qt::ImhFormattedNumbersOnly;
 
     if (!object) {
         return;
@@ -119,12 +118,18 @@ void VirtualKeyboardInputContext::setFocusObject(QObject *object)
     }
 
     Qt::InputMethodHints InputMethodHints(d->FocusItem->inputMethodQuery(Qt::ImHints).toInt());
-    if (InputMethodHints & DialableInputHints) {
-        d->InputEngine->setInputMode(DeclarativeInputEngine::Dialable);
+    if (InputMethodHints & Qt::ImhDigitsOnly) {
+        d->InputEngine->setInputMode(DeclarativeInputEngine::DigitsOnly);
+        d->InputEngine->setSymbolMode(false);
+        d->InputEngine->setUppercase(false);
     } else if (InputMethodHints & NumericInputHints) {
-        d->InputEngine->setInputMode(DeclarativeInputEngine::Numeric);
+        d->InputEngine->setInputMode(DeclarativeInputEngine::Qwerty);
+        d->InputEngine->setSymbolMode(true);
+        d->InputEngine->setUppercase(false);
     } else {
-        d->InputEngine->setInputMode(DeclarativeInputEngine::Latin);
+        d->InputEngine->setInputMode(DeclarativeInputEngine::Qwerty);
+        d->InputEngine->setSymbolMode(false);
+        d->InputEngine->setUppercase(false);
     }
 
     QQuickItem *i = d->FocusItem;
