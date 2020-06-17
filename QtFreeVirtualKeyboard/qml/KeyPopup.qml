@@ -74,7 +74,7 @@ Item {
             x = PopupLeft
         }
 
-        text = keybutton.displayedText
+        text = keybutton.btnText
         font.family = keybutton.font.family
         visible = Qt.binding(function () {
             return keybutton.pressed
