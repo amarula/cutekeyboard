@@ -16,6 +16,9 @@ struct DeclarativeInputEnginePrivate
     QTimer *AnimatingFinishedTimer{nullptr};
     int InputMode;
     QRect KeyboardRectangle;
+
+    bool isUppercase{false};
+    bool symbolMode{false};
 };
 
 DeclarativeInputEnginePrivate::DeclarativeInputEnginePrivate(DeclarativeInputEngine *_public)
@@ -113,5 +116,31 @@ void DeclarativeInputEngine::setInputMode(int Mode)
     if (Mode != d->InputMode) {
         d->InputMode = Mode;
         emit inputModeChanged();
+    }
+}
+
+bool DeclarativeInputEngine::isUppercase() const
+{
+    return d->isUppercase;
+}
+
+void DeclarativeInputEngine::setUppercase(bool uppercase)
+{
+    if (d->isUppercase != uppercase) {
+        d->isUppercase = uppercase;
+        emit isUppercaseChanged();
+    }
+}
+
+bool DeclarativeInputEngine::isSymbolMode() const
+{
+    return d->symbolMode;
+}
+
+void DeclarativeInputEngine::setSymbolMode(bool symbolMode)
+{
+    if (d->symbolMode != symbolMode) {
+        d->symbolMode = symbolMode;
+        emit isSymbolModeChanged();
     }
 }
