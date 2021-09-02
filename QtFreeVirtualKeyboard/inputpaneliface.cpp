@@ -1,7 +1,5 @@
 #include "inputpaneliface.hpp"
 
-#include <QDebug>
-
 struct InputPanelIface::InputPanelIfacePrivate
 {
     QColor backgroundColor{};

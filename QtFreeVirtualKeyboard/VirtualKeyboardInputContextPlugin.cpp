@@ -2,6 +2,9 @@
 
 #include "VirtualKeyboardInputContext.h"
 
+#include "EnterKeyAction.hpp"
+#include "EnterKeyActionAttachedType.hpp"
+
 QPlatformInputContext *VirtualKeyboardInputContextPlugin::create(const QString &system,
                                                                  const QStringList &paramList)
 {

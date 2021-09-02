@@ -2,6 +2,8 @@
 
 #include "DeclarativeInputEngine.h"
 #include "inputpaneliface.hpp"
+#include "EnterKeyAction.hpp"
+#include "EnterKeyActionAttachedType.hpp"
 
 #include <private/qquickflickable_p.h>
 
@@ -54,6 +56,15 @@ VirtualKeyboardInputContext::VirtualKeyboardInputContext()
                                               0,
                                               "InputPanel",
                                               inputPanelProvider);
+
+    qmlRegisterSingletonType<InputPanelIface>("FreeVirtualKeyboard",
+                                              1,
+                                              0,
+                                              "InputContext",
+                                              inputContextProvider);
+
+    qmlRegisterType<EnterKeyAction>("QtQuick.FreeVirtualKeyboard", 1, 0, "EnterKeyAction");
+    qmlRegisterType<EnterKeyAction>("FreeVirtualKeyboard", 1, 0, "EnterKeyAction");
 }
 
 VirtualKeyboardInputContext::~VirtualKeyboardInputContext() {}
@@ -62,6 +73,16 @@ VirtualKeyboardInputContext *VirtualKeyboardInputContext::instance()
 {
     static VirtualKeyboardInputContext *InputContextInstance = new VirtualKeyboardInputContext;
     return InputContextInstance;
+}
+
+QObject *VirtualKeyboardInputContext::inputItem() const
+{
+    return d->FocusItem;
+}
+
+bool VirtualKeyboardInputContext::focusItemHasEnterKeyAction(QObject *item) const
+{
+    return item != nullptr && qmlAttachedPropertiesObject<EnterKeyAction>(item, false);
 }
 
 bool VirtualKeyboardInputContext::isValid() const
@@ -116,6 +137,8 @@ void VirtualKeyboardInputContext::setFocusObject(QObject *object)
     if (!AcceptsInput) {
         return;
     }
+
+    emit inputItemChanged();
 
     Qt::InputMethodHints InputMethodHints(d->FocusItem->inputMethodQuery(Qt::ImHints).toInt());
     if (InputMethodHints & Qt::ImhDigitsOnly) {
@@ -179,4 +202,11 @@ QObject *VirtualKeyboardInputContext::inputPanelProvider(QQmlEngine *engine, QJS
     Q_UNUSED(engine)
     Q_UNUSED(scriptEngine)
     return VirtualKeyboardInputContext::instance()->d->inputPanelIface;
+}
+
+QObject *VirtualKeyboardInputContext::inputContextProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
+{
+    Q_UNUSED(engine)
+    Q_UNUSED(scriptEngine)
+    return VirtualKeyboardInputContext::instance();
 }

@@ -9,4 +9,7 @@ Key {
     btnBackground: Qt.darker(InputPanel.btnBackgroundColor)
     btnText: "\n"
     btnDisplayedText: "Enter"
+    enabled: InputContext.focusItemHasEnterKeyAction(
+                 InputContext.inputItem) ? InputContext.inputItem.EnterKeyAction.enabled : true
+    opacity: enabled ? 1 : 0.5
 }

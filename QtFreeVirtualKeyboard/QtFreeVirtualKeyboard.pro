@@ -6,12 +6,16 @@ TARGET = freevirtualkeyboardplugin
 TEMPLATE = lib
 
 SOURCES += \
+    EnterKeyAction.cpp \
+    EnterKeyActionAttachedType.cpp \
     VirtualKeyboardInputContextPlugin.cpp \
     VirtualKeyboardInputContext.cpp \
     inputpaneliface.cpp \
     DeclarativeInputEngine.cpp
 
 HEADERS += \
+    EnterKeyAction.hpp \
+    EnterKeyActionAttachedType.hpp \
     VirtualKeyboardInputContextPlugin.h \
     VirtualKeyboardInputContext.h \
     inputpaneliface.hpp \

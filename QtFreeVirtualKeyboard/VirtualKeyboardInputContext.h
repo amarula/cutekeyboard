@@ -27,6 +27,8 @@ class VirtualKeyboardInputContext : public QPlatformInputContext
 {
     Q_OBJECT
 
+    Q_PROPERTY(QObject *inputItem READ inputItem NOTIFY inputItemChanged)
+
 public:
     /**
      * Virtual destructor
@@ -79,9 +81,20 @@ public:
 
     /**
      * Use this static instance function to access the singleton input context
-     * instance
+     * instance.
      */
     static VirtualKeyboardInputContext *instance();
+
+    /**
+     * This function returns the current input item focused.
+     */
+    QObject *inputItem() const;
+
+    /**
+     * This function returns true whenever the current focus item has the
+     * enter key action attached property.
+     */
+    Q_INVOKABLE bool focusItemHasEnterKeyAction(QObject *item) const;
 
 protected:
     /**
@@ -89,6 +102,9 @@ protected:
      * object
      */
     VirtualKeyboardInputContext();
+
+signals:
+    void inputItemChanged();
 
 private slots:
     /**
@@ -109,6 +125,12 @@ private:
      * as a singleton to the QML context
      */
     static QObject *inputPanelProvider(QQmlEngine *engine, QJSEngine *scriptEngine);
+
+    /**
+     * The input contet creates the InputContext object and provides it
+     * as a singleton to the QML context
+     */
+    static QObject *inputContextProvider(QQmlEngine *engine, QJSEngine *scriptEngine);
 
     VirtualKeyboardInputContextPrivate *d;
 };
