@@ -2,19 +2,70 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.FreeVirtualKeyboard 1.0
 import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.12
 
 Window {
     id: window
     visible: true
     width: 640
-    height: 480
+    height: 640
     title: qsTr("QtFreeVirtualKeyboard Example")
 
-    TextField {
+    ColumnLayout {
+        spacing: 20
         anchors.centerIn: parent
-        width: 200
-        height: 50
-        focus: true
+
+        RowLayout {
+            spacing: 10
+            Text {
+                id: t1
+                text: qsTr("Basic TextField")
+            }
+            TextField {
+                id: tf1
+                width: 200
+                height: 50
+            }
+        }
+        RowLayout {
+            spacing: 10
+            Text {
+                id: t2
+                text: qsTr("Disabled enter key - TextField")
+            }
+            TextField {
+                id: tf2
+                width: 200
+                height: 50
+                EnterKeyAction.enabled: false
+            }
+        }
+        RowLayout {
+            spacing: 10
+            Text {
+                id: t3
+                text: qsTr("Enabled enter key - TextField")
+            }
+            TextField {
+                id: tf3
+                width: 200
+                height: 50
+                EnterKeyAction.enabled: true
+            }
+        }
+        RowLayout {
+            spacing: 10
+            Text {
+                id: t4
+                text: qsTr("Qt.ImhDigitsOnly TextField")
+            }
+            TextField {
+                id: tf4
+                width: 200
+                height: 50
+                inputMethodHints: Qt.ImhDigitsOnly
+            }
+        }
     }
 
     InputPanel {
