@@ -1,9 +1,9 @@
 #include "EnterKeyActionAttachedType.hpp"
 
-EnterKeyActionAttachedType::EnterKeyActionAttachedType(QObject *parent) : QObject(parent), m_enabled(true)
-{
-
-}
+EnterKeyActionAttachedType::EnterKeyActionAttachedType(QObject *parent)
+    : QObject(parent)
+    , m_enabled(true)
+{}
 
 bool EnterKeyActionAttachedType::enabled() const
 {

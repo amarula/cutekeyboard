@@ -1,9 +1,9 @@
 #include "VirtualKeyboardInputContext.h"
 
 #include "DeclarativeInputEngine.h"
-#include "inputpaneliface.hpp"
 #include "EnterKeyAction.hpp"
 #include "EnterKeyActionAttachedType.hpp"
+#include "inputpaneliface.hpp"
 
 #include <private/qquickflickable_p.h>
 
@@ -204,7 +204,8 @@ QObject *VirtualKeyboardInputContext::inputPanelProvider(QQmlEngine *engine, QJS
     return VirtualKeyboardInputContext::instance()->d->inputPanelIface;
 }
 
-QObject *VirtualKeyboardInputContext::inputContextProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
+QObject *VirtualKeyboardInputContext::inputContextProvider(QQmlEngine *engine,
+                                                           QJSEngine *scriptEngine)
 {
     Q_UNUSED(engine)
     Q_UNUSED(scriptEngine)

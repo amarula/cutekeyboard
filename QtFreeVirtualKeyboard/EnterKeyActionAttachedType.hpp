@@ -21,4 +21,3 @@ signals:
 private:
     bool m_enabled;
 };
-

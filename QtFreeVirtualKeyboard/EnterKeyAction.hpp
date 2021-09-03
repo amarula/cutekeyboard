@@ -1,7 +1,7 @@
 #pragma once
 
-#include <qqml.h>
 #include <QObject>
+#include <qqml.h>
 
 class EnterKeyActionAttachedType;
 
