@@ -6,6 +6,8 @@ Item {
     id: root
     objectName: "inputPanel"
 
+    property bool active: Qt.inputMethod.visible
+
     property color backgroundColor: "#000000"
     property color btnBackgroundColor: "#808080"
     property color btnTextColor: "#ffffff"
