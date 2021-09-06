@@ -8,7 +8,8 @@ Key {
     showPreview: false
     btnBackground: InputPanel.btnSpecialBackgroundColor
     btnText: "\n"
-    btnDisplayedText: "Enter"
+    btnDisplayedText: InputPanel.enterIcon === "" ? "Enter" : ""
+    btnIcon: InputPanel.enterIcon === "" ? "" : InputPanel.enterIcon
     enabled: InputContext.focusItemHasEnterKeyAction(
                  InputContext.inputItem) ? InputContext.inputItem.EnterKeyAction.enabled : true
     opacity: enabled ? 1 : 0.5

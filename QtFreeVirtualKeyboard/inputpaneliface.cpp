@@ -8,6 +8,7 @@ struct InputPanelIface::InputPanelIfacePrivate
     QColor btnTextColor{};
     QString btnTextFontFamily{};
     QString backspaceIcon{};
+    QString enterIcon{};
     QString shiftOnIcon{};
     QString shiftOffIcon{};
     QString hideKeyboardIcon{};
@@ -100,6 +101,19 @@ void InputPanelIface::setBackspaceIcon(const QString &backspaceIcon)
     if (pimpl->backspaceIcon != backspaceIcon) {
         pimpl->backspaceIcon = backspaceIcon;
         emit backspaceIconChanged();
+    }
+}
+
+QString InputPanelIface::enterIcon() const
+{
+    return pimpl->enterIcon;
+}
+
+void InputPanelIface::setEnterIcon(const QString &enterIcon)
+{
+    if (pimpl->enterIcon != enterIcon) {
+        pimpl->enterIcon = enterIcon;
+        emit enterIconChanged();
     }
 }
 

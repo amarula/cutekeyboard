@@ -15,6 +15,7 @@ Item {
     property string btnTextFontFamily
 
     property string backspaceIcon: "qrc:/icons/backspace.png"
+    property string enterIcon: ""
     property string shiftOnIcon: "qrc:/icons/caps-lock-on.png"
     property string shiftOffIcon: "qrc:/icons/caps-lock-off.png"
     property string hideKeyboardIcon: "qrc:/icons/hide-arrow.png"
@@ -35,6 +36,7 @@ Item {
         InputPanel.btnTextColor = btnTextColor
         InputPanel.btnTextFontFamily = btnTextFontFamily
         InputPanel.backspaceIcon = backspaceIcon
+        InputPanel.enterIcon = enterIcon
         InputPanel.shiftOnIcon = shiftOnIcon
         InputPanel.shiftOffIcon = shiftOffIcon
         InputPanel.hideKeyboardIcon = hideKeyboardIcon
