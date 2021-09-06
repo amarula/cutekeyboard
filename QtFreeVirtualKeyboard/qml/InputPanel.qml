@@ -10,6 +10,7 @@ Item {
 
     property color backgroundColor: "#000000"
     property color btnBackgroundColor: "#808080"
+    property color btnSpecialBackgroundColor: Qt.darker("#808080")
     property color btnTextColor: "#ffffff"
     property string btnTextFontFamily
 
@@ -30,6 +31,7 @@ Item {
     Component.onCompleted: {
         InputPanel.backgroundColor = backgroundColor
         InputPanel.btnBackgroundColor = btnBackgroundColor
+        InputPanel.btnSpecialBackgroundColor = btnSpecialBackgroundColor
         InputPanel.btnTextColor = btnTextColor
         InputPanel.btnTextFontFamily = btnTextFontFamily
         InputPanel.backspaceIcon = backspaceIcon

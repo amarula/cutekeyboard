@@ -4,6 +4,7 @@ struct InputPanelIface::InputPanelIfacePrivate
 {
     QColor backgroundColor{};
     QColor btnBackgroundColor{};
+    QColor btnSpecialBackgroundColor{};
     QColor btnTextColor{};
     QString btnTextFontFamily{};
     QString backspaceIcon{};
@@ -47,6 +48,19 @@ void InputPanelIface::setBtnBackgroundColor(const QColor &btnBackgroundColor)
     if (pimpl->btnBackgroundColor != btnBackgroundColor) {
         pimpl->btnBackgroundColor = btnBackgroundColor;
         emit btnBackgroundColorChanged();
+    }
+}
+
+QColor InputPanelIface::btnSpecialBackgroundColor() const
+{
+    return pimpl->btnSpecialBackgroundColor;
+}
+
+void InputPanelIface::setBtnSpecialBackgroundColor(const QColor &btnSpecialBackgroundColor)
+{
+    if (pimpl->btnSpecialBackgroundColor != btnSpecialBackgroundColor) {
+        pimpl->btnSpecialBackgroundColor = btnSpecialBackgroundColor;
+        emit btnSpecialBackgroundColorChanged();
     }
 }
 

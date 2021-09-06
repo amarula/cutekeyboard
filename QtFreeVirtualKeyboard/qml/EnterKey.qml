@@ -6,7 +6,7 @@ Key {
     btnKey: Qt.Key_Enter
     repeatable: true
     showPreview: false
-    btnBackground: Qt.darker(InputPanel.btnBackgroundColor)
+    btnBackground: InputPanel.btnSpecialBackgroundColor
     btnText: "\n"
     btnDisplayedText: "Enter"
     enabled: InputContext.focusItemHasEnterKeyAction(

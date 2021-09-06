@@ -6,7 +6,7 @@ Key {
     btnKey: Qt.Key_Shift
     functionKey: true
     showPreview: false
-    btnBackground: Qt.darker(InputPanel.btnBackgroundColor)
+    btnBackground: InputPanel.btnSpecialBackgroundColor
     btnIcon: InputEngine.uppercase ? InputPanel.shiftOnIcon : InputPanel.shiftOffIcon
     onClicked: InputEngine.uppercase = !InputEngine.uppercase
 }

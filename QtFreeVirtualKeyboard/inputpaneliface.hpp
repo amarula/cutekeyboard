@@ -14,6 +14,7 @@ class InputPanelIface : public QObject
     // clang-format off
     Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
     Q_PROPERTY(QColor btnBackgroundColor READ btnBackgroundColor WRITE setBtnBackgroundColor NOTIFY btnBackgroundColorChanged)
+    Q_PROPERTY(QColor btnSpecialBackgroundColor READ btnSpecialBackgroundColor WRITE setBtnSpecialBackgroundColor NOTIFY btnSpecialBackgroundColorChanged)
     Q_PROPERTY(QColor btnTextColor READ btnTextColor WRITE setBtnTextColor NOTIFY btnTextColorChanged)
     Q_PROPERTY(QString btnTextFontFamily READ btnTextFontFamily WRITE setBtnTextFontFamily NOTIFY btnTextFontFamilyChanged)
     Q_PROPERTY(QString backspaceIcon READ backspaceIcon WRITE setBackspaceIcon NOTIFY backspaceIconChanged)
@@ -31,6 +32,9 @@ public:
 
     QColor btnBackgroundColor() const;
     void setBtnBackgroundColor(const QColor &btnBackgroundColor);
+
+    QColor btnSpecialBackgroundColor() const;
+    void setBtnSpecialBackgroundColor(const QColor &btnSpecialBackgroundColor);
 
     QColor btnTextColor() const;
     void setBtnTextColor(const QColor &btnTextColor);
@@ -53,6 +57,7 @@ public:
 signals:
     void backgroundColorChanged();
     void btnBackgroundColorChanged();
+    void btnSpecialBackgroundColorChanged();
     void btnTextColorChanged();
     void btnTextFontFamilyChanged();
     void backspaceIconChanged();

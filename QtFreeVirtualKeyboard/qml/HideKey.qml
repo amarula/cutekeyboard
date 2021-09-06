@@ -6,6 +6,6 @@ Key {
     functionKey: true
     showPreview: false
     onClicked: Qt.inputMethod.hide()
-    btnBackground: Qt.darker(InputPanel.btnBackgroundColor)
+    btnBackground: InputPanel.btnSpecialBackgroundColor
     btnIcon: InputPanel.hideKeyboardIcon
 }

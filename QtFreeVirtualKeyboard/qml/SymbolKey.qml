@@ -7,6 +7,6 @@ Key {
     btnDisplayedText: !InputEngine.symbolMode ? "&123" : "ABC"
     functionKey: true
     showPreview: false
-    btnBackground: Qt.darker(InputPanel.btnBackgroundColor)
+    btnBackground: InputPanel.btnSpecialBackgroundColor
     onClicked: InputEngine.symbolMode = !InputEngine.symbolMode
 }

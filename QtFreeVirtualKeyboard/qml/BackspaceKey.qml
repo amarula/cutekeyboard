@@ -6,6 +6,6 @@ Key {
     btnKey: Qt.Key_Backspace
     repeatable: true
     showPreview: false
-    btnBackground: Qt.darker(InputPanel.btnBackgroundColor)
+    btnBackground: InputPanel.btnSpecialBackgroundColor
     btnIcon: InputPanel.backspaceIcon
 }
