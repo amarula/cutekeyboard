@@ -36,6 +36,12 @@ class DeclarativeInputEngine : public QObject
 
 public:
     /**
+     * The InputLayouts enum provides a list of valid input layouts
+     */
+    enum InputLayouts { En, Fr, It, Es, De, Nl, Pt, Cs, El, Pl, EndLayouts };
+    Q_ENUM(InputLayouts)
+
+    /**
      * The InputMode enum provides a list of valid input modes
      */
     enum InputMode { Letters, DigitsOnly };
@@ -84,6 +90,8 @@ public:
 
     bool isSymbolMode() const;
     void setSymbolMode(bool symbolMode);
+
+    Q_INVOKABLE bool inputLayoutValid(const QString &layout) const;
 
 public slots:
     /**

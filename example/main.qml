@@ -77,6 +77,8 @@ Window {
         anchors.left: parent.left
         anchors.right: parent.right
 
+        languageLayout: "El"
+
         states: State {
             name: "visible"
             when: Qt.inputMethod.visible

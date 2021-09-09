@@ -1,7 +1,9 @@
 #include "DeclarativeInputEngine.h"
 
+#include <QDebug>
 #include <QGuiApplication>
 #include <QInputMethodEvent>
+#include <QMetaEnum>
 #include <QTimer>
 
 /**
@@ -123,4 +125,18 @@ void DeclarativeInputEngine::setSymbolMode(bool symbolMode)
         d->symbolMode = symbolMode;
         emit isSymbolModeChanged();
     }
+}
+
+bool DeclarativeInputEngine::inputLayoutValid(const QString &layout) const
+{
+    for (int i = InputLayouts::En; i != InputLayouts::EndLayouts; i++) {
+        const auto validLayout = QMetaEnum::fromType<InputLayouts>().valueToKey(
+            static_cast<InputLayouts>(i));
+        if (validLayout == layout) {
+            return true;
+        }
+    }
+
+    qCritical() << "Keyboard layout" << layout << "is not supported. Falling back to En!";
+    return false;
 }

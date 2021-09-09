@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQml 2.0
 
 import FreeVirtualKeyboard 1.0
 
@@ -13,6 +14,8 @@ Item {
     property color btnSpecialBackgroundColor: Qt.darker("#808080")
     property color btnTextColor: "#ffffff"
     property string btnTextFontFamily
+
+    property string languageLayout: "En"
 
     property string backspaceIcon: "qrc:/icons/backspace.png"
     property string enterIcon: ""
@@ -29,6 +32,20 @@ Item {
         keyPopup.popup(keyButton, root)
     }
 
+    function loadLettersLayout() {
+        if (InputEngine.inputLayoutValid(languageLayout)) {
+            layoutLoader.setSource(languageLayout + "Layout.qml", {
+                                       "inputPanel": root
+                                   })
+        } else {
+            layoutLoader.setSource("EnLayout.qml", {
+                                       "inputPanel": root
+                                   })
+        }
+    }
+
+    onLanguageLayoutChanged: loadLettersLayout()
+
     Component.onCompleted: {
         InputPanel.backgroundColor = backgroundColor
         InputPanel.btnBackgroundColor = btnBackgroundColor
@@ -40,6 +57,8 @@ Item {
         InputPanel.shiftOnIcon = shiftOnIcon
         InputPanel.shiftOffIcon = shiftOffIcon
         InputPanel.hideKeyboardIcon = hideKeyboardIcon
+
+        loadLettersLayout()
     }
 
     KeyPopup {
@@ -62,33 +81,34 @@ Item {
             anchors.fill: parent
         }
 
-        QwertyLayout {
-            inputPanel: root
-            visible: InputEngine.inputMode === InputEngine.Letters
-                     && !InputEngine.symbolMode
+        Loader {
+            id: layoutLoader
+
             anchors {
                 fill: parent
                 margins: 5
             }
         }
 
-        SymbolLayout {
-            inputPanel: root
-            visible: InputEngine.inputMode === InputEngine.Letters
-                     && InputEngine.symbolMode
-            anchors {
-                fill: parent
-                margins: 5
-            }
-        }
+        Connections {
+            target: InputEngine
 
-        DigitsLayout {
-            inputPanel: root
-            visible: InputEngine.inputMode === InputEngine.DigitsOnly
-            anchors {
-                fill: parent
-                margins: 5
+            function refreshLayouts() {
+                if (InputEngine.symbolMode) {
+                    layoutLoader.setSource("SymbolLayout.qml", {
+                                               "inputPanel": root
+                                           })
+                } else if (InputEngine.inputMode === InputEngine.DigitsOnly) {
+                    layoutLoader.setSource("DigitsLayout.qml", {
+                                               "inputPanel": root
+                                           })
+                } else {
+                    loadLettersLayout()
+                }
             }
+
+            onInputModeChanged: refreshLayouts()
+            onIsSymbolModeChanged: refreshLayouts()
         }
     }
 }
