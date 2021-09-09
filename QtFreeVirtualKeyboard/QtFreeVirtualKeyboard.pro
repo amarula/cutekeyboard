@@ -8,17 +8,17 @@ TEMPLATE = lib
 SOURCES += \
     EnterKeyAction.cpp \
     EnterKeyActionAttachedType.cpp \
+    InputPanelIface.cpp \
     VirtualKeyboardInputContextPlugin.cpp \
     VirtualKeyboardInputContext.cpp \
-    inputpaneliface.cpp \
     DeclarativeInputEngine.cpp
 
 HEADERS += \
     EnterKeyAction.hpp \
     EnterKeyActionAttachedType.hpp \
+    InputPanelIface.hpp \
     VirtualKeyboardInputContextPlugin.h \
     VirtualKeyboardInputContext.h \
-    inputpaneliface.hpp \
     DeclarativeInputEngine.h
 
 RESOURCES += \

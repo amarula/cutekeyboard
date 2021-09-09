@@ -1,4 +1,4 @@
-#include "inputpaneliface.hpp"
+#include "InputPanelIface.hpp"
 
 struct InputPanelIface::InputPanelIfacePrivate
 {

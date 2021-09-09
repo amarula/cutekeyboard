@@ -3,7 +3,7 @@
 #include "DeclarativeInputEngine.h"
 #include "EnterKeyAction.hpp"
 #include "EnterKeyActionAttachedType.hpp"
-#include "inputpaneliface.hpp"
+#include "InputPanelIface.hpp"
 
 #include <private/qquickflickable_p.h>
 
