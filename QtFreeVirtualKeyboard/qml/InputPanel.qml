@@ -64,7 +64,7 @@ Item {
 
         QwertyLayout {
             inputPanel: root
-            visible: InputEngine.inputMode === InputEngine.Qwerty
+            visible: InputEngine.inputMode === InputEngine.Letters
                      && !InputEngine.symbolMode
             anchors {
                 fill: parent
@@ -74,7 +74,7 @@ Item {
 
         SymbolLayout {
             inputPanel: root
-            visible: InputEngine.inputMode === InputEngine.Qwerty
+            visible: InputEngine.inputMode === InputEngine.Letters
                      && InputEngine.symbolMode
             anchors {
                 fill: parent

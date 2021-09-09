@@ -146,11 +146,11 @@ void VirtualKeyboardInputContext::setFocusObject(QObject *object)
         d->InputEngine->setSymbolMode(false);
         d->InputEngine->setUppercase(false);
     } else if (InputMethodHints & NumericInputHints) {
-        d->InputEngine->setInputMode(DeclarativeInputEngine::Qwerty);
+        d->InputEngine->setInputMode(DeclarativeInputEngine::Letters);
         d->InputEngine->setSymbolMode(true);
         d->InputEngine->setUppercase(false);
     } else {
-        d->InputEngine->setInputMode(DeclarativeInputEngine::Qwerty);
+        d->InputEngine->setInputMode(DeclarativeInputEngine::Letters);
         d->InputEngine->setSymbolMode(false);
         d->InputEngine->setUppercase(false);
     }

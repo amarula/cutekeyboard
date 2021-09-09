@@ -38,7 +38,7 @@ public:
     /**
      * The InputMode enum provides a list of valid input modes
      */
-    enum InputMode { Qwerty, DigitsOnly };
+    enum InputMode { Letters, DigitsOnly };
     Q_ENUMS(InputMode)
 
     /**
