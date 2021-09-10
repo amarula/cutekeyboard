@@ -116,7 +116,7 @@ ColumnLayout {
         }
         Key {
             key: Qt.Key_Ntilde
-            text: "ñ"
+            btnText: "ñ"
         }
         EnterKey {
             weight: 283
@@ -173,7 +173,7 @@ ColumnLayout {
         }
         Key {
             key: Qt.Key_Minus
-            text: "-"
+            btnText: "-"
         }
         ShiftKey {
             weight: 204
