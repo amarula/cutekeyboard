@@ -20,36 +20,43 @@ ColumnLayout {
         Key {
             btnKey: Qt.Key_E
             btnText: "e"
+            alternativeKeys: "êëèé"
             inputPanelRef: inputPanel
         }
         Key {
             btnKey: Qt.Key_R
             btnText: "r"
+            alternativeKeys: "ŕř"
             inputPanelRef: inputPanel
         }
         Key {
             btnKey: Qt.Key_T
             btnText: "t"
+            alternativeKeys: "ţŧť"
             inputPanelRef: inputPanel
         }
         Key {
             btnKey: Qt.Key_Y
             btnText: "y"
+            alternativeKeys: "ÿýŷ"
             inputPanelRef: inputPanel
         }
         Key {
             btnKey: Qt.Key_U
             btnText: "u"
+            alternativeKeys: "űūũûüùú"
             inputPanelRef: inputPanel
         }
         Key {
             btnKey: Qt.Key_I
             btnText: "i"
+            alternativeKeys: "îïīĩìí"
             inputPanelRef: inputPanel
         }
         Key {
             btnKey: Qt.Key_O
             btnText: "o"
+            alternativeKeys: "œøõôöòó"
             inputPanelRef: inputPanel
         }
         Key {
@@ -72,16 +79,19 @@ ColumnLayout {
         Key {
             btnKey: Qt.Key_A
             btnText: "a"
+            alternativeKeys: "äåãâàá"
             inputPanelRef: inputPanel
         }
         Key {
             btnKey: Qt.Key_S
             btnText: "s"
+            alternativeKeys: "šşś"
             inputPanelRef: inputPanel
         }
         Key {
             btnKey: Qt.Key_D
             btnText: "d"
+            alternativeKeys: "đď"
             inputPanelRef: inputPanel
         }
         Key {
@@ -92,6 +102,7 @@ ColumnLayout {
         Key {
             btnKey: Qt.Key_G
             btnText: "g"
+            alternativeKeys: "ġģĝğ"
             inputPanelRef: inputPanel
         }
         Key {
@@ -112,6 +123,7 @@ ColumnLayout {
         Key {
             btnKey: Qt.Key_L
             btnText: "l"
+            alternativeKeys: "ĺŀłļľ"
             inputPanelRef: inputPanel
         }
         EnterKey {
@@ -125,6 +137,7 @@ ColumnLayout {
         Key {
             btnKey: Qt.Key_Z
             btnText: "z"
+            alternativeKeys: "žż"
             inputPanelRef: inputPanel
         }
         Key {
@@ -135,6 +148,7 @@ ColumnLayout {
         Key {
             btnKey: Qt.Key_C
             btnText: "c"
+            alternativeKeys: "çċčć"
             inputPanelRef: inputPanel
         }
         Key {
@@ -150,6 +164,7 @@ ColumnLayout {
         Key {
             btnKey: Qt.Key_N
             btnText: "n"
+            alternativeKeys: "ņńň"
             inputPanelRef: inputPanel
         }
         Key {

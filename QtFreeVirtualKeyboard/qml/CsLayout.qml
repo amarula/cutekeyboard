@@ -20,36 +20,43 @@ ColumnLayout {
         Key {
             btnKey: Qt.Key_E
             btnText: "e"
+            alternativeKeys: "éě"
             inputPanelRef: inputPanel
         }
         Key {
             btnKey: Qt.Key_R
             btnText: "r"
+            alternativeKeys: "ř"
             inputPanelRef: inputPanel
         }
         Key {
             btnKey: Qt.Key_T
             btnText: "t"
+            alternativeKeys: "ť"
             inputPanelRef: inputPanel
         }
         Key {
             btnKey: Qt.Key_Z
             btnText: "z"
+            alternativeKeys: "ž"
             inputPanelRef: inputPanel
         }
         Key {
             btnKey: Qt.Key_U
             btnText: "u"
+            alternativeKeys: "úů"
             inputPanelRef: inputPanel
         }
         Key {
             btnKey: Qt.Key_I
             btnText: "i"
+            alternativeKeys: "í"
             inputPanelRef: inputPanel
         }
         Key {
             btnKey: Qt.Key_O
             btnText: "o"
+            alternativeKeys: "óö"
             inputPanelRef: inputPanel
         }
         Key {
@@ -72,16 +79,19 @@ ColumnLayout {
         Key {
             btnKey: Qt.Key_A
             btnText: "a"
+            alternativeKeys: "åäá"
             inputPanelRef: inputPanel
         }
         Key {
             btnKey: Qt.Key_S
             btnText: "s"
+            alternativeKeys: "š"
             inputPanelRef: inputPanel
         }
         Key {
             btnKey: Qt.Key_D
             btnText: "d"
+            alternativeKeys: "ď"
             inputPanelRef: inputPanel
         }
         Key {
@@ -125,6 +135,7 @@ ColumnLayout {
         Key {
             btnKey: Qt.Key_Y
             btnText: "y"
+            alternativeKeys: "ý"
             inputPanelRef: inputPanel
         }
         Key {
@@ -135,6 +146,7 @@ ColumnLayout {
         Key {
             btnKey: Qt.Key_C
             btnText: "c"
+            alternativeKeys: "ćč"
             inputPanelRef: inputPanel
         }
         Key {
@@ -150,6 +162,7 @@ ColumnLayout {
         Key {
             btnKey: Qt.Key_N
             btnText: "n"
+            alternativeKeys: "ń"
             inputPanelRef: inputPanel
         }
         Key {

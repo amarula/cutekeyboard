@@ -82,6 +82,7 @@ ColumnLayout {
         Key {
             btnKey: Qt.Key_S
             btnText: "s"
+            alternativeKeys: "ß"
             inputPanelRef: inputPanel
         }
         Key {

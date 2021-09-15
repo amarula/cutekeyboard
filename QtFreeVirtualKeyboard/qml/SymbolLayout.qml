@@ -257,6 +257,7 @@ Item {
             Key {
                 btnKey: Qt.Key_onehalf
                 btnText: "½"
+                alternativeKeys: "¼⅓¾⅞"
                 inputPanelRef: inputPanel
             }
             Key {

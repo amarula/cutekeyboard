@@ -20,6 +20,7 @@ Loader {
                 }
                 Key {
                     btnText: "ε"
+                    alternativeKeys: "έ"
                     inputPanelRef: inputPanel
                 }
                 Key {
@@ -36,6 +37,7 @@ Loader {
                 }
                 Key {
                     btnText: "υ"
+                    alternativeKeys: "ύϋΰ"
                     inputPanelRef: inputPanel
                 }
                 Key {
@@ -44,10 +46,12 @@ Loader {
                 }
                 Key {
                     btnText: "ι"
+                    alternativeKeys: "ίϊΐ"
                     inputPanelRef: inputPanel
                 }
                 Key {
                     btnText: "ο"
+                    alternativeKeys: "ό"
                     inputPanelRef: inputPanel
                 }
                 Key {
@@ -68,6 +72,7 @@ Loader {
                 }
                 Key {
                     btnText: "α"
+                    alternativeKeys: "ά"
                     inputPanelRef: inputPanel
                 }
                 Key {
@@ -88,6 +93,7 @@ Loader {
                 }
                 Key {
                     btnText: "η"
+                    alternativeKeys: "ή"
                     inputPanelRef: inputPanel
                 }
                 Key {
@@ -130,6 +136,7 @@ Loader {
                 }
                 Key {
                     btnText: "ω"
+                    alternativeKeys: "ώ"
                     inputPanelRef: inputPanel
                 }
                 Key {
@@ -152,6 +159,7 @@ Loader {
                 Key {
                     btnKey: Qt.Key_Period
                     btnText: "."
+                    alternativeKeys: "!.;?"
                     inputPanelRef: inputPanel
                 }
                 ShiftKey {
@@ -198,36 +206,43 @@ Loader {
                 Key {
                     btnKey: Qt.Key_E
                     btnText: "e"
+                    alternativeKeys: "êëèé"
                     inputPanelRef: inputPanel
                 }
                 Key {
                     btnKey: Qt.Key_R
                     btnText: "r"
+                    alternativeKeys: "ŕř"
                     inputPanelRef: inputPanel
                 }
                 Key {
                     btnKey: Qt.Key_T
                     btnText: "t"
+                    alternativeKeys: "ţŧť"
                     inputPanelRef: inputPanel
                 }
                 Key {
                     btnKey: Qt.Key_Y
                     btnText: "y"
+                    alternativeKeys: "ÿýŷ"
                     inputPanelRef: inputPanel
                 }
                 Key {
                     btnKey: Qt.Key_U
                     btnText: "u"
+                    alternativeKeys: "űūũûüùú"
                     inputPanelRef: inputPanel
                 }
                 Key {
                     btnKey: Qt.Key_I
                     btnText: "i"
+                    alternativeKeys: "îïīĩìí"
                     inputPanelRef: inputPanel
                 }
                 Key {
                     btnKey: Qt.Key_O
                     btnText: "o"
+                    alternativeKeys: "œøõôöòó"
                     inputPanelRef: inputPanel
                 }
                 Key {
@@ -250,16 +265,19 @@ Loader {
                 Key {
                     btnKey: Qt.Key_A
                     btnText: "a"
+                    alternativeKeys: "äåãâàá"
                     inputPanelRef: inputPanel
                 }
                 Key {
                     btnKey: Qt.Key_S
                     btnText: "s"
+                    alternativeKeys: "šşś"
                     inputPanelRef: inputPanel
                 }
                 Key {
                     btnKey: Qt.Key_D
                     btnText: "d"
+                    alternativeKeys: "đď"
                     inputPanelRef: inputPanel
                 }
                 Key {
@@ -270,6 +288,7 @@ Loader {
                 Key {
                     btnKey: Qt.Key_G
                     btnText: "g"
+                    alternativeKeys: "ġģĝğ"
                     inputPanelRef: inputPanel
                 }
                 Key {
@@ -290,6 +309,7 @@ Loader {
                 Key {
                     btnKey: Qt.Key_L
                     btnText: "l"
+                    alternativeKeys: "ĺŀłļľ"
                     inputPanelRef: inputPanel
                 }
                 EnterKey {
@@ -309,6 +329,7 @@ Loader {
                 Key {
                     btnKey: Qt.Key_Z
                     btnText: "z"
+                    alternativeKeys: "žż"
                     inputPanelRef: inputPanel
                 }
                 Key {
@@ -319,6 +340,7 @@ Loader {
                 Key {
                     btnKey: Qt.Key_C
                     btnText: "c"
+                    alternativeKeys: "çċčć"
                     inputPanelRef: inputPanel
                 }
                 Key {
@@ -334,6 +356,7 @@ Loader {
                 Key {
                     btnKey: Qt.Key_N
                     btnText: "n"
+                    alternativeKeys: "ņńň"
                     inputPanelRef: inputPanel
                 }
                 Key {
