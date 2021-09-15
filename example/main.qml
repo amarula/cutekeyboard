@@ -77,7 +77,7 @@ Window {
         anchors.left: parent.left
         anchors.right: parent.right
 
-        languageLayout: "El"
+        languageLayout: "It"
 
         states: State {
             name: "visible"
