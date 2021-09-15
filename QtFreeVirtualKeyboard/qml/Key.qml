@@ -21,6 +21,8 @@ Button {
 
     property string btnIcon: ""
 
+    property var alternativeKeys: []
+
     property var inputPanelRef
 
     property alias repeatable: key.autoRepeat
@@ -67,13 +69,38 @@ Button {
         }
     }
 
+    Timer {
+        id: longPressTimer
+
+        interval: 800
+        repeat: false
+        running: false
+
+        onTriggered: {
+            enabled = false
+            inputPanelRef.hideKeyPopup()
+            inputPanelRef.showAlternativesKeyPopup(key)
+            enabled = true
+        }
+    }
+
     onPressed: {
         if (inputPanelRef !== null && showPreview) {
             inputPanelRef.showKeyPopup(key)
         }
     }
 
-    onPressedChanged: pressed ? opacity = 0.7 : opacity = 1
+    onPressedChanged: {
+        if (pressed) {
+            opacity = 0.7
+            if (alternativeKeys.length > 0) {
+                longPressTimer.running = true
+            }
+        } else {
+            opacity = 1
+            longPressTimer.running = false
+        }
+    }
 
     onReleased: {
         if (!functionKey) {

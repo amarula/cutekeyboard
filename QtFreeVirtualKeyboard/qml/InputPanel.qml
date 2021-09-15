@@ -27,9 +27,22 @@ Item {
     height: width / 4
 
     onYChanged: InputEngine.setKeyboardRectangle(Qt.rect(x, y, width, height))
+    onActiveChanged: {
+        if (alternativesKeyPopup.visible && !active) {
+            alternativesKeyPopup.visible = false
+        }
+    }
 
     function showKeyPopup(keyButton) {
         keyPopup.popup(keyButton, root)
+    }
+
+    function hideKeyPopup() {
+        keyPopup.visible = false
+    }
+
+    function showAlternativesKeyPopup(keyButton) {
+        alternativesKeyPopup.open(keyButton, root)
     }
 
     function loadLettersLayout() {
@@ -69,6 +82,23 @@ Item {
         popupTextFont: btnTextFontFamily
         visible: false
         z: 100
+    }
+
+    AlternativeKeysPopup {
+        id: alternativesKeyPopup
+
+        visible: false
+        z: 100
+    }
+
+    MouseArea {
+        id: alternativesKeyPopupMouseArea
+
+        visible: alternativesKeyPopup.visible
+        enabled: visible
+        anchors.fill: parent
+        propagateComposedEvents: false
+        z: 99
     }
 
     Rectangle {
