@@ -202,8 +202,8 @@ Item {
                 inputPanelRef: inputPanel
             }
             Key {
-                btnKey: Qt.Key_Apostrophe
-                btnText: "'"
+                btnKey: Qt.Key_Period
+                btnText: "."
                 inputPanelRef: inputPanel
             }
             HideKey {
@@ -404,8 +404,8 @@ Item {
                 inputPanelRef: inputPanel
             }
             Key {
-                btnKey: Qt.Key_Apostrophe
-                btnText: "'"
+                btnKey: Qt.Key_Period
+                btnText: "."
                 inputPanelRef: inputPanel
             }
             HideKey {
