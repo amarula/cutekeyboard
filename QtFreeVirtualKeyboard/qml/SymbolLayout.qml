@@ -235,7 +235,7 @@ Item {
                 inputPanelRef: inputPanel
             }
             Key {
-                btnKey: 0x7B
+                btnKey: Qt.Key_periodcentered
                 btnText: "·"
                 inputPanelRef: inputPanel
             }
