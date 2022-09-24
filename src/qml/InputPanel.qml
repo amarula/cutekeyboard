@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQml 2.0
 
-import FreeVirtualKeyboard 1.0
+import CuteKeyboard 1.0
 
 Item {
     id: root

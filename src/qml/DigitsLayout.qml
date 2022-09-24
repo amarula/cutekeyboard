@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.12
 
-import FreeVirtualKeyboard 1.0
+import CuteKeyboard 1.0
 
 ColumnLayout {
 

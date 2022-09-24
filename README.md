@@ -1,31 +1,41 @@
-# QtFreeVirtualKeyboard
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-QtFreeVirtualKeyboard is a Qt virtual keyboard plugin for embedded applications.
+# CuteKeyboard
+
+CuteKeyboard is a Qt virtual keyboard plugin for embedded applications.
 
 ## Installation
 
 Download the repository, build and install the plugin.
 
 ```bash
-git clone https://github.com/amarula/QtFreeVirtualKeyboard.git
 mkdir build && cd build
-qmake ../VirtualKeyboard
+qmake ..
 make -j4
 make install
 ```
 
+## Examples
+
+```bash
+mkdir build && cd build
+qmake .. CONFIG+=BUILD_EXAMPLES
+make -j4
+make 
+```
+
 ## Usage
 
-In the `main.cpp` add the `freevirtualkeyboard` plugin.
+In the `main.cpp` add the `cutekeyboard` plugin.
 
 ```c++
-qputenv("QT_IM_MODULE", QByteArray("freevirtualkeyboard"));
+qputenv("QT_IM_MODULE", QByteArray("cutekeyboard"));
 ```
 
 In the `main.qml` insert the keyboard component
 
 ```javascript
-import QtQuick.FreeVirtualKeyboard 1.0
+import QtQuick.CuteKeyboard 1.0
 
 ...
 
@@ -63,6 +73,3 @@ InputPanel {
 ## Authors
  * **Uwe Kindler** - *Initial work* - [githubuser0xFFFF](https://github.com/githubuser0xFFFF)
  * **Andrea Ricchi** - *Maintainer* - [AndreaRicchi](https://github.com/AndreaRicchi)
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)

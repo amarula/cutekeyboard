@@ -2,7 +2,7 @@ QT += qml quick quick-private gui-private
 
 CONFIG += plugin
 
-TARGET = freevirtualkeyboardplugin
+TARGET = cutekeyboardplugin
 TEMPLATE = lib
 
 SOURCES += \
@@ -35,5 +35,5 @@ INSTALLS += \
     deployment
 
 deployment.files = $$QML_FILES
-deployment.path = $$[QT_INSTALL_QML]/QtQuick/FreeVirtualKeyboard
+deployment.path = $$[QT_INSTALL_QML]/QtQuick/CuteKeyboard
 target.path = $$[QT_INSTALL_PLUGINS]/platforminputcontexts
