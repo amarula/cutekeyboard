@@ -1,5 +1,7 @@
 import QtQuick 2.0
 
+import CuteKeyboard 1.0
+
 Item {
     id: root
 
@@ -73,7 +75,8 @@ Item {
             x = PopupLeft
         }
 
-        text = keybutton.btnText
+        text = InputEngine.uppercase ? keybutton.btnText.toUpperCase(
+                                           ) : keybutton.btnText
         font.family = keybutton.font.family
         visible = Qt.binding(function () {
             return keybutton.pressed
