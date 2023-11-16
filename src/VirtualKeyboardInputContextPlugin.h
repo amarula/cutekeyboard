@@ -12,21 +12,21 @@
 #ifndef VIRTUALKEYBOARDINPUTCONTEXTPLUGIN_H
 #define VIRTUALKEYBOARDINPUTCONTEXTPLUGIN_H
 
-#include "virtualkeyboard_global.h"
-
 #include <qpa/qplatforminputcontextplugin_p.h>
+
+#include "virtualkeyboard_global.h"
 
 /**
  * Implementation of QPlatformInputContextPlugin
  */
-class VirtualKeyboardInputContextPlugin : public QPlatformInputContextPlugin
-{
+class VirtualKeyboardInputContextPlugin : public QPlatformInputContextPlugin {
     Q_OBJECT
 
-    Q_PLUGIN_METADATA(IID QPlatformInputContextFactoryInterface_iid FILE "cutekeyboard.json")
+    Q_PLUGIN_METADATA(IID QPlatformInputContextFactoryInterface_iid FILE
+                      "cutekeyboard.json")
 
-public:
+   public:
     QPlatformInputContext *create(const QString &, const QStringList &);
 };
 
-#endif // VIRTUALKEYBOARDINPUTCONTEXTPLUGIN_H
+#endif  // VIRTUALKEYBOARDINPUTCONTEXTPLUGIN_H

@@ -23,13 +23,12 @@ class VirtualKeyboardInputContextPrivate;
 /**
  * Implementation of QPlatformInputContext
  */
-class VirtualKeyboardInputContext : public QPlatformInputContext
-{
+class VirtualKeyboardInputContext : public QPlatformInputContext {
     Q_OBJECT
 
     Q_PROPERTY(QObject *inputItem READ inputItem NOTIFY inputItemChanged)
 
-public:
+   public:
     /**
      * Virtual destructor
      */
@@ -60,7 +59,8 @@ public:
 
     /**
      * Returns input panel visibility status.
-     * This value will be available in QGuiApplication::inputMethod()->isVisible()
+     * This value will be available in
+     * QGuiApplication::inputMethod()->isVisible()
      */
     virtual bool isInputPanelVisible() const;
 
@@ -96,43 +96,46 @@ public:
      */
     Q_INVOKABLE bool focusItemHasEnterKeyAction(QObject *item) const;
 
-protected:
+   protected:
     /**
      * Protected constructor - use instance function to get the one and only
      * object
      */
     VirtualKeyboardInputContext();
 
-signals:
+   signals:
     void inputItemChanged();
 
-private slots:
+   private slots:
     /**
      * This function scrolls the QML item into visible area if the focused
      * QML item is child of a flickable
      */
     void ensureFocusedObjectVisible();
 
-private:
+   private:
     /**
      * The input contet creates the InputEngine object and provides it
      * as a singleton to the QML context
      */
-    static QObject *inputEngineProvider(QQmlEngine *engine, QJSEngine *scriptEngine);
+    static QObject *inputEngineProvider(QQmlEngine *engine,
+                                        QJSEngine *scriptEngine);
 
     /**
      * The input contet creates the InputPanel object and provides it
      * as a singleton to the QML context
      */
-    static QObject *inputPanelProvider(QQmlEngine *engine, QJSEngine *scriptEngine);
+    static QObject *inputPanelProvider(QQmlEngine *engine,
+                                       QJSEngine *scriptEngine);
 
     /**
      * The input contet creates the InputContext object and provides it
      * as a singleton to the QML context
      */
-    static QObject *inputContextProvider(QQmlEngine *engine, QJSEngine *scriptEngine);
+    static QObject *inputContextProvider(QQmlEngine *engine,
+                                         QJSEngine *scriptEngine);
 
     VirtualKeyboardInputContextPrivate *d;
 };
 
-#endif // VIRTUALKEYBOARDINPUTCONTEXT_H
+#endif  // VIRTUALKEYBOARDINPUTCONTEXT_H

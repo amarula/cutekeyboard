@@ -22,8 +22,7 @@ struct DeclarativeInputEnginePrivate;
  * for routing input events to focused QML items.
  * The InputEngine can be accessed as singleton instance from QML
  */
-class DeclarativeInputEngine : public QObject
-{
+class DeclarativeInputEngine : public QObject {
     Q_OBJECT
 
     // clang-format off
@@ -34,7 +33,7 @@ class DeclarativeInputEngine : public QObject
     Q_PROPERTY(bool symbolMode READ isSymbolMode WRITE setSymbolMode NOTIFY isSymbolModeChanged)
     // clang-format on
 
-public:
+   public:
     /**
      * The InputLayouts enum provides a list of valid input layouts
      */
@@ -93,20 +92,21 @@ public:
 
     Q_INVOKABLE bool inputLayoutValid(const QString &layout) const;
 
-public slots:
+   public slots:
     /**
      * Emits a key click event for the given key, text and modifiers.
      * Returns true if the key event was accepted by the input engine.
      * \note Not implemented yet and not used yet
      */
-    bool virtualKeyClick(Qt::Key key, const QString &text, Qt::KeyboardModifiers modifiers);
+    bool virtualKeyClick(Qt::Key key, const QString &text,
+                         Qt::KeyboardModifiers modifiers);
 
     /**
      * Reports the active keyboard rectangle to the engine
      */
     void setKeyboardRectangle(const QRect &Rect);
 
-signals:
+   signals:
     /**
      * Notify signal of keyboardRectangle property
      */
@@ -125,13 +125,13 @@ signals:
     void isUppercaseChanged();
     void isSymbolModeChanged();
 
-private:
+   private:
     DeclarativeInputEnginePrivate *d;
 
     friend struct DeclarativeInputEnginePrivate;
 
-private slots:
+   private slots:
     void animatingFinished();
 };
 
-#endif // DECLARATIVEINPUTENGINE_H
+#endif  // DECLARATIVEINPUTENGINE_H

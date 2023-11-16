@@ -2,7 +2,7 @@
 
 #include "EnterKeyActionAttachedType.hpp"
 
-EnterKeyActionAttachedType *EnterKeyAction::qmlAttachedProperties(QObject *object)
-{
+EnterKeyActionAttachedType *EnterKeyAction::qmlAttachedProperties(
+    QObject *object) {
     return new EnterKeyActionAttachedType(object);
 }

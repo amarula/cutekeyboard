@@ -5,10 +5,10 @@
 #include <QObject>
 
 /*!
- * \brief The InputPanelIface class contains properties shared between the keyboards component.
+ * \brief The InputPanelIface class contains properties shared between the
+ * keyboards component.
  */
-class InputPanelIface : public QObject
-{
+class InputPanelIface : public QObject {
     Q_OBJECT
 
     // clang-format off
@@ -24,7 +24,7 @@ class InputPanelIface : public QObject
     Q_PROPERTY(QString hideKeyboardIcon READ hideKeyboardIcon WRITE setHideKeyboardIcon NOTIFY hideKeyboardIconChanged)
     // clang-format on
 
-public:
+   public:
     explicit InputPanelIface(QObject *parent = nullptr);
     ~InputPanelIface();
 
@@ -58,7 +58,7 @@ public:
     QString hideKeyboardIcon() const;
     void setHideKeyboardIcon(const QString &hideKeyboardIcon);
 
-signals:
+   signals:
     void backgroundColorChanged();
     void btnBackgroundColorChanged();
     void btnSpecialBackgroundColorChanged();
@@ -70,9 +70,9 @@ signals:
     void shiftOffIconChanged();
     void hideKeyboardIconChanged();
 
-private:
+   private:
     struct InputPanelIfacePrivate;
     InputPanelIfacePrivate *pimpl;
 };
 
-#endif // INPUTPANELIFACE_HPP
+#endif  // INPUTPANELIFACE_HPP
