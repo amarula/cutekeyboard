@@ -127,8 +127,12 @@ Item {
             }
 
             target: InputEngine
-            onInputModeChanged: refreshLayouts()
-            onIsSymbolModeChanged: refreshLayouts()
+            function onInputModeChanged() {
+                refreshLayouts()
+            }
+            function onIsSymbolModeChanged() {
+                refreshLayouts()
+            }
         }
 
     }
