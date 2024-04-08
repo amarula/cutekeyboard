@@ -9,6 +9,6 @@ Key {
     btnText: "\n"
     btnDisplayedText: InputPanel.enterIcon === "" ? "Enter" : ""
     btnIcon: InputPanel.enterIcon === "" ? "" : InputPanel.enterIcon
-    enabled: InputContext.inputItem?.EnterKeyAction.enabled ?? true
+    enabled: InputContext.inputItem ? InputContext.inputItem.EnterKeyAction.enabled : true
     opacity: enabled ? 1 : 0.5
 }
