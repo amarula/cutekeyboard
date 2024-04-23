@@ -171,6 +171,7 @@ Item {
             Key {
                 btnKey: Qt.Key_Exclam
                 btnText: "!"
+                alternativeKeys: "¡"
                 inputPanelRef: inputPanel
             }
 
@@ -219,6 +220,7 @@ Item {
             Key {
                 btnKey: Qt.Key_Question
                 btnText: "?"
+                alternativeKeys: "¿"
                 inputPanelRef: inputPanel
             }
 
