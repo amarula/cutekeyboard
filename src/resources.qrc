@@ -4,5 +4,6 @@
         <file>icons/caps-lock-off.png</file>
         <file>icons/caps-lock-on.png</file>
         <file>icons/hide-arrow.png</file>
+        <file>icons/language.png</file>
     </qresource>
 </RCC>

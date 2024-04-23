@@ -11,6 +11,9 @@ struct InputPanelIface::InputPanelIfacePrivate {
     QString shiftOnIcon{};
     QString shiftOffIcon{};
     QString hideKeyboardIcon{};
+    QString languageIcon{};
+    QStringList availableLanguageLayouts{};
+    QString languageLayout{};
 };
 
 InputPanelIface::InputPanelIface(QObject *parent)
@@ -120,5 +123,37 @@ void InputPanelIface::setHideKeyboardIcon(const QString &hideKeyboardIcon) {
     if (pimpl->hideKeyboardIcon != hideKeyboardIcon) {
         pimpl->hideKeyboardIcon = hideKeyboardIcon;
         emit hideKeyboardIconChanged();
+    }
+}
+
+QString InputPanelIface::languageIcon() const { return pimpl->languageIcon; }
+
+void InputPanelIface::setLanguageIcon(const QString &languageIcon) {
+    if (pimpl->languageIcon != languageIcon) {
+        pimpl->languageIcon = languageIcon;
+        emit languageIconChanged();
+    }
+}
+
+QStringList InputPanelIface::availableLanguageLayouts() const {
+    return pimpl->availableLanguageLayouts;
+}
+
+void InputPanelIface::setAvailableLanguageLayouts(
+    const QStringList &availableLanguageLayouts) {
+    if (pimpl->availableLanguageLayouts != availableLanguageLayouts) {
+        pimpl->availableLanguageLayouts = availableLanguageLayouts;
+        emit availableLanguageLayoutsChanged();
+    }
+}
+
+QString InputPanelIface::languageLayout() const {
+    return pimpl->languageLayout;
+}
+
+void InputPanelIface::setLanguageLayout(const QString &languageLayout) {
+    if (pimpl->languageLayout != languageLayout) {
+        pimpl->languageLayout = languageLayout;
+        emit languageLayoutChanged();
     }
 }

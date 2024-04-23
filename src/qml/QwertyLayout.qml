@@ -70,7 +70,6 @@ ColumnLayout {
         BackspaceKey {
             inputPanelRef: inputPanel
         }
-
     }
 
     RowLayout {
@@ -141,14 +140,12 @@ ColumnLayout {
             weight: 283
             inputPanelRef: inputPanel
         }
-
     }
 
     RowLayout {
         property real keyWeight: 156
 
-        ShiftKey {
-        }
+        ShiftKey {}
 
         Key {
             btnKey: Qt.Key_Z
@@ -207,14 +204,18 @@ ColumnLayout {
         ShiftKey {
             weight: 204
         }
-
     }
 
     RowLayout {
         property real keyWeight: 154
 
         SymbolKey {
-            weight: 217
+            weight: availableLanguageLayouts.length === 1 ? 217 : 108.5
+        }
+
+        LanguageKey {
+            visible: availableLanguageLayouts.length > 1
+            weight: 108.5
         }
 
         SpaceKey {
@@ -231,7 +232,5 @@ ColumnLayout {
         HideKey {
             weight: 205
         }
-
     }
-
 }
