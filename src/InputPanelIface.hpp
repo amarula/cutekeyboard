@@ -22,6 +22,9 @@ class InputPanelIface : public QObject {
     Q_PROPERTY(QString shiftOnIcon READ shiftOnIcon WRITE setShiftOnIcon NOTIFY shiftOnIconChanged)
     Q_PROPERTY(QString shiftOffIcon READ shiftOffIcon WRITE setShiftOffIcon NOTIFY shiftOffIconChanged)
     Q_PROPERTY(QString hideKeyboardIcon READ hideKeyboardIcon WRITE setHideKeyboardIcon NOTIFY hideKeyboardIconChanged)
+    Q_PROPERTY(QString languageIcon READ languageIcon WRITE setLanguageIcon NOTIFY languageIconChanged)
+    Q_PROPERTY(QStringList availableLanguageLayouts READ availableLanguageLayouts WRITE setAvailableLanguageLayouts NOTIFY availableLanguageLayoutsChanged)
+    Q_PROPERTY(QString languageLayout READ languageLayout WRITE setLanguageLayout NOTIFY languageLayoutChanged FINAL)
     // clang-format on
 
    public:
@@ -58,6 +61,15 @@ class InputPanelIface : public QObject {
     QString hideKeyboardIcon() const;
     void setHideKeyboardIcon(const QString &hideKeyboardIcon);
 
+    QString languageIcon() const;
+    void setLanguageIcon(const QString &languageIcon);
+
+    QStringList availableLanguageLayouts() const;
+    void setAvailableLanguageLayouts(const QStringList &availableLanguageLayouts);
+
+    QString languageLayout() const;
+    void setLanguageLayout(const QString &languageIcon);
+
    signals:
     void backgroundColorChanged();
     void btnBackgroundColorChanged();
@@ -69,6 +81,9 @@ class InputPanelIface : public QObject {
     void shiftOnIconChanged();
     void shiftOffIconChanged();
     void hideKeyboardIconChanged();
+    void languageIconChanged();
+    void availableLanguageLayoutsChanged();
+    void languageLayoutChanged();
 
    private:
     struct InputPanelIfacePrivate;
