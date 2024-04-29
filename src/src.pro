@@ -34,6 +34,11 @@ INSTALLS += \
     target \
     deployment
 
+!defined(INSTALL_PREFIX, var):INSTALL_PREFIX = $$[QT_INSTALL_PREFIX]
+
+INSTALL_QML = $$INSTALL_PREFIX/$$relative_path($$[QT_INSTALL_QML], $$[QT_INSTALL_PREFIX])
+INSTALL_PLUGINS = $$INSTALL_PREFIX/$$relative_path($$[QT_INSTALL_PLUGINS], $$[QT_INSTALL_PREFIX])
+
 deployment.files = $$QML_FILES
-deployment.path = $$[QT_INSTALL_QML]/QtQuick/CuteKeyboard
-target.path = $$[QT_INSTALL_PLUGINS]/platforminputcontexts
+deployment.path = $$INSTALL_QML/QtQuick/CuteKeyboard
+target.path = $$INSTALL_PLUGINS/platforminputcontexts
