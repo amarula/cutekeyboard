@@ -101,6 +101,7 @@ Window {
         anchors.left: parent.left
         anchors.right: parent.right
         languageLayout: "It"
+        availableLanguageLayouts: ["It", "En"]
 
         states: State {
             name: "visible"

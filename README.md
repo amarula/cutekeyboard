@@ -16,13 +16,22 @@ make -j4
 make install
 ```
 
+### Custom Installation
+
+```bash
+mkdir build && cd build
+qmake .. INSTALL_PREFIX=/home/custom_dir/custom_root
+make -j4
+make install
+```
+
 ## Examples
 
 ```bash
 mkdir build && cd build
 qmake .. CONFIG+=BUILD_EXAMPLES
 make -j4
-make 
+make install
 ```
 
 ## Usage

@@ -21,26 +21,26 @@ Item {
     property var availableLanguageLayouts: ["En"]
 
     function showKeyPopup(keyButton) {
-        keyPopup.popup(keyButton, root)
+        keyPopup.popup(keyButton, root);
     }
 
     function hideKeyPopup() {
-        keyPopup.visible = false
+        keyPopup.visible = false;
     }
 
     function showAlternativesKeyPopup(keyButton) {
-        alternativesKeyPopup.open(keyButton, root)
+        alternativesKeyPopup.open(keyButton, root);
     }
 
     function loadLettersLayout() {
         if (InputEngine.inputLayoutValid(languageLayout))
             layoutLoader.setSource(languageLayout + "Layout.qml", {
-                                       "inputPanel": root
-                                   })
+            "inputPanel": root
+        });
         else
             layoutLoader.setSource("EnLayout.qml", {
-                                       "inputPanel": root
-                                   })
+            "inputPanel": root
+        });
     }
 
     objectName: "inputPanel"
@@ -49,27 +49,28 @@ Item {
     onYChanged: InputEngine.setKeyboardRectangle(Qt.rect(x, y, width, height))
     onActiveChanged: {
         if (alternativesKeyPopup.visible && !active)
-            alternativesKeyPopup.visible = false
+            alternativesKeyPopup.visible = false;
+
     }
     onLanguageLayoutChanged: loadLettersLayout()
     Component.onCompleted: {
-        if (availableLanguageLayouts.length == 0) {
-            availableLanguageLayouts = ["En"]
-        }
-        InputPanel.backgroundColor = backgroundColor
-        InputPanel.btnBackgroundColor = btnBackgroundColor
-        InputPanel.btnSpecialBackgroundColor = btnSpecialBackgroundColor
-        InputPanel.btnTextColor = btnTextColor
-        InputPanel.btnTextFontFamily = btnTextFontFamily
-        InputPanel.backspaceIcon = backspaceIcon
-        InputPanel.enterIcon = enterIcon
-        InputPanel.shiftOnIcon = shiftOnIcon
-        InputPanel.shiftOffIcon = shiftOffIcon
-        InputPanel.hideKeyboardIcon = hideKeyboardIcon
-        InputPanel.languageIcon = languageIcon
-        InputPanel.availableLanguageLayouts = availableLanguageLayouts
-        InputPanel.languageLayout = languageLayout
-        loadLettersLayout()
+        if (availableLanguageLayouts.length == 0)
+            availableLanguageLayouts = ["En"];
+
+        InputPanel.backgroundColor = backgroundColor;
+        InputPanel.btnBackgroundColor = btnBackgroundColor;
+        InputPanel.btnSpecialBackgroundColor = btnSpecialBackgroundColor;
+        InputPanel.btnTextColor = btnTextColor;
+        InputPanel.btnTextFontFamily = btnTextFontFamily;
+        InputPanel.backspaceIcon = backspaceIcon;
+        InputPanel.enterIcon = enterIcon;
+        InputPanel.shiftOnIcon = shiftOnIcon;
+        InputPanel.shiftOffIcon = shiftOffIcon;
+        InputPanel.hideKeyboardIcon = hideKeyboardIcon;
+        InputPanel.languageIcon = languageIcon;
+        InputPanel.availableLanguageLayouts = availableLanguageLayouts;
+        InputPanel.languageLayout = languageLayout;
+        loadLettersLayout();
     }
 
     KeyPopup {
@@ -116,37 +117,42 @@ Item {
                 fill: parent
                 margins: 5
             }
+
         }
 
         Connections {
             function refreshLayouts() {
                 if (InputEngine.symbolMode)
                     layoutLoader.setSource("SymbolLayout.qml", {
-                                               "inputPanel": root
-                                           })
+                    "inputPanel": root
+                });
                 else if (InputEngine.inputMode === InputEngine.DigitsOnly)
                     layoutLoader.setSource("DigitsLayout.qml", {
-                                               "inputPanel": root
-                                           })
+                    "inputPanel": root
+                });
                 else
-                    loadLettersLayout()
+                    loadLettersLayout();
+            }
+
+            function onInputModeChanged() {
+                refreshLayouts();
+            }
+
+            function onIsSymbolModeChanged() {
+                refreshLayouts();
             }
 
             target: InputEngine
-            function onInputModeChanged() {
-                refreshLayouts()
-            }
-            function onIsSymbolModeChanged() {
-                refreshLayouts()
-            }
         }
 
         Connections {
             target: InputPanel
             onLanguageLayoutChanged: {
-                languageLayout = InputPanel.languageLayout
-                loadLettersLayout()
+                languageLayout = InputPanel.languageLayout;
+                loadLettersLayout();
             }
         }
+
     }
+
 }

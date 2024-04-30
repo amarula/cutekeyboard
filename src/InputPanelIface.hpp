@@ -65,7 +65,8 @@ class InputPanelIface : public QObject {
     void setLanguageIcon(const QString &languageIcon);
 
     QStringList availableLanguageLayouts() const;
-    void setAvailableLanguageLayouts(const QStringList &availableLanguageLayouts);
+    void setAvailableLanguageLayouts(
+        const QStringList &availableLanguageLayouts);
 
     QString languageLayout() const;
     void setLanguageLayout(const QString &languageIcon);
