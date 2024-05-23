@@ -5,7 +5,9 @@ ColumnLayout {
     property var inputPanel
 
     RowLayout {
-        property real keyWeight: 160
+        Layout.fillWidth: true
+        spacing: 0
+        property real keyWeight: 100
 
         Key {
             btnKey: Qt.Key_Q
@@ -74,7 +76,9 @@ ColumnLayout {
     }
 
     RowLayout {
-        property real keyWeight: 160
+        Layout.fillWidth: true
+        spacing: 0
+        property real keyWeight: 100
 
         Key {
             weight: 56
@@ -145,7 +149,9 @@ ColumnLayout {
     }
 
     RowLayout {
-        property real keyWeight: 156
+        Layout.fillWidth: true
+        spacing: 0
+        property real keyWeight: 100
 
         ShiftKey {
         }
@@ -211,7 +217,9 @@ ColumnLayout {
     }
 
     RowLayout {
-        property real keyWeight: 154
+        Layout.fillWidth: true
+        spacing: 0
+        property real keyWeight: 100
 
         SymbolKey {
             weight: availableLanguageLayouts.length === 1 ? 217 : 108.5
@@ -219,11 +227,11 @@ ColumnLayout {
 
         LanguageKey {
             visible: availableLanguageLayouts.length > 1
-            weight: 108.5
+            weight: 200
         }
 
         SpaceKey {
-            weight: 1168
+            weight: 800
             inputPanelRef: inputPanel
         }
 

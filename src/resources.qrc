@@ -5,5 +5,17 @@
         <file>icons/caps-lock-on.png</file>
         <file>icons/hide-arrow.png</file>
         <file>icons/language.png</file>
+        <file>images/backspace.svg</file>
+        <file>images/check.svg</file>
+        <file>images/enter.svg</file>
+        <file>images/globe.svg</file>
+        <file>images/handwriting.svg</file>
+        <file>images/hidekeyboard.svg</file>
+        <file>images/search.svg</file>
+        <file>images/selectionhandle.svg</file>
+        <file>images/shift-green.svg</file>
+        <file>images/shift-grey.svg</file>
+        <file>images/shift-lightgreen.svg</file>
+        <file>images/textmode.svg</file>
     </qresource>
 </RCC>

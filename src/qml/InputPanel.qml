@@ -7,17 +7,17 @@ Item {
 
     property bool active: Qt.inputMethod.visible
     property color backgroundColor: "#000000"
-    property color btnBackgroundColor: "#808080"
-    property color btnSpecialBackgroundColor: Qt.darker("#808080")
+    property color btnBackgroundColor: "#383533"
+    property color btnSpecialBackgroundColor: "#23211E"
     property color btnTextColor: "#ffffff"
-    property string btnTextFontFamily
+    property string btnTextFontFamily: "Sans"
     property string languageLayout: "En"
-    property string backspaceIcon: "qrc:/icons/backspace.png"
-    property string enterIcon: ""
-    property string shiftOnIcon: "qrc:/icons/caps-lock-on.png"
-    property string shiftOffIcon: "qrc:/icons/caps-lock-off.png"
-    property string hideKeyboardIcon: "qrc:/icons/hide-arrow.png"
-    property string languageIcon: "qrc:/icons/language.png"
+    property string backspaceIcon: "qrc:/images/backspace.svg"
+    property string enterIcon: "qrc:/images/enter.svg"
+    property string shiftOnIcon: "qrc:/images/shift-green.svg"
+    property string shiftOffIcon: "qrc:/images/shift-grey.svg"
+    property string hideKeyboardIcon: "qrc:/images/hidekeyboard.svg"
+    property string languageIcon: "qrc:/images/globe.svg"
     property var availableLanguageLayouts: ["En"]
 
     function showKeyPopup(keyButton) {
@@ -35,17 +35,17 @@ Item {
     function loadLettersLayout() {
         if (InputEngine.inputLayoutValid(languageLayout))
             layoutLoader.setSource(languageLayout + "Layout.qml", {
-            "inputPanel": root
-        });
+                                       "inputPanel": root
+                                   });
         else
             layoutLoader.setSource("EnLayout.qml", {
-            "inputPanel": root
-        });
+                                       "inputPanel": root
+                                   });
     }
 
     objectName: "inputPanel"
     width: parent.width
-    height: width / 4
+    height: width / 3.2
     onYChanged: InputEngine.setKeyboardRectangle(Qt.rect(x, y, width, height))
     onActiveChanged: {
         if (alternativesKeyPopup.visible && !active)
@@ -54,6 +54,7 @@ Item {
     }
     onLanguageLayoutChanged: loadLettersLayout()
     Component.onCompleted: {
+
         if (availableLanguageLayouts.length == 0)
             availableLanguageLayouts = ["En"];
 
@@ -115,7 +116,10 @@ Item {
 
             anchors {
                 fill: parent
-                margins: 5
+                topMargin: 2
+                leftMargin: 35
+                rightMargin: 40
+                bottomMargin: 25
             }
 
         }
@@ -124,12 +128,12 @@ Item {
             function refreshLayouts() {
                 if (InputEngine.symbolMode)
                     layoutLoader.setSource("SymbolLayout.qml", {
-                    "inputPanel": root
-                });
+                                               "inputPanel": root
+                                           });
                 else if (InputEngine.inputMode === InputEngine.DigitsOnly)
                     layoutLoader.setSource("DigitsLayout.qml", {
-                    "inputPanel": root
-                });
+                                               "inputPanel": root
+                                           });
                 else
                     loadLettersLayout();
             }

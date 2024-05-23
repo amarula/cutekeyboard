@@ -16,9 +16,11 @@ Item {
 
         anchors.fill: parent
         visible: !secondPage
+        spacing:0
 
         RowLayout {
-            property real keyWeight: 160
+            property real keyWeight: 140
+            spacing:0
 
             Key {
                 btnKey: Qt.Key_1
@@ -81,13 +83,15 @@ Item {
             }
 
             BackspaceKey {
+                weight: 160
                 inputPanelRef: inputPanel
             }
 
         }
 
         RowLayout {
-            property real keyWeight: 160
+            property real keyWeight: 140
+            spacing:0
 
             Key {
                 weight: 56
@@ -151,17 +155,17 @@ Item {
             }
 
             EnterKey {
-                weight: 283
+                weight: 200
                 inputPanelRef: inputPanel
             }
 
         }
 
         RowLayout {
-            property real keyWeight: 156
+            property real keyWeight: 140
+            spacing:0
 
             Key {
-                weight: 204
                 btnDisplayedText: "1/2"
                 showPreview: false
                 functionKey: true
@@ -225,7 +229,7 @@ Item {
             }
 
             Key {
-                weight: 204
+                weight: 200
                 btnDisplayedText: "1/2"
                 showPreview: false
                 functionKey: true
@@ -235,15 +239,23 @@ Item {
         }
 
         RowLayout {
-            property real keyWeight: 154
+            property real keyWeight: 140
+            spacing:0
 
             SymbolKey {
                 weight: 217
             }
 
+            LanguageKey {
+                visible: availableLanguageLayouts.length > 1
+                weight: 140
+            }
+
             SpaceKey {
-                weight: 1168
+                weight: 900
                 inputPanelRef: inputPanel
+                btnDisplayedText: "English"
+                opacity: 0.5
             }
 
             Key {
@@ -253,7 +265,7 @@ Item {
             }
 
             HideKey {
-                weight: 205
+                weight: 200
             }
 
         }
@@ -265,10 +277,11 @@ Item {
 
         anchors.fill: parent
         visible: secondPage
+        spacing:0
 
         RowLayout {
-            property real keyWeight: 160
-
+            property real keyWeight: 140
+            spacing:0
             Key {
                 btnKey: Qt.Key_AsciiTilde
                 btnText: "~"
@@ -337,7 +350,8 @@ Item {
         }
 
         RowLayout {
-            property real keyWeight: 160
+            property real keyWeight: 140
+            spacing:0
 
             Key {
                 weight: 56
@@ -408,7 +422,8 @@ Item {
         }
 
         RowLayout {
-            property real keyWeight: 156
+            property real keyWeight: 140
+            spacing:0
 
             Key {
                 weight: 204
@@ -483,15 +498,23 @@ Item {
         }
 
         RowLayout {
-            property real keyWeight: 154
+            property real keyWeight: 140
+            spacing:0
 
             SymbolKey {
                 weight: 217
             }
 
+            LanguageKey {
+                visible: availableLanguageLayouts.length > 1
+                weight: 140
+            }
+
             SpaceKey {
-                weight: 1168
+                weight: 900
                 inputPanelRef: inputPanel
+                btnDisplayedText: "English"
+                opacity: 0.5
             }
 
             Key {
@@ -501,7 +524,7 @@ Item {
             }
 
             HideKey {
-                weight: 205
+                weight: 200
             }
 
         }

@@ -40,7 +40,7 @@ Item {
         id: popup
 
         anchors.fill: parent
-        radius: Math.round(height / 30)
+        radius: 6
         z: shadow.z + 1
 
         Text {
@@ -48,7 +48,7 @@ Item {
 
             anchors.fill: parent
             fontSizeMode: Text.Fit
-            font.pixelSize: height * 0.7
+            font.pixelSize: height * 0.3
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
         }
@@ -75,8 +75,8 @@ Item {
         height: popup.height
         radius: popup.radius
         color: "#3F000000"
-        x: 4
-        y: 4
+        x: 1
+        y: 1
     }
 
 }

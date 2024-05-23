@@ -45,12 +45,12 @@ Item {
     Rectangle {
         id: listViewBackground
 
-        radius: Math.round(height / 20)
+        radius: 6
         color: InputPanel.backgroundColor
         anchors.fill: parent
 
         RowLayout {
-            spacing: 1
+            spacing: 0
 
             anchors {
                 fill: parent

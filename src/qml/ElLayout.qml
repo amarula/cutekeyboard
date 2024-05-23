@@ -3,9 +3,11 @@ import QtQuick.Layouts 1.12
 
 ColumnLayout {
     property var inputPanel
+    spacing:0
 
     RowLayout {
-        property real keyWeight: 160
+        property real keyWeight: 140
+        spacing:0
 
         Key {
             btnText: "ς"
@@ -62,13 +64,15 @@ ColumnLayout {
         }
 
         BackspaceKey {
+            weight: 160
             inputPanelRef: inputPanel
         }
 
     }
 
     RowLayout {
-        property real keyWeight: 160
+        property real keyWeight: 140
+        spacing:0
 
         Key {
             weight: 56
@@ -125,14 +129,15 @@ ColumnLayout {
         }
 
         EnterKey {
-            weight: 283
+            weight: 200
             inputPanelRef: inputPanel
         }
 
     }
 
     RowLayout {
-        property real keyWeight: 156
+        property real keyWeight: 140
+        spacing:0
 
         ShiftKey {
         }
@@ -187,27 +192,29 @@ ColumnLayout {
         }
 
         ShiftKey {
-            weight: 204
+            weight: 200
         }
 
     }
 
     RowLayout {
-        property real keyWeight: 154
+        property real keyWeight: 140
+        spacing:0
 
         SymbolKey {
-            weight: availableLanguageLayouts.length === 1 ? 217 : 108.5
+            weight: 217
         }
 
         LanguageKey {
             visible: availableLanguageLayouts.length > 1
-            weight: 108.5
+            weight: 140
         }
 
         SpaceKey {
-            weight: 1168
+            weight: 900
             inputPanelRef: inputPanel
             btnDisplayedText: "Ελληνικός"
+            opacity: 0.5
         }
 
         Key {
@@ -217,7 +224,7 @@ ColumnLayout {
         }
 
         HideKey {
-            weight: 205
+            weight: 200
         }
 
     }

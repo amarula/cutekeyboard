@@ -11,7 +11,7 @@ Button {
     property string btnDisplayedText: text
     property int btnKey: Qt.Key_unknown
     property color btnBackground: InputPanel.btnBackgroundColor
-    property int btnRadius: 5
+    property int btnRadius: 6
     property color txtColor: InputPanel.btnTextColor
     property string txtFont: InputPanel.btnTextFontFamily
     property string btnIcon: ""
@@ -24,7 +24,7 @@ Button {
     focusPolicy: Qt.NoFocus
     Layout.minimumWidth: key.implicitWidth
     Layout.minimumHeight: key.implicitHeight
-    Layout.preferredWidth: weight
+    Layout.preferredWidth: weight * 0.4
     Layout.fillWidth: true
     Layout.fillHeight: true
     onPressed: {
@@ -66,24 +66,28 @@ Button {
     background: Rectangle {
         id: btnBackgroundItem
 
+        anchors.fill: parent
+        anchors.topMargin: key.height * 0.07
+        anchors.bottomMargin: key.height * 0.07
+        anchors.leftMargin: key.height * 0.07
+        anchors.rightMargin: key.height * 0.07
         color: btnBackground
         radius: btnRadius
     }
 
     contentItem: Item {
+
         Text {
             id: btnTextItem
 
             text: btnDisplayedText == "" ? btnText : btnDisplayedText
             color: txtColor
-            anchors.fill: parent
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
+            anchors.centerIn: parent
 
             font {
                 family: txtFont
                 weight: Font.Normal
-                pixelSize: key.height * 0.4
+                pixelSize: key.height * 0.28
                 capitalization: InputEngine.uppercase ? Font.AllUppercase : Font.MixedCase
             }
 
@@ -94,7 +98,10 @@ Button {
 
             source: btnIcon
             visible: btnDisplayedText === ""
-            anchors.fill: parent
+            width: parent.width * 0.7
+            height: parent.height * 0.7
+            anchors.centerIn: parent
+
             fillMode: Image.PreserveAspectFit
         }
 

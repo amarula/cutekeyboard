@@ -4,15 +4,18 @@ import QtQuick.Layouts 1.12
 
 ColumnLayout {
     property var inputPanel
+    spacing:0
 
     ColumnLayout {
         Layout.fillWidth: false
         Layout.fillHeight: true
         Layout.alignment: Qt.AlignHCenter
         Layout.preferredWidth: height
+        spacing: 0
 
         RowLayout {
-            property real keyWeight
+            property real keyWeight:140
+            spacing:0
 
             Key {
                 btnKey: Qt.Key_7
@@ -39,8 +42,8 @@ ColumnLayout {
         }
 
         RowLayout {
-            property real keyWeight
-
+            property real keyWeight:140
+            spacing:0
             Key {
                 btnKey: Qt.Key_4
                 btnText: "4"
@@ -71,7 +74,8 @@ ColumnLayout {
         }
 
         RowLayout {
-            property real keyWeight
+            property real keyWeight:140
+            spacing:0
 
             Key {
                 btnKey: Qt.Key_1
@@ -98,7 +102,8 @@ ColumnLayout {
         }
 
         RowLayout {
-            property real keyWeight
+            property real keyWeight:140
+            spacing:0
 
             Key {
                 btnKey: Qt.Key_0
