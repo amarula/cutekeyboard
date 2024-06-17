@@ -37,7 +37,7 @@ class DeclarativeInputEngine : public QObject {
     /**
      * The InputLayouts enum provides a list of valid input layouts
      */
-    enum InputLayouts { En, Fr, It, Es, De, Nl, Pt, Cs, El, Pl, EndLayouts };
+    enum InputLayouts { En, Fr, It, Es, De, Nl, Pt, Cs, El, Pl, Sv, EndLayouts };
     Q_ENUM(InputLayouts)
 
     /**
