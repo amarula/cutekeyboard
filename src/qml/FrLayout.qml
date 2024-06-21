@@ -238,7 +238,7 @@ ColumnLayout {
         SpaceKey {
             weight: 1168
             inputPanelRef: inputPanel
-            btnDisplayedText: "Français"
+            btnDisplayedText: langDescription
         }
 
         Key {
