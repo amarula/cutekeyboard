@@ -6,11 +6,18 @@
 #include <QMetaEnum>
 #include <QTimer>
 
+#include "DeclarativeInputEngine.h"
+
 /**
  * Private data class
  */
 struct DeclarativeInputEnginePrivate {
     explicit DeclarativeInputEnginePrivate(DeclarativeInputEngine *_public);
+
+    struct LayoutData {
+        QString layoutFile;
+        QString description;
+    };
 
     DeclarativeInputEngine *_this;
     bool Animating;
@@ -20,6 +27,23 @@ struct DeclarativeInputEnginePrivate {
 
     bool isUppercase{false};
     bool symbolMode{false};
+    QHash<DeclarativeInputEngine::InputLayouts, LayoutData> layoutFiles = {
+        {DeclarativeInputEngine::En, {"EnLayout", "English"}},
+        {DeclarativeInputEngine::Fr, {"FrLayout", "Français"}},
+        {DeclarativeInputEngine::It, {"ItLayout", "Italiano"}},
+        {DeclarativeInputEngine::Es, {"EsLayout", "Español"}},
+        {DeclarativeInputEngine::De, {"DeLayout", "Deutsch"}},
+        {DeclarativeInputEngine::Nl, {"NlLayout", "Nederlands"}},
+        {DeclarativeInputEngine::Pt, {"PtLayout", "Português"}},
+        {DeclarativeInputEngine::Cs, {"CsLayout", "Čeština"}},
+        {DeclarativeInputEngine::El, {"ElLayout", "Ελληνικός"}},
+        {DeclarativeInputEngine::Pl, {"PlLayout", "Polski"}},
+        {DeclarativeInputEngine::Hr, {"LtSrHrBsLayout", "Hrvatski"}},
+        {DeclarativeInputEngine::CyBs, {"CySrBsLayout", "Босански"}},
+        {DeclarativeInputEngine::LtBs, {"LtSrHrBsLayout", "Bosanski"}},
+        {DeclarativeInputEngine::CySr, {"CySrBsLayout", "Српски"}},
+        {DeclarativeInputEngine::LtSr, {"LtSrHrBsLayout", "Srpski"}},
+        {DeclarativeInputEngine::Sv, {"SvLayout", "Svenska"}}};
 };
 
 DeclarativeInputEnginePrivate::DeclarativeInputEnginePrivate(
@@ -112,4 +136,32 @@ bool DeclarativeInputEngine::inputLayoutValid(const QString &layout) const {
     qCritical() << "Keyboard layout" << layout
                 << "is not supported. Falling back to En!";
     return false;
+}
+
+QString DeclarativeInputEngine::fileOfLayout(QString layout) {
+    if (!inputLayoutValid(layout)) {
+        return "";
+    }
+    bool ok = false;
+    auto layoutVal = static_cast<InputLayouts>(
+        QMetaEnum::fromType<InputLayouts>().keyToValue(layout.toUtf8().data(),
+                                                       &ok));
+    if (!ok) {
+        return "";
+    }
+    return d->layoutFiles.value(layoutVal, {}).layoutFile;
+}
+
+QString DeclarativeInputEngine::descriptionOfLayout(QString layout) {
+    if (!inputLayoutValid(layout)) {
+        return "";
+    }
+    bool ok = false;
+    auto layoutVal = static_cast<InputLayouts>(
+        QMetaEnum::fromType<InputLayouts>().keyToValue(layout.toUtf8().data(),
+                                                       &ok));
+    if (!ok) {
+        return "";
+    }
+    return d->layoutFiles.value(layoutVal, {}).description;
 }
