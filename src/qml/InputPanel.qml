@@ -154,11 +154,12 @@ Item {
         }
 
         Connections {
-            target: InputPanel
-            onLanguageLayoutChanged: {
+            function onLanguageLayoutChanged() {
                 languageLayout = InputPanel.languageLayout;
                 loadLettersLayout();
             }
+
+            target: InputPanel
         }
 
     }
