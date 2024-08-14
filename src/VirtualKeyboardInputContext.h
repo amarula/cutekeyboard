@@ -15,6 +15,7 @@
 #include <qpa/qplatforminputcontext.h>
 
 #include <QRectF>
+#include <QPointer>
 
 class QQmlEngine;
 class QJSEngine;
@@ -96,6 +97,12 @@ class VirtualKeyboardInputContext : public QPlatformInputContext {
      */
     Q_INVOKABLE bool focusItemHasEnterKeyAction(QObject *item) const;
 
+    /**
+     * This function register the InputPanel (QQucikItem) to the backend
+     * to handle the focusItem as parent
+     */
+    Q_INVOKABLE void registerInputPanel(QObject *inputPanel);
+
    protected:
     /**
      * Protected constructor - use instance function to get the one and only
@@ -135,7 +142,9 @@ class VirtualKeyboardInputContext : public QPlatformInputContext {
     static QObject *inputContextProvider(QQmlEngine *engine,
                                          QJSEngine *scriptEngine);
 
+   private:
     VirtualKeyboardInputContextPrivate *d;
+    QPointer<QObject> inputPanel;
 };
 
 #endif  // VIRTUALKEYBOARDINPUTCONTEXT_H

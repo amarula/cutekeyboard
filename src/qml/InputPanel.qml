@@ -20,6 +20,9 @@ Item {
     property string languageIcon: "qrc:/icons/language.png"
     property var availableLanguageLayouts: ["En"]
 
+    /*! \internal */
+    readonly property bool __isRootItem: inputPanel.parent !== null && inputPanel.parent.parent === null
+
     function showKeyPopup(keyButton) {
         keyPopup.popup(keyButton, root);
     }
