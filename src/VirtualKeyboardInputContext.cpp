@@ -3,6 +3,8 @@
 #include <private/qquickflickable_p.h>
 
 #include <QPropertyAnimation>
+#include <QtQuick/qquickitem.h>
+#include <QtQuick/qquickwindow.h>
 
 #include "DeclarativeInputEngine.h"
 #include "EnterKeyAction.hpp"
@@ -70,6 +72,14 @@ bool VirtualKeyboardInputContext::focusItemHasEnterKeyAction(
            qmlAttachedPropertiesObject<EnterKeyAction>(item, false);
 }
 
+void VirtualKeyboardInputContext::registerInputPanel(QObject *inputPanel)
+{
+    Q_ASSERT(!this->inputPanel);
+    this->inputPanel = inputPanel;
+    if (QQuickItem *item = qobject_cast<QQuickItem *>(inputPanel))
+        item->setZ(std::numeric_limits<qreal>::max());
+}
+
 bool VirtualKeyboardInputContext::isValid() const { return true; }
 
 QRectF VirtualKeyboardInputContext::keyboardRect() const { return QRectF(); }
@@ -108,8 +118,35 @@ void VirtualKeyboardInputContext::setFocusObject(QObject *object) {
 
     bool AcceptsInput = d->FocusItem->inputMethodQuery(Qt::ImEnabled).toBool();
     if (!AcceptsInput) {
+        hideInputPanel();
         return;
     }
+
+    // set the focusItem as parent of InputPanel
+    if (QObject *item = inputItem()) {
+        // ToDo: the InputPanel is set once, so cast can be done at register QQuickItem
+        if (QQuickItem *vkbPanel = qobject_cast<QQuickItem*>(inputPanel)) {
+            // ToDo: cast of inputItem is overflow ... use d->FocusItem
+            if (QQuickItem *quickItem = qobject_cast<QQuickItem*>(item)) {
+                const QVariant isRootItem = vkbPanel->property("__isRootItem");
+                /*
+                    For integrated keyboards, make sure it's a sibling to the overlay. The
+                    high z-order will make sure it gets events also during a modal session.
+                */
+                if (isRootItem.isValid() && !isRootItem.toBool()) {
+                    vkbPanel->setParentItem(quickItem->window()->contentItem());
+                    vkbPanel->setProperty("__reparented", true);
+                }
+            }
+        }
+    }
+
+    QObject::connect(d->FocusItem, &QQuickItem::visibleChanged, this, [&](){
+        if(!d->FocusItem->isVisible())
+            hideInputPanel();
+        else
+            showInputPanel();
+    });
 
     emit inputItemChanged();
 
