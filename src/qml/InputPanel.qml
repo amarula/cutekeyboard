@@ -37,14 +37,17 @@ Item {
 
     function loadLettersLayout() {
         var description = InputEngine.descriptionOfLayout(languageLayout);
+        var spaceIdentifier = InputEngine.spaceIdentifierOfLayout(languageLayout);
         var source = InputEngine.fileOfLayout(languageLayout);
         if (description !== "" && source !== "") {
             layoutLoader.langDescription = description;
+            layoutLoader.spaceIdentifier = spaceIdentifier;
             layoutLoader.setSource(source + ".qml", {
                 "inputPanel": root
             });
         } else {
             layoutLoader.langDescription = "English";
+            layoutLoader.spaceIdentifier = "space";
             layoutLoader.setSource("EnLayout.qml", {
                 "inputPanel": root
             });
@@ -126,6 +129,8 @@ Item {
 
             // lang description only needed for layouts that share a file
             property string langDescription
+            // space identifier for the correct translation of the word "space"
+            property string spaceIdentifier
 
             anchors {
                 fill: parent
