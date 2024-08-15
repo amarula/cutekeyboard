@@ -62,6 +62,9 @@ Item {
     }
     onLanguageLayoutChanged: loadLettersLayout()
     Component.onCompleted: {
+
+        InputContext.registerInputPanel(root)
+
         if (availableLanguageLayouts.length == 0)
             availableLanguageLayouts = ["En"];
 
