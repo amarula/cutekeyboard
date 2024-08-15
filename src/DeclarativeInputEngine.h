@@ -117,10 +117,14 @@ class DeclarativeInputEngine : public QObject {
     Q_INVOKABLE QString fileOfLayout(QString layout);
 
     /**
-     * Use this function to get the correct layout file for each language
-     * (only needed for languages that share one file)
+     * Use this function to get the correct description for each language
      */
     Q_INVOKABLE QString descriptionOfLayout(QString layout);
+
+    /**
+     * Use this function to get the correct 'space'-identifier for each language
+     */
+    Q_INVOKABLE QString spaceIdentifierOfLayout(QString layout);
 
    public slots:
     /**

@@ -17,6 +17,7 @@ struct DeclarativeInputEnginePrivate {
     struct LayoutData {
         QString layoutFile;
         QString description;
+        QString spaceIdentifier = "Space";
     };
 
     DeclarativeInputEngine *_this;
@@ -32,7 +33,7 @@ struct DeclarativeInputEnginePrivate {
         {DeclarativeInputEngine::Fr, {"FrLayout", "Français"}},
         {DeclarativeInputEngine::It, {"ItLayout", "Italiano"}},
         {DeclarativeInputEngine::Es, {"EsLayout", "Español"}},
-        {DeclarativeInputEngine::De, {"DeLayout", "Deutsch"}},
+        {DeclarativeInputEngine::De, {"DeLayout", "Deutsch", "Leerzeichen"}},
         {DeclarativeInputEngine::Nl, {"NlLayout", "Nederlands"}},
         {DeclarativeInputEngine::Pt, {"PtLayout", "Português"}},
         {DeclarativeInputEngine::Cs, {"CsLayout", "Čeština"}},
@@ -164,4 +165,19 @@ QString DeclarativeInputEngine::descriptionOfLayout(QString layout) {
         return "";
     }
     return d->layoutFiles.value(layoutVal, {}).description;
+}
+
+QString DeclarativeInputEngine::spaceIdentifierOfLayout(QString layout)
+{
+    if (!inputLayoutValid(layout)) {
+        return "";
+    }
+    bool ok = false;
+    auto layoutVal = static_cast<InputLayouts>(
+        QMetaEnum::fromType<InputLayouts>().keyToValue(layout.toUtf8().data(),
+                                                       &ok));
+    if (!ok) {
+        return "";
+    }
+    return d->layoutFiles.value(layoutVal, {}).spaceIdentifier;
 }
