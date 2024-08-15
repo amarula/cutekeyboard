@@ -141,12 +141,12 @@ void VirtualKeyboardInputContext::setFocusObject(QObject *object) {
         }
     }
 
-    QObject::connect(d->FocusItem, &QQuickItem::visibleChanged, this, [&](){
+    visibleConnection = std::make_shared<QMetaObject::Connection>(QObject::connect(d->FocusItem, &QQuickItem::visibleChanged, this, [&](){
         if(!d->FocusItem->isVisible())
             hideInputPanel();
         else
             showInputPanel();
-    });
+    }));
 
     emit inputItemChanged();
 

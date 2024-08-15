@@ -16,6 +16,7 @@
 
 #include <QRectF>
 #include <QPointer>
+#include <memory.h>
 
 class QQmlEngine;
 class QJSEngine;
@@ -145,6 +146,7 @@ class VirtualKeyboardInputContext : public QPlatformInputContext {
    private:
     VirtualKeyboardInputContextPrivate *d;
     QPointer<QObject> inputPanel;
+    std::shared_ptr<QMetaObject::Connection> visibleConnection;
 };
 
 #endif  // VIRTUALKEYBOARDINPUTCONTEXT_H
