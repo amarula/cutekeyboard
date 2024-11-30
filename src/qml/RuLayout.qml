@@ -114,7 +114,7 @@ ColumnLayout {
             inputPanelRef: inputPanel
         }
 
-        Key {s            
+        Key {            
             btnText: "л"
             inputPanelRef: inputPanel
         }
