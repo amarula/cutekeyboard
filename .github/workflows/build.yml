@@ -1,23 +1,23 @@
 name: Build
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  pull_request: {}
+  push: { branches: [main] }
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Installing Qt
-      uses: jurplel/install-qt-action@v3.0.0
-      with:
-        version: '5.15.2'
-    - name: Run QMake
-      run: qmake
-    - name: Build
-      run: make -j4
+      - uses: actions/checkout@v4
+
+      - name: Installing Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: "5.15.2"
+
+      - name: Configure Project with QMake
+        run: qmake
+
+      - name: Build
+        run: make -j$(nproc)
