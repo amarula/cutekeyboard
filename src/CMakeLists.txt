@@ -67,14 +67,17 @@ target_link_libraries(
   ${PROJECT_NAME} PRIVATE Qt::Core Qt::Gui Qt::GuiPrivate Qt::Qml Qt::Quick
                           Qt::QuickPrivate)
 
-if(${PROJECT_NAME} STREQUAL ${CMAKE_PROJECT_NAME})
-  set(INSTALL_DIR ${QT_DIR}/../../../plugins/platforminputcontexts)
-else()
-  set(INSTALL_DIR ${CMAKE_INSTALL_BINDIR}/platforminputcontexts)
-  set_target_properties(
-    ${PROJECT_NAME}
-    PROPERTIES LIBRARY_OUTPUT_DIRECTORY
-               "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/platforminputcontexts")
+set(INSTALL_PLUGINSDIR "" CACHE PATH "Installation directory for plugins")
+if (NOT INSTALL_PLUGINSDIR)
+  if(${PROJECT_NAME} STREQUAL ${CMAKE_PROJECT_NAME})
+    set(INSTALL_PLUGINSDIR ${QT_DIR}/../../../plugins)
+  else()
+    set(INSTALL_PLUGINSDIR ${CMAKE_INSTALL_BINDIR})
+    set_target_properties(
+      ${PROJECT_NAME}
+      PROPERTIES LIBRARY_OUTPUT_DIRECTORY
+                "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/platforminputcontexts")
+  endif()
 endif()
 
-install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION ${INSTALL_DIR})
+install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION ${INSTALL_PLUGINSDIR}/platforminputcontexts)
