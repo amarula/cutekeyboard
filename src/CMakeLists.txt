@@ -12,6 +12,7 @@ set(QML_FILES
     "qml/AlternativeKeysPopup.qml"
     "qml/BackspaceKey.qml"
     "qml/CsLayout.qml"
+    "qml/CySrBsLayout.qml"
     "qml/DeLayout.qml"
     "qml/DigitsLayout.qml"
     "qml/ElLayout.qml"
@@ -25,14 +26,19 @@ set(QML_FILES
     "qml/KeyModel.qml"
     "qml/KeyPopup.qml"
     "qml/Key.qml"
+    "qml/LanguageKey.qml"
+    "qml/LtSrHrBsLayout.qml"
     "qml/NlLayout.qml"
     "qml/PlLayout.qml"
     "qml/PtLayout.qml"
     "qml/QwertyLayout.qml"
+    "qml/RuLayout.qml"
     "qml/ShiftKey.qml"
     "qml/SpaceKey.qml"
+    "qml/SvLayout.qml"
     "qml/SymbolKey.qml"
-    "qml/SymbolLayout.qml")
+    "qml/SymbolLayout.qml"
+    "qml/UkLayout.qml")
 
 foreach(_file IN_LISTS QML_FILES)
   cmake_path(GET _file FILENAME _fileName)
