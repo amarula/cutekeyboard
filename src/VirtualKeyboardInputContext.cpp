@@ -46,6 +46,7 @@ VirtualKeyboardInputContext::VirtualKeyboardInputContext()
         "CuteKeyboard", 1, 0, "InputEngine", inputEngineProvider);
     connect(d->InputEngine, &DeclarativeInputEngine::animatingChanged, this,
             &VirtualKeyboardInputContext::ensureFocusedObjectVisible);
+    connect(d->InputEngine, &DeclarativeInputEngine::keyboardRectangleChanged, this, &VirtualKeyboardInputContext::emitKeyboardRectChanged);
 
     qmlRegisterSingletonType<InputPanelIface>("CuteKeyboard", 1, 0,
                                               "InputPanel", inputPanelProvider);
@@ -82,7 +83,10 @@ void VirtualKeyboardInputContext::registerInputPanel(QObject *inputPanel)
 
 bool VirtualKeyboardInputContext::isValid() const { return true; }
 
-QRectF VirtualKeyboardInputContext::keyboardRect() const { return QRectF(); }
+QRectF VirtualKeyboardInputContext::keyboardRect() const
+{
+    return d->InputEngine->keyboardRectangle();
+}
 
 void VirtualKeyboardInputContext::showInputPanel() {
     d->Visible = true;
