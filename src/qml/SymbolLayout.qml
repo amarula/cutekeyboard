@@ -244,7 +244,7 @@ Item {
             SpaceKey {
                 weight: 1168
                 inputPanelRef: inputPanel
-                btnDisplayedText: spaceIdentifier
+                showLanguageDescription: false
             }
 
             Key {
@@ -493,7 +493,7 @@ Item {
             SpaceKey {
                 weight: 1168
                 inputPanelRef: inputPanel
-                btnDisplayedText: spaceIdentifier
+                showLanguageDescription: false
             }
 
             Key {
