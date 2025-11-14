@@ -22,7 +22,7 @@ Item {
     property alias emptySpaceBar: layoutLoader.emptySpaceBar
 
     /*! \internal */
-    readonly property bool __isRootItem: inputPanel.parent !== null && inputPanel.parent.parent === null
+    readonly property bool __isRootItem: root.parent !== null && root.parent.parent === null
 
     function showKeyPopup(keyButton) {
         keyPopup.popup(keyButton, root);
