@@ -39,6 +39,8 @@ struct DeclarativeInputEnginePrivate {
         {DeclarativeInputEngine::Cs, {"CsLayout", "Čeština"}},
         {DeclarativeInputEngine::El, {"ElLayout", "Ελληνικός"}},
         {DeclarativeInputEngine::Pl, {"PlLayout", "Polski"}},
+        {DeclarativeInputEngine::Da, {"DaLayout", "Dansk"}},
+        {DeclarativeInputEngine::Fi, {"FiLayout", "Suomi"}},
         {DeclarativeInputEngine::Hr, {"LtSrHrBsLayout", "Hrvatski"}},
         {DeclarativeInputEngine::CyBs, {"CySrBsLayout", "Босански"}},
         {DeclarativeInputEngine::LtBs, {"LtSrHrBsLayout", "Bosanski"}},

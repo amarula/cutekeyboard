@@ -48,6 +48,8 @@ class DeclarativeInputEngine : public QObject {
         Cs,
         El,
         Pl,
+        Da,
+        Fi,
         Sv,
         Hr,
         CyBs,
