@@ -20,6 +20,8 @@ set(QML_FILES
     "qml/EnterKey.qml"
     "qml/EsLayout.qml"
     "qml/FrLayout.qml"
+    "qml/DaLayout.qml"
+    "qml/FiLayout.qml"
     "qml/HideKey.qml"
     "qml/InputPanel.qml"
     "qml/ItLayout.qml"
