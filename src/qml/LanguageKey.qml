@@ -2,6 +2,7 @@ import CuteKeyboard 1.0
 import QtQuick 2.0
 
 Key {
+    objectName: inputPanelRef.objectName + "Key_Language"
     weight: 108.5
     btnKey: Qt.Key_Context2
     btnIcon: InputPanel.languageIcon

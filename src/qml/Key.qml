@@ -6,6 +6,8 @@ import QtQuick.Layouts 1.12
 Button {
     id: key
 
+    objectName: inputPanelRef.objectName + "Key_" + (btnDisplayedText ? btnDisplayedText : btnText)
+
     property real weight: parent.keyWeight
     property string btnText: ""
     property string btnDisplayedText: text
@@ -99,5 +101,4 @@ Button {
         }
 
     }
-
 }
