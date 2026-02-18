@@ -84,6 +84,7 @@ ColumnLayout {
         property real keyWeight: 160
 
         Key {
+            objectName: "" // invisible key to align the row
             enabled: false
             weight: 56
             functionKey: true
@@ -159,6 +160,7 @@ ColumnLayout {
         property real keyWeight: 156
 
         ShiftKey {
+            objectName: inputPanel.objectName + "Key_Shift_Left"
         }
 
         Key {
@@ -219,6 +221,7 @@ ColumnLayout {
         }
 
         ShiftKey {
+            objectName: inputPanel.objectName + "Key_Shift_Right"
             weight: 204
         }
 

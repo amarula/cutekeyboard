@@ -90,6 +90,7 @@ Item {
             property real keyWeight: 160
 
             Key {
+                objectName: "" // invisible key to align the row
                 enabled: false
                 weight: 56
                 functionKey: true
@@ -346,6 +347,7 @@ Item {
             property real keyWeight: 160
 
             Key {
+                objectName: "" // invisible key to align the row
                 enabled: false
                 weight: 56
                 functionKey: true
