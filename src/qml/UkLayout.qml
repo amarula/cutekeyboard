@@ -207,11 +207,13 @@ ColumnLayout {
 
         SymbolKey {
             weight: availableLanguageLayouts.length === 1 ? 217 : 108.5
+            inputPanelRef: inputPanel
         }
 
         LanguageKey {
             visible: availableLanguageLayouts.length > 1
             weight: 108.5
+            inputPanelRef: inputPanel
         }
 
         SpaceKey {
@@ -228,6 +230,7 @@ ColumnLayout {
 
         HideKey {
             weight: 205
+            inputPanelRef: inputPanel
         }
 
     }

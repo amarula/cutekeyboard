@@ -167,6 +167,7 @@ Item {
                 showPreview: false
                 functionKey: true
                 onClicked: secondPage = !secondPage
+                inputPanelRef: inputPanel
             }
 
             Key {
@@ -231,6 +232,7 @@ Item {
                 showPreview: false
                 functionKey: true
                 onClicked: secondPage = !secondPage
+                inputPanelRef: inputPanel
             }
 
         }
@@ -240,6 +242,7 @@ Item {
 
             SymbolKey {
                 weight: 217
+                inputPanelRef: inputPanel
             }
 
             SpaceKey {
@@ -256,6 +259,7 @@ Item {
 
             HideKey {
                 weight: 205
+                inputPanelRef: inputPanel
             }
 
         }
@@ -419,6 +423,7 @@ Item {
                 showPreview: false
                 functionKey: true
                 onClicked: secondPage = !secondPage
+                inputPanelRef: inputPanel
             }
 
             Key {
@@ -481,6 +486,7 @@ Item {
                 showPreview: false
                 functionKey: true
                 onClicked: secondPage = !secondPage
+                inputPanelRef: inputPanel
             }
 
         }
@@ -490,6 +496,7 @@ Item {
 
             SymbolKey {
                 weight: 217
+                inputPanelRef: inputPanel
             }
 
             SpaceKey {
@@ -506,6 +513,7 @@ Item {
 
             HideKey {
                 weight: 205
+                inputPanelRef: inputPanel
             }
 
         }
