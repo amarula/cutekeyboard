@@ -74,6 +74,7 @@ ColumnLayout {
         property real keyWeight: 160
 
         Key {
+            enabled: false
             weight: 56
             functionKey: true
             showPreview: false
