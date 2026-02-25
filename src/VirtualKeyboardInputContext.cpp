@@ -95,6 +95,10 @@ void VirtualKeyboardInputContext::showInputPanel() {
 }
 
 void VirtualKeyboardInputContext::hideInputPanel() {
+    if (d->FocusItem && d->FocusItem->inputMethodQuery(Qt::ImEnabled).toBool()) {
+        // if the current focus item accepts input, clear its focus to ensure visual consistency
+        d->FocusItem->setFocus(false);
+    }
     d->Visible = false;
     QPlatformInputContext::hideInputPanel();
     emitInputPanelVisibleChanged();
