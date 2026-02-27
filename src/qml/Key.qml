@@ -6,8 +6,6 @@ import QtQuick.Layouts 1.12
 Button {
     id: key
 
-    objectName: inputPanelRef.objectName + "Key_" + (btnDisplayedText ? btnDisplayedText : btnText)
-
     property real weight: parent.keyWeight
     property string btnText: ""
     property string btnDisplayedText: text
@@ -23,6 +21,7 @@ Button {
     property bool showPreview: true
     property bool functionKey: false
 
+    objectName: (inputPanelRef ? inputPanelRef.objectName : "") + "Key_" + (btnDisplayedText ? btnDisplayedText : btnText)
     focusPolicy: Qt.NoFocus
     Layout.minimumWidth: key.implicitWidth
     Layout.minimumHeight: key.implicitHeight
