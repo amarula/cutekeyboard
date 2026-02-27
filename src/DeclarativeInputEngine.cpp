@@ -28,6 +28,7 @@ struct DeclarativeInputEnginePrivate {
 
     bool isUppercase{false};
     bool symbolMode{false};
+    bool persistentUppercase{true};
     QHash<DeclarativeInputEngine::InputLayouts, LayoutData> layoutFiles = {
         {DeclarativeInputEngine::En, {"EnLayout", "English"}},
         {DeclarativeInputEngine::Fr, {"FrLayout", "Français"}},
@@ -127,6 +128,17 @@ void DeclarativeInputEngine::setSymbolMode(bool symbolMode) {
     if (d->symbolMode != symbolMode) {
         d->symbolMode = symbolMode;
         emit isSymbolModeChanged();
+    }
+}
+
+bool DeclarativeInputEngine::isPersistentUppercase() const {
+    return d->persistentUppercase;
+}
+
+void DeclarativeInputEngine::setPersistentUppercase(bool persistentUppercase) {
+    if (d->persistentUppercase != persistentUppercase) {
+        d->persistentUppercase = persistentUppercase;
+        emit isPersistentUppercaseChanged();
     }
 }
 

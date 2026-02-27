@@ -46,9 +46,11 @@ Button {
         }
     }
     onReleased: {
-        if (!functionKey)
+        if (!functionKey) {
             InputEngine.virtualKeyClick(btnKey, InputEngine.uppercase ? btnText.toUpperCase() : btnText, InputEngine.uppercase ? Qt.ShiftModifier : 0);
-
+            if (!InputEngine.persistentUppercase)
+                InputEngine.uppercase = false;
+        }
     }
 
     Timer {
@@ -101,4 +103,5 @@ Button {
         }
 
     }
+
 }
