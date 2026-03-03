@@ -21,6 +21,7 @@ Item {
     property var availableLanguageLayouts: ["En"]
     property alias emptySpaceBar: layoutLoader.emptySpaceBar
     property bool persistentShift: true
+    property bool autoCapitalize: false
     //! \internal
     readonly property bool __isRootItem: root.parent !== null && root.parent.parent === null
 
@@ -66,6 +67,7 @@ Item {
     }
     onLanguageLayoutChanged: loadLettersLayout()
     onPersistentShiftChanged: InputEngine.persistentUppercase = persistentShift
+    onAutoCapitalizeChanged: InputEngine.autoCapitalize = autoCapitalize
     Component.onCompleted: {
         InputContext.registerInputPanel(root);
         if (availableLanguageLayouts.length == 0)
@@ -85,6 +87,7 @@ Item {
         InputPanel.availableLanguageLayouts = availableLanguageLayouts;
         InputPanel.languageLayout = languageLayout;
         InputEngine.persistentUppercase = persistentShift;
+        InputEngine.autoCapitalize = autoCapitalize;
         loadLettersLayout();
     }
 
