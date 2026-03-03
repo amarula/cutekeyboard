@@ -103,6 +103,16 @@ class VirtualKeyboardInputContext : public QPlatformInputContext {
      */
     Q_INVOKABLE void registerInputPanel(QObject *inputPanel);
 
+    /**
+     * Returns the surrounding text of the focused input field, or empty if none.
+     */
+    Q_INVOKABLE QString surroundingText() const;
+
+    /**
+     * Returns true if the focused input field is a password/hidden-text field.
+     */
+    Q_INVOKABLE bool isPasswordField() const;
+
    protected:
     /**
      * Protected constructor - use instance function to get the one and only
