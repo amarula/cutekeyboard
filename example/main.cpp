@@ -2,6 +2,10 @@
 #include <QQmlApplicationEngine>
 
 int main(int argc, char *argv[]) {
+    QString buildPluginDir = QStringLiteral(PLUGIN_BUILD_DIR);
+
+    QCoreApplication::addLibraryPath(buildPluginDir);
+
     qputenv("QT_IM_MODULE", QByteArray("cutekeyboard"));
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -9,7 +13,10 @@ int main(int argc, char *argv[]) {
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+
+    engine.addImportPath(buildPluginDir);
     engine.addImportPath(":/");
+
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(
         &engine, &QQmlApplicationEngine::objectCreated, &app,

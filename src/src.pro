@@ -42,3 +42,12 @@ INSTALL_PLUGINS = $$INSTALL_PREFIX/$$relative_path($$[QT_INSTALL_PLUGINS], $$[QT
 deployment.files = $$QML_FILES
 deployment.path = $$INSTALL_QML/QtQuick/CuteKeyboard
 target.path = $$INSTALL_PLUGINS/platforminputcontexts
+
+contains(CONFIG, BUILD_EXAMPLES) {
+    # --- Local Development Configuration ---
+    DESTDIR = $$OUT_PWD/platforminputcontexts
+
+    mock_qml.files = $$PWD/qml/qmldir $$files($$PWD/qml/*.qml)
+    mock_qml.path  = $$OUT_PWD/QtQuick/CuteKeyboard
+    COPIES += mock_qml
+}
