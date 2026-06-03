@@ -173,9 +173,9 @@ void VirtualKeyboardInputContext::setFocusObject(QObject *object) {
     } else {
         d->InputEngine->setInputMode(DeclarativeInputEngine::Letters);
         d->InputEngine->setSymbolMode(false);
-        // Auto-capitalize on focus if enabled, field is not password, and field is empty
+        // Auto-capitalize on focus if enabled, field supports autocapitalize, and field is empty
         bool shouldUppercase = d->InputEngine->isAutoCapitalize() &&
-                               !isPasswordField() &&
+                               fieldSupportsAutoCapitalize() &&
                                surroundingText().isEmpty();
         d->InputEngine->setUppercase(shouldUppercase);
     }
@@ -199,11 +199,11 @@ QString VirtualKeyboardInputContext::surroundingText() const {
     return d->FocusItem->inputMethodQuery(Qt::ImSurroundingText).toString();
 }
 
-bool VirtualKeyboardInputContext::isPasswordField() const {
+bool VirtualKeyboardInputContext::fieldSupportsAutoCapitalize() const {
     if (!d->FocusItem)
         return false;
     Qt::InputMethodHints hints(d->FocusItem->inputMethodQuery(Qt::ImHints).toInt());
-    return (hints & Qt::ImhHiddenText) || (hints & Qt::ImhSensitiveData);
+    return !((hints & Qt::ImhNoAutoUppercase) || (hints & Qt::ImhHiddenText) || (hints & Qt::ImhSensitiveData));
 }
 
 void VirtualKeyboardInputContext::ensureFocusedObjectVisible() {
