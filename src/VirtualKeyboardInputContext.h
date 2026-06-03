@@ -109,9 +109,10 @@ class VirtualKeyboardInputContext : public QPlatformInputContext {
     Q_INVOKABLE QString surroundingText() const;
 
     /**
-     * Returns true if the focused input field is a password/hidden-text field.
+     * Returns true if the focused input field supports auto-capitalization.
+     * This is true if the field is not password, not hidden text, not sensitive data, and does not have the ImhNoAutoUppercase hint set.
      */
-    Q_INVOKABLE bool isPasswordField() const;
+    Q_INVOKABLE bool fieldSupportsAutoCapitalize() const;
 
    protected:
     /**
