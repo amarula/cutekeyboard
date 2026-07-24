@@ -31,6 +31,7 @@ set(QML_FILES
     "qml/LanguageKey.qml"
     "qml/LtSrHrBsLayout.qml"
     "qml/NlLayout.qml"
+    "qml/NoLayout.qml"
     "qml/PlLayout.qml"
     "qml/PtLayout.qml"
     "qml/QwertyLayout.qml"
