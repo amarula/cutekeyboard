@@ -53,6 +53,7 @@ class DeclarativeInputEngine : public QObject {
         Da,
         Fi,
         Sv,
+        No,
         Hr,
         CyBs,
         LtBs,
