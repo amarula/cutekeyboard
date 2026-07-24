@@ -9,6 +9,7 @@ Item {
     property color backgroundColor: "#000000"
     property color btnBackgroundColor: "#808080"
     property color btnSpecialBackgroundColor: Qt.darker("#808080")
+    property color btnEnterBackgroundColor: btnSpecialBackgroundColor
     property color btnTextColor: "#ffffff"
     property string btnTextFontFamily
     property string languageLayout: "En"
@@ -76,6 +77,7 @@ Item {
         InputPanel.backgroundColor = backgroundColor;
         InputPanel.btnBackgroundColor = btnBackgroundColor;
         InputPanel.btnSpecialBackgroundColor = btnSpecialBackgroundColor;
+        InputPanel.btnEnterBackgroundColor = btnEnterBackgroundColor;
         InputPanel.btnTextColor = btnTextColor;
         InputPanel.btnTextFontFamily = btnTextFontFamily;
         InputPanel.backspaceIcon = backspaceIcon;
