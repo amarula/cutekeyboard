@@ -25,6 +25,7 @@ set(QML_FILES
     "qml/HideKey.qml"
     "qml/InputPanel.qml"
     "qml/ItLayout.qml"
+    "qml/KkLayout.qml"
     "qml/KeyModel.qml"
     "qml/KeyPopup.qml"
     "qml/Key.qml"

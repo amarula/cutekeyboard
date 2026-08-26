@@ -1,0 +1,288 @@
+import QtQuick 2.0
+import QtQuick.Layouts 1.12
+
+ColumnLayout {
+    property var inputPanel
+
+    RowLayout {
+        property real keyWeight: 213
+
+        Key {
+            btnText: "ә"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "і"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "ң"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "ғ"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "ү"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "ұ"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "қ"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "ө"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "һ"
+            inputPanelRef: inputPanel
+        }
+
+    }
+
+    RowLayout {
+        property real keyWeight: 160
+
+        Key {
+            btnText: "й"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "ц"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "у"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "к"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "е"
+            alternativeKeys: "ё"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "н"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "г"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "ш"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "щ"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "з"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "х"
+            inputPanelRef: inputPanel
+        }
+
+        BackspaceKey {
+            inputPanelRef: inputPanel
+        }
+
+    }
+
+    RowLayout {
+        property real keyWeight: 160
+
+        Key {
+            objectName: "" // invisible key to align the row
+            enabled: false
+            weight: 56
+            functionKey: true
+            showPreview: false
+            btnBackground: "transparent"
+        }
+
+        Key {
+            btnText: "ф"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "ы"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "в"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "а"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "п"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "р"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "о"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "л"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "д"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "ж"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "э"
+            inputPanelRef: inputPanel
+        }
+
+        EnterKey {
+            weight: 283
+            inputPanelRef: inputPanel
+        }
+    }
+
+    RowLayout {
+        property real keyWeight: 156
+
+        ShiftKey {
+            objectName: inputPanel.objectName + "Key_Shift_Left"
+        }
+
+        Key {
+            btnText: "я"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "ч"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "с"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "м"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "и"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "т"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "ь"
+            alternativeKeys: "ъ"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "б"
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnText: "ю"
+            inputPanelRef: inputPanel
+        }
+
+        ShiftKey {
+            objectName: inputPanel.objectName + "Key_Shift_Right"
+            weight: 204
+        }
+
+    }
+
+    RowLayout {
+        property real keyWeight: 154
+
+        SymbolKey {
+            weight: availableLanguageLayouts.length === 1 ? 217 : 108.5
+            inputPanelRef: inputPanel
+        }
+
+        LanguageKey {
+            visible: availableLanguageLayouts.length > 1
+            weight: 108.5
+            inputPanelRef: inputPanel
+        }
+
+        SpaceKey {
+            weight: 1168
+            inputPanelRef: inputPanel
+        }
+
+        Key {
+            btnKey: Qt.Key_Period
+            btnText: "."
+            alternativeKeys: ","
+            inputPanelRef: inputPanel
+        }
+
+        HideKey {
+            weight: 205
+            inputPanelRef: inputPanel
+        }
+
+    }
+
+}
