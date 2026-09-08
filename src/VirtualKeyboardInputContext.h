@@ -19,6 +19,7 @@
 
 class QQmlEngine;
 class QJSEngine;
+class QQuickItem;
 class VirtualKeyboardInputContextPrivate;
 
 /**
@@ -87,7 +88,7 @@ class VirtualKeyboardInputContext : public QPlatformInputContext {
     static VirtualKeyboardInputContext *instance();
 
     /**
-     * This function returns the current input item focused.
+     * Returns the focused item that accepts input, or nullptr when none does.
      */
     QObject *inputItem() const;
 
@@ -154,9 +155,15 @@ class VirtualKeyboardInputContext : public QPlatformInputContext {
                                          QJSEngine *scriptEngine);
 
    private:
+    /**
+     * Sets the current input item and emits inputItemChanged() if it changed
+     */
+    void setFocusItem(QQuickItem *item);
+
     VirtualKeyboardInputContextPrivate *d;
     QPointer<QObject> inputPanel;
     QMetaObject::Connection visibleConnection;
+    QMetaObject::Connection destroyedConnection;
 };
 
 #endif  // VIRTUALKEYBOARDINPUTCONTEXT_H
