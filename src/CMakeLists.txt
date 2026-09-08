@@ -71,7 +71,8 @@ qt_add_qml_module(
   ${QML_FILES}
   NO_GENERATE_PLUGIN_SOURCE)
 
-qt_add_resources(${PROJECT_NAME} "icons" PREFIX "/" FILES "resources.qrc")
+qt_add_resources(ICON_SOURCES resources.qrc)
+target_sources(${PROJECT_NAME} PRIVATE ${ICON_SOURCES})
 
 target_link_libraries(
   ${PROJECT_NAME} PRIVATE Qt::Core Qt::Gui Qt::GuiPrivate Qt::Qml Qt::Quick
