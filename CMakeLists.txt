@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 project(
   cutekeyboardplugin
-  VERSION 1.0
+  VERSION 1.7.0
   LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
