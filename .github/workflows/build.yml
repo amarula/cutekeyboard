@@ -14,6 +14,9 @@ jobs:
           - name: "QMake Qt5"
             qt-version: "5.15.2"
             build-system: qmake
+          - name: "QMake Qt6"
+            qt-version: "6.8.3"
+            build-system: qmake
           - name: "CMake Qt6"
             qt-version: "6.8.3"
             build-system: cmake
@@ -35,6 +38,19 @@ jobs:
       - name: Build with QMake
         if: matrix.build-system == 'qmake'
         run: make -j$(nproc)
+
+      - name: Install with QMake
+        if: matrix.build-system == 'qmake'
+        run: make install INSTALL_ROOT=${{ github.workspace }}/install-root
+
+      - name: Verify QMake install layout
+        if: matrix.build-system == 'qmake'
+        run: |
+          root=${{ github.workspace }}/install-root
+          find "$root" -type f | sort
+          test -n "$(find "$root" -path '*/platforminputcontexts/libcutekeyboardplugin.so')"
+          test -n "$(find "$root" -path '*/qml/QtQuick/CuteKeyboard/qmldir')"
+          test -n "$(find "$root" -path '*/qml/QtQuick/CuteKeyboard/InputPanel.qml')"
 
       - name: Configure Project with CMake
         if: matrix.build-system == 'cmake'
