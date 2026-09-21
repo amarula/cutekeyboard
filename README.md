@@ -3,6 +3,8 @@
 
 # CuteKeyboard
 
+**[🌐 Website →](https://amarula.github.io/cutekeyboard/)**
+
 CuteKeyboard is a Qt virtual keyboard plugin for embedded applications.
 
 ## Installation
