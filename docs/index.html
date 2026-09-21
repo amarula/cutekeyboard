@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CuteKeyboard - Virtual Keyboard for Qt Embedded</title>
+    <meta name="description"
+        content="CuteKeyboard — a customizable, multi-language Qt/QML virtual keyboard plugin for embedded applications. MIT licensed, for Qt 5 and Qt 6.">
+    <meta property="og:title" content="CuteKeyboard – Virtual Keyboard for Qt Embedded">
+    <meta property="og:description"
+        content="Customizable, multi-language Qt/QML virtual keyboard plugin for embedded applications.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://amarula.github.io/cutekeyboard/">
+    <meta property="og:image" content="https://amarula.github.io/cutekeyboard/assets/keyboardcute.png">
+    <meta property="og:image:width" content="400">
+    <meta property="og:image:height" content="400">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <style>
+        :root {
+            --bg: #fbfbfd;
+            --surface: #ffffff;
+            --surface-alt: #f5f5f7;
+            --text: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --accent: #0071e3;
+            --accent-hover: #0077ed;
+            --link: #0066cc;
+            --hairline: rgba(0, 0, 0, 0.1);
+            --nav-bg: rgba(251, 251, 253, 0.72);
+            --tint: rgba(0, 113, 227, 0.08);
+            --shadow-deep: 0 1.5rem 4rem rgba(0, 0, 0, 0.14), 0 0.25rem 1rem rgba(0, 0, 0, 0.06);
+
+            --code-keyword: #9b2393;
+            --code-type: #0b4f79;
+            --code-string: #c41a16;
+            --code-number: #1c00cf;
+            --code-property: #326d74;
+            --code-function: #6c36a9;
+
+            --radius-s: 0.75rem;
+            --radius-m: 1.125rem;
+            --radius-l: 1.5rem;
+            --nav-height: 3.25rem;
+            --gutter: 1.5rem;
+            --content: 62rem;
+
+            --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+            --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #000000;
+                --surface: #1c1c1e;
+                --surface-alt: #161617;
+                --text: #f5f5f7;
+                --text-secondary: #a1a1a6;
+                --link: #2997ff;
+                --hairline: rgba(255, 255, 255, 0.14);
+                --nav-bg: rgba(0, 0, 0, 0.72);
+                --tint: rgba(41, 151, 255, 0.14);
+                --shadow-deep: 0 1.5rem 4rem rgba(0, 0, 0, 0.6);
+
+                --code-keyword: #fc5fa3;
+                --code-type: #5dd8ff;
+                --code-string: #fc6a5d;
+                --code-number: #d0bf69;
+                --code-property: #67b7a4;
+                --code-function: #d0a8ff;
+            }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-padding-top: calc(var(--nav-height) + 1rem);
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: var(--font);
+            font-size: 1.0625rem;
+            line-height: 1.55;
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3 { font-optical-sizing: auto; text-wrap: balance; }
+
+        h1 {
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.025em;
+        }
+
+        h2 {
+            font-size: clamp(1.75rem, 4vw, 2.75rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        h3 {
+            font-size: 1.1875rem;
+            font-weight: 600;
+            line-height: 1.25;
+            letter-spacing: -0.01em;
+        }
+
+        a { color: var(--link); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        a:active { opacity: 0.6; }
+
+        :focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 0.375rem;
+        }
+
+        code { font-family: var(--font-mono); font-size: 0.92em; }
+
+        .skip-link {
+            position: absolute;
+            left: 1rem;
+            top: -4rem;
+            z-index: 20;
+            padding: 0.625rem 1rem;
+            border-radius: var(--radius-s);
+            background: var(--surface);
+            box-shadow: var(--shadow-deep);
+        }
+
+        .skip-link:focus { top: 0.5rem; }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip-path: inset(50%);
+            white-space: nowrap;
+        }
+
+        /* Navigation: a translucent layer, content scrolls underneath */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            height: var(--nav-height);
+            background: var(--nav-bg);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            backdrop-filter: saturate(180%) blur(20px);
+            box-shadow: 0 1px 0 transparent;
+            transition: box-shadow 200ms ease;
+        }
+
+        /* Edge appears only once content sits under the bar */
+        .nav[data-scrolled] { box-shadow: 0 1px 0 var(--hairline); }
+
+        .nav-inner {
+            max-width: var(--content);
+            height: 100%;
+            margin: 0 auto;
+            padding: 0 var(--gutter);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .nav a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 2.75rem;
+            color: var(--text);
+            font-size: 0.875rem;
+            letter-spacing: 0.005em;
+            opacity: 0.85;
+            transition: opacity 150ms ease;
+        }
+
+        .nav a:hover { opacity: 1; text-decoration: none; }
+        .nav a:active { opacity: 0.5; }
+
+        .nav .wordmark {
+            font-size: 1.0625rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            opacity: 1;
+        }
+
+        .nav ul { display: flex; gap: 1.75rem; list-style: none; }
+
+        @media (max-width: 40rem) {
+            .nav .optional { display: none; }
+            .nav ul { gap: 1.25rem; }
+        }
+
+        /* Layout */
+        section {
+            max-width: var(--content);
+            margin: 0 auto;
+            padding: clamp(3.5rem, 9vw, 6.5rem) var(--gutter);
+            text-align: center;
+        }
+
+        .band { background: var(--surface-alt); }
+
+        .lead {
+            max-width: 60ch;
+            margin: 1.25rem auto 0;
+            color: var(--text-secondary);
+            font-size: clamp(1.0625rem, 2.2vw, 1.3125rem);
+            line-height: 1.45;
+        }
+
+        /* Hero */
+        .hero-wrap { background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--tint), transparent 70%); }
+        .hero { padding-top: clamp(3.5rem, 8vw, 6rem); }
+
+        .facts {
+            margin-top: 1.25rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            letter-spacing: 0.01em;
+        }
+
+        .facts span + span::before { content: "·"; margin: 0 0.5rem; opacity: 0.6; }
+
+        .cta {
+            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem 1.75rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            min-height: 2.75rem;
+            padding: 0 1.5rem;
+            border-radius: 9999px;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 500;
+            transition: transform 100ms ease-out, background-color 150ms ease;
+        }
+
+        .btn:hover { background: var(--accent-hover); text-decoration: none; }
+        .btn:active { transform: scale(0.97); opacity: 1; }
+
+        .cta .quiet { display: inline-flex; align-items: center; min-height: 2.75rem; }
+
+        .hero-visual {
+            display: block;
+            width: 100%;
+            max-width: 40rem;
+            height: auto;
+            margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+            border-radius: var(--radius-s);
+            box-shadow: var(--shadow-deep);
+            animation: materialize 600ms var(--ease-out) both;
+        }
+
+        @keyframes materialize {
+            from { opacity: 0; transform: scale(0.97); filter: blur(8px); }
+        }
+
+        /* Showcase: text and screenshot side by side, stacked on narrow screens */
+        .showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+            align-items: center;
+            gap: clamp(2rem, 6vw, 4.5rem);
+            text-align: left;
+        }
+
+        .showcase .lead { margin-left: 0; }
+        .showcase .quiet { display: inline-flex; align-items: center; min-height: 2.75rem; margin-top: 1rem; }
+
+        .showcase img {
+            display: block;
+            width: 100%;
+            max-width: 26rem;
+            height: auto;
+            margin: 0 auto;
+            border: 1px solid var(--hairline);
+            border-radius: var(--radius-m);
+            box-shadow: var(--shadow-deep);
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+            gap: 1.25rem;
+            margin-top: 3rem;
+            text-align: left;
+        }
+
+        .feature {
+            background: var(--surface);
+            border: 1px solid var(--hairline);
+            border-radius: var(--radius-m);
+            padding: 1.75rem;
+        }
+
+        .feature svg {
+            display: block;
+            width: 1.75rem;
+            height: 1.75rem;
+            margin-bottom: 1rem;
+            fill: none;
+            stroke: var(--link);
+            stroke-width: 1.75;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .feature p { margin-top: 0.5rem; color: var(--text-secondary); font-size: 1rem; }
+
+        /* Code */
+        .steps { max-width: 50rem; margin: 3rem auto 0; text-align: left; list-style: none; }
+        .steps > li + li { margin-top: 3rem; }
+
+        .step-head { display: flex; align-items: center; gap: 0.75rem; }
+
+        .step-num {
+            flex: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background: var(--tint);
+            color: var(--link);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .steps p { margin-top: 0.5rem; color: var(--text-secondary); font-size: 1rem; }
+        .steps .code-wrap { margin-top: 1rem; }
+
+        /* Segmented control: only shown when script can drive it, otherwise both panels stay visible */
+        .segmented { display: none; }
+
+        .js .segmented {
+            display: inline-flex;
+            margin-top: 1rem;
+            padding: 0.1875rem;
+            border-radius: 9999px;
+            background: var(--hairline);
+        }
+
+        .segmented button {
+            min-width: 5.5rem;
+            min-height: 2.25rem;
+            padding: 0 1rem;
+            border: 0;
+            border-radius: 9999px;
+            background: transparent;
+            color: var(--text);
+            font: 500 0.875rem/1 var(--font);
+            cursor: pointer;
+            transition: background-color 150ms ease, transform 100ms ease-out;
+        }
+
+        .segmented button:active { transform: scale(0.97); }
+
+        .segmented button[aria-selected="true"] {
+            background: var(--surface);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+        }
+
+        .steps .panel-label { margin-top: 1.5rem; font-weight: 600; color: var(--text); }
+        .js .panel-label { display: none; }
+        .js .panel[hidden] { display: none; }
+
+        .code-wrap {
+            position: relative;
+            max-width: 50rem;
+            margin: 2rem auto 0;
+        }
+
+        .code-block {
+            background: var(--surface-alt);
+            color: var(--text);
+            border: 1px solid var(--hairline);
+            border-radius: var(--radius-m);
+            padding: 1.5rem;
+            text-align: left;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            font-size: 0.9375rem;
+            line-height: 1.6;
+        }
+
+        .code-block code { font-size: inherit; white-space: pre; }
+
+        /* On narrow screens the Copy chip gets its own row instead of covering the first line */
+        @media (max-width: 40rem) {
+            .code-block { padding-top: 3.25rem; }
+        }
+
+        /* Syntax tokens: keyword, type, string, number, property, function */
+        .code-block .k { color: var(--code-keyword); font-weight: 600; }
+        .code-block .t { color: var(--code-type); }
+        .code-block .s { color: var(--code-string); }
+        .code-block .n { color: var(--code-number); }
+        .code-block .p { color: var(--code-property); }
+        .code-block .f { color: var(--code-function); }
+
+        .copy {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            min-width: 4.25rem;
+            min-height: 2rem;
+            padding: 0 0.75rem;
+            border: 1px solid var(--hairline);
+            border-radius: 9999px;
+            background: var(--surface);
+            color: var(--text);
+            font: 500 0.8125rem/1 var(--font);
+            letter-spacing: 0.01em;
+            cursor: pointer;
+            transition: transform 100ms ease-out, color 150ms ease;
+        }
+
+        /* Extend the hit area to 44px without growing the chip */
+        .copy::after { content: ""; position: absolute; inset: -0.375rem; }
+
+        .copy:hover { color: var(--link); }
+        .copy:active { transform: scale(0.95); }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--hairline);
+            padding: 2rem var(--gutter);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.8125rem;
+            letter-spacing: 0.01em;
+        }
+
+        footer .sep { margin: 0 0.5rem; opacity: 0.5; }
+
+        /* The logo is black on white, so it keeps a light plate in dark mode */
+        .sponsor {
+            display: inline-block;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-s);
+            background: #fff;
+        }
+
+        .sponsor img { display: block; width: 6rem; height: auto; }
+
+        /* Scroll reveal: only armed by script, so content is never hidden without it */
+        .reveals .reveal {
+            opacity: 0;
+            transform: translateY(0.75rem);
+            transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+        }
+
+        .reveals .reveal.in { opacity: 1; transform: none; }
+
+        @media (prefers-reduced-motion: no-preference) {
+            html { scroll-behavior: smooth; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-visual { animation: none; }
+            .reveals .reveal { opacity: 1; transform: none; transition: none; }
+            .btn:active, .copy:active, .segmented button:active { transform: none; opacity: 0.7; }
+        }
+
+        @media (prefers-reduced-transparency: reduce) {
+            .nav {
+                background: var(--bg);
+                -webkit-backdrop-filter: none;
+                backdrop-filter: none;
+            }
+        }
+
+        @media (prefers-contrast: more) {
+            :root {
+                --text-secondary: #424245;
+                --hairline: rgba(0, 0, 0, 0.45);
+                --link: #004f9e;
+                --accent: #0058b0;
+                --accent-hover: #0058b0;
+            }
+
+            .nav {
+                background: var(--bg);
+                -webkit-backdrop-filter: none;
+                backdrop-filter: none;
+                box-shadow: 0 1px 0 var(--hairline);
+            }
+        }
+
+        @media (prefers-contrast: more) and (prefers-color-scheme: dark) {
+            :root {
+                --text-secondary: #d2d2d7;
+                --hairline: rgba(255, 255, 255, 0.5);
+                --link: #6cb8ff;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="nav">
+        <nav class="nav-inner" aria-label="Primary">
+            <a class="wordmark" href="#top">CuteKeyboard</a>
+            <ul>
+                <li class="optional"><a href="#features">Features</a></li>
+                <li><a href="#get-started">Get Started</a></li>
+                <li><a href="https://github.com/amarula/cutekeyboard" target="_blank" rel="noopener">GitHub</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main">
+        <div class="hero-wrap" id="top">
+            <section class="hero">
+                <h1>CuteKeyboard</h1>
+                <p class="lead">A future proof, customizable Qt/QML virtual keyboard for embedded applications.</p>
+                <p class="facts"><span>Qt 5 and Qt 6</span><span>22 languages</span><span>MIT licensed</span></p>
+                <div class="cta">
+                    <a class="btn" href="#get-started">Get started</a>
+                    <a class="quiet" href="https://github.com/amarula/cutekeyboard" target="_blank"
+                        rel="noopener">GitHub ›</a>
+                </div>
+                <img class="hero-visual" src="assets/keyboard.png" width="640" height="160"
+                    alt="CuteKeyboard with the Italian layout: dark keys, shift, backspace, enter, symbols and hide keys">
+            </section>
+        </div>
+
+        <div class="band">
+            <section class="showcase" id="overview">
+                <div class="reveal">
+                    <h2>Enter a new age of virtual keyboards</h2>
+                    <p class="lead">Stop worrying about a limited keyboard offering a sub-par, phone-like
+                        experience. CuteKeyboard slides in when a field takes focus, adapts to the field's input
+                        hints and gets out of the way when you are done.</p>
+                    <a class="quiet" href="https://www.youtube.com/watch?v=TFNbTDwV0WE" target="_blank"
+                        rel="noopener">Watch it in action ›</a>
+                </div>
+                <img class="reveal" src="assets/example.png" width="640" height="640" loading="lazy"
+                    alt="Example application with four text fields and the keyboard open at the bottom of the window">
+            </section>
+        </div>
+
+        <section id="features">
+            <h2 class="reveal">Why CuteKeyboard?</h2>
+            <p class="lead reveal">Every feature a complete virtual keyboard needs for your product, and nothing to
+                pay for.</p>
+            <div class="features reveal">
+                <div class="feature">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 3s6.5 6.4 6.5 11a6.5 6.5 0 0 1-13 0C5.5 9.4 12 3 12 3z" />
+                    </svg>
+                    <h3>Customizable</h3>
+                    <p>Colors, font and icons are plain <code>InputPanel</code> properties, and every key is a QML
+                        file you can restyle — no Photoshop required.</p>
+                </div>
+                <div class="feature">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="9" />
+                        <path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z" />
+                    </svg>
+                    <h3>Localization</h3>
+                    <p>22 built-in layouts, from English, Italiano and Deutsch to Ελληνικός, Русский and Қазақша,
+                        switchable at runtime with the language key.</p>
+                </div>
+                <div class="feature">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="3" />
+                        <circle cx="12" cy="12" r="8.5" stroke-dasharray="3 3.5" />
+                    </svg>
+                    <h3>Long-Press Alternatives</h3>
+                    <p>Accented characters in a press-and-hold popup, a symbol page and a digits-only layout
+                        driven by <code>inputMethodHints</code>.</p>
+                </div>
+                <div class="feature">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M13 2.5 4.5 14H11l-1 7.5L18.5 10H12z" />
+                    </svg>
+                    <h3>Drop-In Plugin</h3>
+                    <p>A standard Qt input context: set <code>QT_IM_MODULE</code>, add one QML item. Builds with
+                        qmake or CMake, on Qt 5 and Qt 6.</p>
+                </div>
+                <div class="feature">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20 12v8.5H4V12M2.5 7.5h19V12h-19zM12 7.5v13M12 7.5S10.5 3 8 3a2.25 2.25 0 0 0 0 4.5zM12 7.5S13.5 3 16 3a2.25 2.25 0 0 1 0 4.5z" />
+                    </svg>
+                    <h3>Free to Use</h3>
+                    <p>Sponsored by Amarula Solutions and free to download and use for any purpose.</p>
+                </div>
+                <div class="feature">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m9 12 2 2 4-4" />
+                        <path d="M12 3l2.3 1.7 2.9-.1.8 2.8 2.4 1.6-1 2.7 1 2.7-2.4 1.6-.8 2.8-2.9-.1L12 21l-2.3-1.7-2.9.1-.8-2.8L3.6 15l1-2.7-1-2.7L6 8l.8-2.8 2.9.1z" />
+                    </svg>
+                    <h3>Open Source</h3>
+                    <p>MIT licensed, so you can ship it in commercial products.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="band">
+            <section id="get-started">
+                <h2 class="reveal">Get Started</h2>
+                <p class="lead reveal">Three steps from clone to a keyboard in your window.</p>
+                <ol class="steps">
+                    <li class="reveal">
+                        <div class="step-head"><span class="step-num" aria-hidden="true">1</span>
+                            <h3>Build and install the plugin</h3>
+                        </div>
+                        <p>Clone <a href="https://github.com/amarula/cutekeyboard" target="_blank"
+                                rel="noopener">the repository</a>, then use the build system your Qt project already
+                            uses.</p>
+                        <div class="segmented" role="tablist" aria-label="Build system">
+                            <button type="button" role="tab" id="tab-qmake" aria-controls="panel-qmake"
+                                aria-selected="true">qmake</button>
+                            <button type="button" role="tab" id="tab-cmake" aria-controls="panel-cmake"
+                                aria-selected="false" tabindex="-1">CMake</button>
+                        </div>
+                        <div class="panel" id="panel-qmake" role="tabpanel" aria-labelledby="tab-qmake">
+                            <p class="panel-label">qmake (Qt 5 and Qt 6)</p>
+                            <div class="code-wrap">
+                                <pre class="code-block"><code><span class="f">mkdir</span> build &amp;&amp; <span class="f">cd</span> build
+<span class="f">qmake</span> ..
+<span class="f">make</span> -j4
+<span class="f">make</span> install</code></pre>
+                                <button class="copy" type="button">Copy</button>
+                            </div>
+                        </div>
+                        <div class="panel" id="panel-cmake" role="tabpanel" aria-labelledby="tab-cmake">
+                            <p class="panel-label">CMake (Qt 6)</p>
+                            <div class="code-wrap">
+                                <pre class="code-block"><code><span class="f">cmake</span> -S . -B build
+<span class="f">cmake</span> --build build
+<span class="f">cmake</span> --install build</code></pre>
+                                <button class="copy" type="button">Copy</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="reveal">
+                        <div class="step-head"><span class="step-num" aria-hidden="true">2</span>
+                            <h3>Select it as input method</h3>
+                        </div>
+                        <p>In <code>main.cpp</code>, before the application object is created.</p>
+                        <div class="code-wrap">
+                            <pre class="code-block"><code><span class="f">qputenv</span>(<span class="s">"QT_IM_MODULE"</span>, <span class="t">QByteArray</span>(<span class="s">"cutekeyboard"</span>));</code></pre>
+                            <button class="copy" type="button">Copy</button>
+                        </div>
+                    </li>
+                    <li class="reveal">
+                        <div class="step-head"><span class="step-num" aria-hidden="true">3</span>
+                            <h3>Add the panel to your window</h3>
+                        </div>
+                        <p>In <code>main.qml</code>, parked below the window and slid in while an input field has
+                            focus.</p>
+                        <div class="code-wrap">
+                            <pre class="code-block"><code><span class="k">import</span> QtQuick.CuteKeyboard <span class="n">1.0</span>
+
+<span class="t">InputPanel</span> {
+    <span class="p">id</span>: inputPanel
+
+    <span class="p">z</span>: <span class="n">99</span>
+    <span class="p">y</span>: window.height
+    <span class="p">anchors.left</span>: parent.left
+    <span class="p">anchors.right</span>: parent.right
+    <span class="p">languageLayout</span>: <span class="s">"En"</span>
+    <span class="p">availableLanguageLayouts</span>: [<span class="s">"En"</span>, <span class="s">"It"</span>, <span class="s">"De"</span>]
+
+    <span class="p">states</span>: <span class="t">State</span> {
+        <span class="p">name</span>: <span class="s">"visible"</span>
+        <span class="p">when</span>: Qt.inputMethod.visible
+
+        <span class="t">PropertyChanges</span> {
+            <span class="p">target</span>: inputPanel
+            <span class="p">y</span>: window.height - inputPanel.height
+        }
+    }
+}</code></pre>
+                            <button class="copy" type="button">Copy</button>
+                        </div>
+                    </li>
+                </ol>
+                <span class="sr-only" role="status" id="copy-status"></span>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <a class="sponsor" href="https://www.amarulasolutions.com/" target="_blank" rel="noopener">
+            <img src="assets/amarula-solutions-logo.png" width="300" height="200" loading="lazy"
+                alt="Amarula Solutions">
+        </a>
+        <p>Sponsored by Amarula Solutions<span class="sep">|</span><a
+                href="https://github.com/amarula/cutekeyboard" target="_blank" rel="noopener">GitHub</a><span
+                class="sep">|</span><a href="https://github.com/amarula/cutekeyboard/issues/new" target="_blank"
+                rel="noopener">Send Feedback</a></p>
+    </footer>
+
+    <script>
+        (function () {
+            var nav = document.querySelector('.nav');
+            function onScroll() { nav.toggleAttribute('data-scrolled', window.scrollY > 8); }
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+
+            document.documentElement.classList.add('js');
+
+            // Respond on pointer-down, keyboard users get click and the arrow keys
+            var tabs = Array.prototype.slice.call(document.querySelectorAll('.segmented [role="tab"]'));
+            function select(tab) {
+                tabs.forEach(function (other) {
+                    var on = other === tab;
+                    other.setAttribute('aria-selected', on);
+                    other.tabIndex = on ? 0 : -1;
+                    document.getElementById(other.getAttribute('aria-controls')).hidden = !on;
+                });
+            }
+            tabs.forEach(function (tab, index) {
+                tab.addEventListener('pointerdown', function () { select(tab); });
+                tab.addEventListener('click', function () { select(tab); });
+                tab.addEventListener('keydown', function (event) {
+                    if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+                    var next = tabs[(index + (event.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+                    select(next);
+                    next.focus();
+                });
+            });
+            if (tabs.length) select(tabs[0]);
+
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (!entry.isIntersecting) return;
+                        entry.target.classList.add('in');
+                        observer.unobserve(entry.target);
+                    });
+                }, { rootMargin: '0px 0px -10% 0px' });
+                document.documentElement.classList.add('reveals');
+                document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
+            }
+
+            var status = document.getElementById('copy-status');
+            document.querySelectorAll('.copy').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    if (!navigator.clipboard) return;
+                    var code = button.parentElement.querySelector('code').textContent;
+                    navigator.clipboard.writeText(code).then(function () {
+                        button.textContent = 'Copied ✓';
+                        status.textContent = 'Copied to clipboard';
+                        clearTimeout(button.resetTimer);
+                        button.resetTimer = setTimeout(function () {
+                            button.textContent = 'Copy';
+                            status.textContent = '';
+                        }, 1500);
+                    }, function () { });
+                });
+            });
+        })();
+    </script>
+</body>
+
+</html>
