@@ -4,12 +4,12 @@
 
 #include <QPropertyAnimation>
 #include <QtQuick/qquickitem.h>
-#include <QtQuick/qquickwindow.h>
 
 #include "DeclarativeInputEngine.h"
 #include "EnterKeyAction.hpp"
 #include "EnterKeyActionAttachedType.hpp"
 #include "InputPanelIface.hpp"
+#include "PanelElevator.h"
 #include <QPointer>
 #include <QQmlEngine>
 
@@ -34,6 +34,7 @@ class VirtualKeyboardInputContextPrivate {
     bool Visible;
     DeclarativeInputEngine *InputEngine;
     QPropertyAnimation *FlickableContentScrollAnimation{nullptr};
+    PanelElevator Elevator;
 
     InputPanelIface *inputPanelIface;
 };
@@ -89,14 +90,6 @@ bool VirtualKeyboardInputContext::focusItemHasEnterKeyAction(
            qmlAttachedPropertiesObject<EnterKeyAction>(item, false);
 }
 
-void VirtualKeyboardInputContext::registerInputPanel(QObject *inputPanel)
-{
-    Q_ASSERT(!this->inputPanel);
-    this->inputPanel = inputPanel;
-    if (QQuickItem *item = qobject_cast<QQuickItem *>(inputPanel))
-        item->setZ(std::numeric_limits<qreal>::max());
-}
-
 bool VirtualKeyboardInputContext::isValid() const { return true; }
 
 QRectF VirtualKeyboardInputContext::keyboardRect() const
@@ -120,6 +113,18 @@ void VirtualKeyboardInputContext::hideInputPanel() {
     emitInputPanelVisibleChanged();
 }
 
+void VirtualKeyboardInputContext::registerInputPanel(QQuickItem *panel) {
+    if (!panel) return;
+    if (!d->Elevator.setPanel(panel)) {
+        qWarning("cutekeyboard: only one InputPanel per application is "
+                 "supported, the additional InputPanel %p is used for popups "
+                 "only once the current one is destroyed",
+                 static_cast<void *>(panel));
+        return;
+    }
+    d->Elevator.follow(d->FocusItem);
+}
+
 bool VirtualKeyboardInputContext::isInputPanelVisible() const {
     return d->Visible;
 }
@@ -136,32 +141,15 @@ void VirtualKeyboardInputContext::setFocusObject(QObject *object) {
     d->Flickable = nullptr;
 
     QQuickItem *newFocusItem = dynamic_cast<QQuickItem *>(object);
-    if (!newFocusItem) {
+    if (!newFocusItem ||
+        !newFocusItem->inputMethodQuery(Qt::ImEnabled).toBool()) {
         setFocusItem(nullptr);
-        hideInputPanel();
-        return;
-    }
-
-    bool AcceptsInput = newFocusItem->inputMethodQuery(Qt::ImEnabled).toBool();
-    if (!AcceptsInput) {
-        setFocusItem(nullptr);
+        d->Elevator.follow(nullptr);
         hideInputPanel();
         return;
     }
 
     d->FocusItem = newFocusItem;
-
-    if (QObject *item = inputItem()) {
-        if (QQuickItem *vkbPanel = qobject_cast<QQuickItem*>(inputPanel)) {
-            if (QQuickItem *quickItem = qobject_cast<QQuickItem*>(item)) {
-                const QVariant isRootItem = vkbPanel->property("__isRootItem");
-                if (isRootItem.isValid() && !isRootItem.toBool()) {
-                    vkbPanel->setParentItem(quickItem->window()->contentItem());
-                    vkbPanel->setProperty("__reparented", true);
-                }
-            }
-        }
-    }
 
     visibleConnection = QObject::connect(
         d->FocusItem.data(), &QQuickItem::visibleChanged, this, [this]() {
@@ -178,9 +166,11 @@ void VirtualKeyboardInputContext::setFocusObject(QObject *object) {
         d->FocusItem.data(), &QObject::destroyed, this, [this]() {
             d->FocusItem = nullptr;
             d->Flickable = nullptr;
+            d->Elevator.follow(nullptr);
             emit inputItemChanged();
             hideInputPanel();
         });
+    d->Elevator.follow(d->FocusItem);
 
     emit inputItemChanged();
 

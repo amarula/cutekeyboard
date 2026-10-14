@@ -99,12 +99,6 @@ class VirtualKeyboardInputContext : public QPlatformInputContext {
     Q_INVOKABLE bool focusItemHasEnterKeyAction(QObject *item) const;
 
     /**
-     * This function register the InputPanel (QQucikItem) to the backend
-     * to handle the focusItem as parent
-     */
-    Q_INVOKABLE void registerInputPanel(QObject *inputPanel);
-
-    /**
      * Returns the surrounding text of the focused input field, or empty if none.
      */
     Q_INVOKABLE QString surroundingText() const;
@@ -114,6 +108,13 @@ class VirtualKeyboardInputContext : public QPlatformInputContext {
      * This is true if the field is not password, not hidden text, not sensitive data, and does not have the ImhNoAutoUppercase hint set.
      */
     Q_INVOKABLE bool fieldSupportsAutoCapitalize() const;
+
+    /**
+     * Called by the InputPanel QML item once it is created. Only one panel
+     * per application is supported, a further one is reported and ignored.
+     * Internal, not meant to be called by applications.
+     */
+    Q_INVOKABLE void registerInputPanel(QQuickItem *panel);
 
    protected:
     /**
@@ -161,7 +162,6 @@ class VirtualKeyboardInputContext : public QPlatformInputContext {
     void setFocusItem(QQuickItem *item);
 
     VirtualKeyboardInputContextPrivate *d;
-    QPointer<QObject> inputPanel;
     QMetaObject::Connection visibleConnection;
     QMetaObject::Connection destroyedConnection;
 };
