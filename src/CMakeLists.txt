@@ -1,11 +1,13 @@
 set(HEADERS
     "EnterKeyAction.hpp" "EnterKeyActionAttachedType.hpp" "InputPanelIface.hpp"
     "VirtualKeyboardInputContextPlugin.h" "VirtualKeyboardInputContext.h"
+    "PanelElevator.h"
     "DeclarativeInputEngine.h")
 
 set(SOURCES
     "EnterKeyAction.cpp" "EnterKeyActionAttachedType.cpp" "InputPanelIface.cpp"
     "VirtualKeyboardInputContextPlugin.cpp" "VirtualKeyboardInputContext.cpp"
+    "PanelElevator.cpp"
     "DeclarativeInputEngine.cpp")
 
 set(QML_FILES

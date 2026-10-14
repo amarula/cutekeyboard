@@ -91,6 +91,52 @@ Window {
 
         }
 
+        RowLayout {
+            spacing: 10
+
+            Button {
+                text: qsTr("Modal Dialog")
+                onClicked: {
+                    dialog.modal = true;
+                    dialog.open();
+                }
+            }
+
+            Button {
+                text: qsTr("Non-modal Dialog")
+                onClicked: {
+                    dialog.modal = false;
+                    dialog.open();
+                }
+            }
+
+        }
+
+    }
+
+    Dialog {
+        id: dialog
+
+        title: dialog.modal ? qsTr("Modal Dialog") : qsTr("Non-modal Dialog")
+        x: (window.width - width) / 2
+        y: 40
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        closePolicy: modal ? Dialog.CloseOnEscape | Dialog.CloseOnPressOutside
+                          : Dialog.CloseOnEscape
+
+        ColumnLayout {
+            spacing: 10
+
+            TextField {
+                placeholderText: qsTr("First field")
+            }
+
+            TextField {
+                placeholderText: qsTr("Second field")
+            }
+
+        }
+
     }
 
     InputPanel {

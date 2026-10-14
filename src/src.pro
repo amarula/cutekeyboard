@@ -11,6 +11,7 @@ SOURCES += \
     InputPanelIface.cpp \
     VirtualKeyboardInputContextPlugin.cpp \
     VirtualKeyboardInputContext.cpp \
+    PanelElevator.cpp \
     DeclarativeInputEngine.cpp
 
 HEADERS += \
@@ -19,6 +20,7 @@ HEADERS += \
     InputPanelIface.hpp \
     VirtualKeyboardInputContextPlugin.h \
     VirtualKeyboardInputContext.h \
+    PanelElevator.h \
     DeclarativeInputEngine.h
 
 RESOURCES += \
