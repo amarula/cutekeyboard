@@ -13,6 +13,15 @@
 #include <QPointer>
 #include <QQmlEngine>
 
+static QObject *keepCppOwned(QObject *object) {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    QQmlEngine::setObjectOwnership(object, QQmlEngine::CppOwnership);
+#else
+    QJSEngine::setObjectOwnership(object, QJSEngine::CppOwnership);
+#endif
+    return object;
+}
+
 /**
  * Private data class for VirtualKeyboardInputContext
  */
@@ -244,25 +253,20 @@ QObject *VirtualKeyboardInputContext::inputEngineProvider(
     QQmlEngine *engine, QJSEngine *scriptEngine) {
     Q_UNUSED(engine)
     Q_UNUSED(scriptEngine)
-    return VirtualKeyboardInputContext::instance()->d->InputEngine;
+    return keepCppOwned(VirtualKeyboardInputContext::instance()->d->InputEngine);
 }
 
 QObject *VirtualKeyboardInputContext::inputPanelProvider(
     QQmlEngine *engine, QJSEngine *scriptEngine) {
     Q_UNUSED(engine)
     Q_UNUSED(scriptEngine)
-    return VirtualKeyboardInputContext::instance()->d->inputPanelIface;
+    return keepCppOwned(
+        VirtualKeyboardInputContext::instance()->d->inputPanelIface);
 }
 
 QObject *VirtualKeyboardInputContext::inputContextProvider(
     QQmlEngine *engine, QJSEngine *scriptEngine) {
     Q_UNUSED(engine)
     Q_UNUSED(scriptEngine)
-    const auto instance=VirtualKeyboardInputContext::instance();
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    QQmlEngine::setObjectOwnership(instance, QQmlEngine::CppOwnership);
-#else
-    QJSEngine::setObjectOwnership(instance,QJSEngine::CppOwnership);
-#endif
-    return instance;
+    return keepCppOwned(VirtualKeyboardInputContext::instance());
 }
